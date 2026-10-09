@@ -7,7 +7,7 @@ function App() {
 
   if (showChat) {
     return (
-      <>
+      <div className="chat-page-background">
         <div className="home-back-bar">
           <button type="button" onClick={() => setShowChat(false)}>
             ← Back to home
@@ -15,7 +15,7 @@ function App() {
         </div>
 
         <ChatPage />
-      </>
+      </div>
     );
   }
 

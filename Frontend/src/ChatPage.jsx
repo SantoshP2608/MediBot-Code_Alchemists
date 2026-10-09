@@ -4,7 +4,10 @@ import ResponseMessage from "./components/ResponseMessage";
 import { sendMessage } from "./api/chat";
 import { config } from "./config";
 
-const welcome = { id: 'welcome', role: 'assistant', text: config.welcome };
+const welcome = {
+  role: "assistant",
+  text: "Hi! I'm Chitti, your medical assistant. Ask me about medicines, their uses and side effects, or compare prices. How can I help you today?",
+};
 
 function ChatPage() {
   const [messages, setMessages] = useState([welcome]);
@@ -61,7 +64,35 @@ function ChatPage() {
     const question = input.trim();
     if (!question || !accepted || inflight.current) return;
     setInput("");
-    ask(question, crypto.randomUUID());
+  }
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    const textarea = inputRef.current;
+    if (!textarea) return;
+
+    textarea.style.height = "auto";
+    textarea.style.height = `${Math.min(textarea.scrollHeight, 160)}px`;
+    textarea.style.overflowY =
+      textarea.scrollHeight > 160 ? "auto" : "hidden";
+  }, [input]);
+
+  function previewSandbox() {
+    if (!accepted) return;
+
+    setMessages((previous) => [
+      ...previous,
+      {
+        role: "user",
+        text: "Show me a sample medicine comparison.",
+      },
+      {
+        role: "assistant",
+        text: "Here are your details for Example Medicine 500. This comparison uses fictional sample data.",
+        sandbox: sampleSandbox,
+      },
+    ]);
   }
 
   function startNewChat() {
@@ -80,12 +111,16 @@ function ChatPage() {
         <div className="brand">
           <img
             src="/medibot-logo.png"
-            alt="MediBot logo"
+            alt=""
             className="bot-logo"
           />
 
           <div>
-            <h1>MediBot</h1>
+            <img
+              src="/medibot-title.png"
+              alt="MediBot"
+              className="chat-wordmark"
+            />
             <p>Your medication information assistant</p>
           </div>
         </div>
@@ -99,8 +134,12 @@ function ChatPage() {
         </button>
       </header>
 
-      <section className="disclaimer" aria-label="Medical disclaimer">
+      <section
+        className="disclaimer chitti-disclaimer"
+        aria-label="Medical disclaimer"
+      >
         <strong>Medical disclaimer</strong>
+
         <p>
           MediBot provides general information and does not replace
           professional medical advice. Consult a qualified healthcare
@@ -117,10 +156,13 @@ function ChatPage() {
         </label>
       </section>
 
-      <section className="chat-panel" aria-label="Medication chat">
-        <div className="chat-panel-heading">
-          <h2>Chat with MediBot</h2>
-
+      <section
+        className="chat-panel chitti-panel"
+        aria-label="Medication chat"
+      >
+        <div className="chat-panel-heading chitti-panel-heading">
+          <h2>Chat with Chitti</h2>
+          <span className="preview-badge">Frontend preview</span>
         </div>
 
         <div
@@ -135,16 +177,25 @@ function ChatPage() {
               key={message.id}
             >
               <div className="message-bubble">
-                <span className="message-author">
-                  {message.role === "user" ? "You" : "MediBot"}
-                </span>
-                {message.text && <p>{message.text}</p>}
-                {message.result && <ResponseMessage result={message.result} />}
-                {message.retry && <button className="retry-button" type="button"
-                  disabled={loading || !accepted}
-                  onClick={() => ask(message.retry.question, message.retry.requestId, message.id)}>
-                  Retry
-                </button>}
+                <div className="message-sender">
+                  {message.role === "assistant" && (
+                    <img
+                      src="/medibot-logo.png"
+                      alt=""
+                      className="chitti-avatar"
+                    />
+                  )}
+
+                  <strong className="message-author">
+                    {message.role === "user" ? "You" : "Chitti"}
+                  </strong>
+                </div>
+
+                <p>{message.text}</p>
+
+                {message.role === "assistant" && message.sandbox && (
+                  <MedicineSandbox data={message.sandbox} />
+                )}
               </div>
             </div>
           ))}
@@ -154,25 +205,51 @@ function ChatPage() {
         </div>
 
         <form className="message-form" onSubmit={handleSubmit}>
-          <input
+          <textarea
             aria-label="Your message"
-            type="text"
+            ref={inputRef}
+            rows={1}
             placeholder={
               accepted
-                ? "Type your medication question..."
+                ? "Type your question... Click Enter to send"
                 : "Acknowledge the disclaimer to start"
             }
             value={input}
             onChange={(event) => setInput(event.target.value)}
-            disabled={!accepted || loading}
-            maxLength={config.maxMessageLength}
+            onKeyDown={(event) => {
+              if (
+                event.key === "Enter" &&
+                !event.shiftKey &&
+                !event.nativeEvent.isComposing
+              ) {
+                event.preventDefault();
+                event.currentTarget.form?.requestSubmit();
+              }
+            }}
+            disabled={!accepted}
+            maxLength={2000}
           />
 
           <button
             type="submit"
             disabled={!accepted || loading || !input.trim()}
           >
-            Send <span aria-hidden="true">➜</span>
+            Send
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="19"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+              <path d="m21.854 2.147-10.94 10.939" />
+            </svg>
           </button>
         </form>
 
