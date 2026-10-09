@@ -1,0 +1,155 @@
+.medicine-sandbox {
+  margin-top: 16px;
+  padding: 18px;
+  border: 1px solid #dbe3ee;
+  border-radius: 12px;
+  background: white;
+  color: #1e293b;
+}
+
+.sandbox-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.sandbox-heading h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.demo-label {
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #fff7ed;
+  color: #9a591b;
+  font-size: 10px;
+}
+
+.sandbox-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  background: #f8fafc;
+}
+
+.summary-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.summary-card strong {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.summary-card small {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.savings-card {
+  background: #eff6ff;
+  border-color: #a8c5ff;
+}
+
+.savings-card strong {
+  font-size: 22px;
+  color: #2563eb;
+}
+
+.comparison-scroll {
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+}
+
+.comparison-table {
+  width: 100%;
+  min-width: 580px;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 12px;
+}
+
+.comparison-table th {
+  padding: 13px;
+  background: #f1f5f9;
+  font-size: 10px;
+  color: #475569;
+}
+
+.comparison-table td {
+  padding: 14px 13px;
+  border-top: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+
+.comparison-table td strong,
+.comparison-table td small {
+  display: block;
+}
+
+.comparison-table td small {
+  margin-top: 5px;
+  font-size: 10px;
+  color: #64748b;
+}
+
+.match-badge {
+  display: inline-block;
+  padding: 7px 10px;
+  border: 1px solid #b7d1ff;
+  border-radius: 16px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 10px;
+}
+
+.comparison-table .saving-value {
+  color: #15803d;
+  font-weight: 700;
+}
+
+.pharmacy-quotes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.quote {
+  padding: 6px 9px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 10px;
+}
+
+.medicine-sandbox .sandbox-note {
+  margin: 14px 0 0;
+  font-size: 10px;
+  line-height: 1.6;
+  color: #64748b;
+}
+
+@media (max-width: 650px) {
+  .sandbox-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .medicine-sandbox {
+    padding: 12px;
+  }
+}
