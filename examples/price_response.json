@@ -1,0 +1,1129 @@
+{
+  "action": "response",
+  "reason": "requests_routed",
+  "message": null,
+  "continue_to_response": false,
+  "requested_features": [
+    "price_comparison",
+    "alternative_search"
+  ],
+  "results": [
+    {
+      "intent": "price_comparison",
+      "status": "ok",
+      "data": [
+        {
+          "original": {
+            "medicine": "Augmentin 625 Duo Tablet",
+            "composition": [
+              {
+                "drug": "Amoxycillin",
+                "strength": "500mg"
+              },
+              {
+                "drug": "Clavulanic Acid",
+                "strength": "125mg"
+              }
+            ],
+            "regulatory": "Schedule H",
+            "prices": {
+              "medicine": "Augmentin 625 Duo Tablet",
+              "status": "ok",
+              "quotes": [
+                {
+                  "pharmacy": "apollo",
+                  "pharmacy_name": "Apollo Pharmacy / Apollo 24|7",
+                  "search_url": "https://www.apollopharmacy.in/search-medicines?search=Augmentin%20625%20Duo%20Tablet",
+                  "checked_at": "2026-10-09T16:54:36.844327+00:00",
+                  "product_name": "Augmentin 625 Duo Tablet 10's",
+                  "product_url": "https://www.apollopharmacy.in/medicine/augmentin-duo-625mg-tablet",
+                  "price": 196.5,
+                  "mrp": null,
+                  "currency": "INR",
+                  "pack_size": "Augmentin 625 Duo Tablet 10's",
+                  "pack_quantity": 10,
+                  "unit": "tablet",
+                  "unit_price": 19.65,
+                  "conditions": [],
+                  "conditional": false,
+                  "price_basis": "public_page",
+                  "status": "ok"
+                },
+                {
+                  "pharmacy": "pharmeasy",
+                  "pharmacy_name": "PharmEasy",
+                  "search_url": "https://pharmeasy.in/search/all?name=Augmentin%20625%20Duo%20Tablet",
+                  "checked_at": "2026-10-09T16:54:36.844877+00:00",
+                  "product_name": "Augmentin Duo 625Mg Strip Of 10 Tablets",
+                  "product_url": "https://pharmeasy.in/online-medicine-order/augmentin-duo-625mg-strip-of-10-tablets-11551",
+                  "price": 180.92,
+                  "mrp": 196.65,
+                  "currency": "INR",
+                  "pack_size": "10 Tablet(s) in Strip",
+                  "pack_quantity": 10,
+                  "unit": "tablet",
+                  "unit_price": 18.092,
+                  "conditions": [],
+                  "conditional": false,
+                  "price_basis": "public_page",
+                  "status": "ok"
+                },
+                {
+                  "pharmacy": "tata1mg",
+                  "pharmacy_name": "Tata 1mg",
+                  "search_url": "https://www.1mg.com/search/all?name=Augmentin%20625%20Duo%20Tablet",
+                  "checked_at": "2026-10-09T16:54:36.845095+00:00",
+                  "product_name": "Augmentin 625 Duo Tablet",
+                  "product_url": "https://www.1mg.com/drugs/augmentin-625-duo-tablet-138629",
+                  "price": 183.0,
+                  "mrp": 196.65,
+                  "currency": "INR",
+                  "pack_size": "10 tablets",
+                  "pack_quantity": 10,
+                  "unit": "tablet",
+                  "unit_price": 18.3,
+                  "conditions": [
+                    "on order above ₹1200"
+                  ],
+                  "conditional": true,
+                  "price_basis": "public_page",
+                  "status": "ok"
+                },
+                {
+                  "pharmacy": "netmeds",
+                  "pharmacy_name": "Netmeds",
+                  "search_url": "https://www.netmeds.com/products/?q=Augmentin%20625%20Duo%20Tablet",
+                  "checked_at": "2026-10-09T16:54:36.845636+00:00",
+                  "product_name": "Augmentin 625 DUO Tablet 10'S",
+                  "product_url": "https://www.netmeds.com/product/augmentin-625-duo-tablet-10s-lui7t5-8350103",
+                  "price": 166.08,
+                  "mrp": 195.39,
+                  "currency": "INR",
+                  "pack_size": "10 Tablet(s) in a Strip",
+                  "pack_quantity": 10,
+                  "unit": "tablet",
+                  "unit_price": 16.608,
+                  "conditions": [],
+                  "conditional": false,
+                  "price_basis": "public_page",
+                  "status": "ok"
+                },
+                {
+                  "pharmacy": "medplus",
+                  "pharmacy_name": "MedPlus Mart",
+                  "search_url": "https://www.medplusmart.com/searchAll/Augmentin%20625%20Duo%20Tablet",
+                  "checked_at": "2026-10-09T16:54:36.845994+00:00",
+                  "status": "integration_required",
+                  "price": null,
+                  "message": "MedPlus prices require a working product-page or partner integration."
+                }
+              ],
+              "successful_pharmacies": 4,
+              "note": "Public listed prices. Final price may depend on location, offers, fees, and checkout."
+            }
+          },
+          "alternatives": [
+            {
+              "medicine": "Penciclav 500 mg/125 mg Tablet",
+              "composition": [
+                {
+                  "drug": "Amoxycillin",
+                  "strength": "500mg"
+                },
+                {
+                  "drug": "Clavulanic Acid",
+                  "strength": "125mg"
+                }
+              ],
+              "regulatory": "Schedule H",
+              "prices": {
+                "medicine": "Penciclav 500 mg/125 mg Tablet",
+                "status": "no_prices",
+                "quotes": [
+                  {
+                    "pharmacy": "apollo",
+                    "pharmacy_name": "Apollo Pharmacy / Apollo 24|7",
+                    "search_url": "https://www.apollopharmacy.in/search-medicines?search=Penciclav%20500%20mg/125%20mg%20Tablet",
+                    "checked_at": "2026-10-09T16:54:36.846137+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "pharmeasy",
+                    "pharmacy_name": "PharmEasy",
+                    "search_url": "https://pharmeasy.in/search/all?name=Penciclav%20500%20mg/125%20mg%20Tablet",
+                    "checked_at": "2026-10-09T16:54:39.942215+00:00",
+                    "status": "product_not_found",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "tata1mg",
+                    "pharmacy_name": "Tata 1mg",
+                    "search_url": "https://www.1mg.com/search/all?name=Penciclav%20500%20mg/125%20mg%20Tablet",
+                    "checked_at": "2026-10-09T16:54:40.038983+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "netmeds",
+                    "pharmacy_name": "Netmeds",
+                    "search_url": "https://www.netmeds.com/products/?q=Penciclav%20500%20mg/125%20mg%20Tablet",
+                    "checked_at": "2026-10-09T16:54:40.404141+00:00",
+                    "status": "product_not_found",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "medplus",
+                    "pharmacy_name": "MedPlus Mart",
+                    "search_url": "https://www.medplusmart.com/searchAll/Penciclav%20500%20mg/125%20mg%20Tablet",
+                    "checked_at": "2026-10-09T16:54:40.743814+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "MedPlus prices require a working product-page or partner integration."
+                  }
+                ],
+                "successful_pharmacies": 0,
+                "note": "Public listed prices. Final price may depend on location, offers, fees, and checkout."
+              },
+              "composition_match": true,
+              "savings": []
+            },
+            {
+              "medicine": "Moxikind-CV 625 Tablet",
+              "composition": [
+                {
+                  "drug": "Amoxycillin",
+                  "strength": "500mg"
+                },
+                {
+                  "drug": "Clavulanic Acid",
+                  "strength": "125mg"
+                }
+              ],
+              "regulatory": "Schedule H",
+              "prices": {
+                "medicine": "Moxikind-CV 625 Tablet",
+                "status": "ok",
+                "quotes": [
+                  {
+                    "pharmacy": "apollo",
+                    "pharmacy_name": "Apollo Pharmacy / Apollo 24|7",
+                    "search_url": "https://www.apollopharmacy.in/search-medicines?search=Moxikind-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:40.743833+00:00",
+                    "product_name": "Moxikind-CV 625 Tablet 10's",
+                    "product_url": "https://www.apollopharmacy.in/medicine/moxikind-cv-625mg-tablet",
+                    "price": 184.0,
+                    "mrp": null,
+                    "currency": "INR",
+                    "pack_size": "Moxikind-CV 625 Tablet 10's",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 18.4,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "pharmeasy",
+                    "pharmacy_name": "PharmEasy",
+                    "search_url": "https://pharmeasy.in/search/all?name=Moxikind-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:41.004594+00:00",
+                    "product_name": "Moxikind Cv 625Mg Strip Of 10 Tablets",
+                    "product_url": "https://pharmeasy.in/online-medicine-order/moxikind-cv-625mg-strip-of-10-tablets-18592",
+                    "price": 169.41,
+                    "mrp": 184.14,
+                    "currency": "INR",
+                    "pack_size": "10 Tablet(s) in Strip",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 16.941,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "tata1mg",
+                    "pharmacy_name": "Tata 1mg",
+                    "search_url": "https://www.1mg.com/search/all?name=Moxikind-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:41.657167+00:00",
+                    "product_name": "Moxikind-CV 625 Tablet",
+                    "product_url": "https://www.1mg.com/drugs/moxikind-cv-625-tablet-329310",
+                    "price": 168.0,
+                    "mrp": 184.14,
+                    "currency": "INR",
+                    "pack_size": "10 tablets",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 16.8,
+                    "conditions": [
+                      "on order above ₹1200"
+                    ],
+                    "conditional": true,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "netmeds",
+                    "pharmacy_name": "Netmeds",
+                    "search_url": "https://www.netmeds.com/products/?q=Moxikind-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:42.122418+00:00",
+                    "product_name": "Moxikind CV 625mg Tablet 10'S",
+                    "product_url": "https://www.netmeds.com/product/moxikind-cv-625mg-tablet-10s-lui5t5-8312503",
+                    "price": 143.63,
+                    "mrp": 184.14,
+                    "currency": "INR",
+                    "pack_size": "10 Tablet(s) in a Strip",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 14.363,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "medplus",
+                    "pharmacy_name": "MedPlus Mart",
+                    "search_url": "https://www.medplusmart.com/searchAll/Moxikind-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:42.156573+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "MedPlus prices require a working product-page or partner integration."
+                  }
+                ],
+                "successful_pharmacies": 4,
+                "note": "Public listed prices. Final price may depend on location, offers, fees, and checkout."
+              },
+              "composition_match": true,
+              "savings": [
+                {
+                  "pharmacy": "pharmeasy",
+                  "unit": "tablet",
+                  "amount_per_unit": 1.151,
+                  "percent": 6.36,
+                  "original_product_url": "https://pharmeasy.in/online-medicine-order/augmentin-duo-625mg-strip-of-10-tablets-11551",
+                  "alternative_product_url": "https://pharmeasy.in/online-medicine-order/moxikind-cv-625mg-strip-of-10-tablets-18592"
+                },
+                {
+                  "pharmacy": "netmeds",
+                  "unit": "tablet",
+                  "amount_per_unit": 2.245,
+                  "percent": 13.52,
+                  "original_product_url": "https://www.netmeds.com/product/augmentin-625-duo-tablet-10s-lui7t5-8350103",
+                  "alternative_product_url": "https://www.netmeds.com/product/moxikind-cv-625mg-tablet-10s-lui5t5-8312503"
+                },
+                {
+                  "pharmacy": "apollo",
+                  "unit": "tablet",
+                  "amount_per_unit": 1.25,
+                  "percent": 6.36,
+                  "original_product_url": "https://www.apollopharmacy.in/medicine/augmentin-duo-625mg-tablet",
+                  "alternative_product_url": "https://www.apollopharmacy.in/medicine/moxikind-cv-625mg-tablet"
+                }
+              ]
+            },
+            {
+              "medicine": "Moxiforce-CV 625 Tablet",
+              "composition": [
+                {
+                  "drug": "Amoxycillin",
+                  "strength": "500mg"
+                },
+                {
+                  "drug": "Clavulanic Acid",
+                  "strength": "125mg"
+                }
+              ],
+              "regulatory": "Schedule H",
+              "prices": {
+                "medicine": "Moxiforce-CV 625 Tablet",
+                "status": "ok",
+                "quotes": [
+                  {
+                    "pharmacy": "apollo",
+                    "pharmacy_name": "Apollo Pharmacy / Apollo 24|7",
+                    "search_url": "https://www.apollopharmacy.in/search-medicines?search=Moxiforce-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:42.156590+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "pharmeasy",
+                    "pharmacy_name": "PharmEasy",
+                    "search_url": "https://pharmeasy.in/search/all?name=Moxiforce-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:42.761306+00:00",
+                    "product_name": "Moxiforce Cv 625Mg Strip Of 10 Tablets",
+                    "product_url": "https://pharmeasy.in/online-medicine-order/moxiforce-cv-625-strip-of-10-tablets-18100",
+                    "price": 182.3,
+                    "mrp": 184.14,
+                    "currency": "INR",
+                    "pack_size": "10 Tablet(s) in Strip",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 18.23,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "tata1mg",
+                    "pharmacy_name": "Tata 1mg",
+                    "search_url": "https://www.1mg.com/search/all?name=Moxiforce-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:42.901717+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "netmeds",
+                    "pharmacy_name": "Netmeds",
+                    "search_url": "https://www.netmeds.com/products/?q=Moxiforce-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:43.509872+00:00",
+                    "product_name": "Moxiforce CV 625 Tablet 10'S",
+                    "product_url": "https://www.netmeds.com/product/moxiforce-cv-625-tablet-10s-lui4zl-8295756",
+                    "price": 162.83,
+                    "mrp": 182.96,
+                    "currency": "INR",
+                    "pack_size": "10 Tablet(s) in a Strip",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 16.283,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "medplus",
+                    "pharmacy_name": "MedPlus Mart",
+                    "search_url": "https://www.medplusmart.com/searchAll/Moxiforce-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:43.706126+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "MedPlus prices require a working product-page or partner integration."
+                  }
+                ],
+                "successful_pharmacies": 2,
+                "note": "Public listed prices. Final price may depend on location, offers, fees, and checkout."
+              },
+              "composition_match": true,
+              "savings": [
+                {
+                  "pharmacy": "pharmeasy",
+                  "unit": "tablet",
+                  "amount_per_unit": 0.0,
+                  "percent": 0.0,
+                  "original_product_url": "https://pharmeasy.in/online-medicine-order/augmentin-duo-625mg-strip-of-10-tablets-11551",
+                  "alternative_product_url": "https://pharmeasy.in/online-medicine-order/moxiforce-cv-625-strip-of-10-tablets-18100"
+                },
+                {
+                  "pharmacy": "netmeds",
+                  "unit": "tablet",
+                  "amount_per_unit": 0.325,
+                  "percent": 1.96,
+                  "original_product_url": "https://www.netmeds.com/product/augmentin-625-duo-tablet-10s-lui7t5-8350103",
+                  "alternative_product_url": "https://www.netmeds.com/product/moxiforce-cv-625-tablet-10s-lui4zl-8295756"
+                }
+              ]
+            },
+            {
+              "medicine": "Fightox 625 Tablet",
+              "composition": [
+                {
+                  "drug": "Amoxycillin",
+                  "strength": "500mg"
+                },
+                {
+                  "drug": "Clavulanic Acid",
+                  "strength": "125mg"
+                }
+              ],
+              "regulatory": "Schedule H",
+              "prices": {
+                "medicine": "Fightox 625 Tablet",
+                "status": "ok",
+                "quotes": [
+                  {
+                    "pharmacy": "apollo",
+                    "pharmacy_name": "Apollo Pharmacy / Apollo 24|7",
+                    "search_url": "https://www.apollopharmacy.in/search-medicines?search=Fightox%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:43.706146+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "pharmeasy",
+                    "pharmacy_name": "PharmEasy",
+                    "search_url": "https://pharmeasy.in/search/all?name=Fightox%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:43.723790+00:00",
+                    "product_name": "Fightox 625Mg Strip Of 10 Tablets",
+                    "product_url": "https://pharmeasy.in/online-medicine-order/fightox-625mg-strip-of-10-tablets-101181",
+                    "price": 181.79,
+                    "mrp": 195.47,
+                    "currency": "INR",
+                    "pack_size": "10 Tablet(s) in Strip",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 18.179,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "pharmeasy",
+                    "pharmacy_name": "PharmEasy",
+                    "search_url": "https://pharmeasy.in/search/all?name=Fightox%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:43.723790+00:00",
+                    "product_name": "Fightox 625Mg Tablet",
+                    "product_url": "https://pharmeasy.in/online-medicine-order/fightox-625mg-tablet-888",
+                    "price": 134.5,
+                    "mrp": 149.44,
+                    "currency": "INR",
+                    "pack_size": "6 Tablet(s) in Strip",
+                    "pack_quantity": 6,
+                    "unit": "tablet",
+                    "unit_price": 22.4167,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "tata1mg",
+                    "pharmacy_name": "Tata 1mg",
+                    "search_url": "https://www.1mg.com/search/all?name=Fightox%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:44.177105+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "netmeds",
+                    "pharmacy_name": "Netmeds",
+                    "search_url": "https://www.netmeds.com/products/?q=Fightox%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:44.535556+00:00",
+                    "product_name": "Fightox 625mg Tablet 10'S",
+                    "product_url": "https://www.netmeds.com/product/fightox-625mg-tablet-10s-lui6e1-8323215",
+                    "price": 173.97,
+                    "mrp": 195.47,
+                    "currency": "INR",
+                    "pack_size": "10 Tablet(s) in a Strip",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 17.397,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "medplus",
+                    "pharmacy_name": "MedPlus Mart",
+                    "search_url": "https://www.medplusmart.com/searchAll/Fightox%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:44.892102+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "MedPlus prices require a working product-page or partner integration."
+                  }
+                ],
+                "successful_pharmacies": 2,
+                "note": "Public listed prices. Final price may depend on location, offers, fees, and checkout."
+              },
+              "composition_match": true,
+              "savings": [
+                {
+                  "pharmacy": "pharmeasy",
+                  "unit": "tablet",
+                  "amount_per_unit": 0.0,
+                  "percent": 0.0,
+                  "original_product_url": "https://pharmeasy.in/online-medicine-order/augmentin-duo-625mg-strip-of-10-tablets-11551",
+                  "alternative_product_url": "https://pharmeasy.in/online-medicine-order/fightox-625mg-strip-of-10-tablets-101181"
+                },
+                {
+                  "pharmacy": "netmeds",
+                  "unit": "tablet",
+                  "amount_per_unit": 0.0,
+                  "percent": 0.0,
+                  "original_product_url": "https://www.netmeds.com/product/augmentin-625-duo-tablet-10s-lui7t5-8350103",
+                  "alternative_product_url": "https://www.netmeds.com/product/fightox-625mg-tablet-10s-lui6e1-8323215"
+                }
+              ]
+            }
+          ],
+          "max_potential_savings_percent": 13.52,
+          "verified_composition_matches": 4,
+          "note": "Composition matches are based on the local dataset; consult a doctor before changing medicines."
+        }
+      ]
+    },
+    {
+      "intent": "alternative_search",
+      "status": "ok",
+      "data": [
+        {
+          "original": {
+            "medicine": "Augmentin 625 Duo Tablet",
+            "composition": [
+              {
+                "drug": "Amoxycillin",
+                "strength": "500mg"
+              },
+              {
+                "drug": "Clavulanic Acid",
+                "strength": "125mg"
+              }
+            ],
+            "regulatory": "Schedule H",
+            "prices": {
+              "medicine": "Augmentin 625 Duo Tablet",
+              "status": "ok",
+              "quotes": [
+                {
+                  "pharmacy": "apollo",
+                  "pharmacy_name": "Apollo Pharmacy / Apollo 24|7",
+                  "search_url": "https://www.apollopharmacy.in/search-medicines?search=Augmentin%20625%20Duo%20Tablet",
+                  "checked_at": "2026-10-09T16:54:36.844327+00:00",
+                  "product_name": "Augmentin 625 Duo Tablet 10's",
+                  "product_url": "https://www.apollopharmacy.in/medicine/augmentin-duo-625mg-tablet",
+                  "price": 196.5,
+                  "mrp": null,
+                  "currency": "INR",
+                  "pack_size": "Augmentin 625 Duo Tablet 10's",
+                  "pack_quantity": 10,
+                  "unit": "tablet",
+                  "unit_price": 19.65,
+                  "conditions": [],
+                  "conditional": false,
+                  "price_basis": "public_page",
+                  "status": "ok"
+                },
+                {
+                  "pharmacy": "pharmeasy",
+                  "pharmacy_name": "PharmEasy",
+                  "search_url": "https://pharmeasy.in/search/all?name=Augmentin%20625%20Duo%20Tablet",
+                  "checked_at": "2026-10-09T16:54:36.844877+00:00",
+                  "product_name": "Augmentin Duo 625Mg Strip Of 10 Tablets",
+                  "product_url": "https://pharmeasy.in/online-medicine-order/augmentin-duo-625mg-strip-of-10-tablets-11551",
+                  "price": 180.92,
+                  "mrp": 196.65,
+                  "currency": "INR",
+                  "pack_size": "10 Tablet(s) in Strip",
+                  "pack_quantity": 10,
+                  "unit": "tablet",
+                  "unit_price": 18.092,
+                  "conditions": [],
+                  "conditional": false,
+                  "price_basis": "public_page",
+                  "status": "ok"
+                },
+                {
+                  "pharmacy": "tata1mg",
+                  "pharmacy_name": "Tata 1mg",
+                  "search_url": "https://www.1mg.com/search/all?name=Augmentin%20625%20Duo%20Tablet",
+                  "checked_at": "2026-10-09T16:54:36.845095+00:00",
+                  "product_name": "Augmentin 625 Duo Tablet",
+                  "product_url": "https://www.1mg.com/drugs/augmentin-625-duo-tablet-138629",
+                  "price": 183.0,
+                  "mrp": 196.65,
+                  "currency": "INR",
+                  "pack_size": "10 tablets",
+                  "pack_quantity": 10,
+                  "unit": "tablet",
+                  "unit_price": 18.3,
+                  "conditions": [
+                    "on order above ₹1200"
+                  ],
+                  "conditional": true,
+                  "price_basis": "public_page",
+                  "status": "ok"
+                },
+                {
+                  "pharmacy": "netmeds",
+                  "pharmacy_name": "Netmeds",
+                  "search_url": "https://www.netmeds.com/products/?q=Augmentin%20625%20Duo%20Tablet",
+                  "checked_at": "2026-10-09T16:54:36.845636+00:00",
+                  "product_name": "Augmentin 625 DUO Tablet 10'S",
+                  "product_url": "https://www.netmeds.com/product/augmentin-625-duo-tablet-10s-lui7t5-8350103",
+                  "price": 166.08,
+                  "mrp": 195.39,
+                  "currency": "INR",
+                  "pack_size": "10 Tablet(s) in a Strip",
+                  "pack_quantity": 10,
+                  "unit": "tablet",
+                  "unit_price": 16.608,
+                  "conditions": [],
+                  "conditional": false,
+                  "price_basis": "public_page",
+                  "status": "ok"
+                },
+                {
+                  "pharmacy": "medplus",
+                  "pharmacy_name": "MedPlus Mart",
+                  "search_url": "https://www.medplusmart.com/searchAll/Augmentin%20625%20Duo%20Tablet",
+                  "checked_at": "2026-10-09T16:54:36.845994+00:00",
+                  "status": "integration_required",
+                  "price": null,
+                  "message": "MedPlus prices require a working product-page or partner integration."
+                }
+              ],
+              "successful_pharmacies": 4,
+              "note": "Public listed prices. Final price may depend on location, offers, fees, and checkout."
+            }
+          },
+          "alternatives": [
+            {
+              "medicine": "Penciclav 500 mg/125 mg Tablet",
+              "composition": [
+                {
+                  "drug": "Amoxycillin",
+                  "strength": "500mg"
+                },
+                {
+                  "drug": "Clavulanic Acid",
+                  "strength": "125mg"
+                }
+              ],
+              "regulatory": "Schedule H",
+              "prices": {
+                "medicine": "Penciclav 500 mg/125 mg Tablet",
+                "status": "no_prices",
+                "quotes": [
+                  {
+                    "pharmacy": "apollo",
+                    "pharmacy_name": "Apollo Pharmacy / Apollo 24|7",
+                    "search_url": "https://www.apollopharmacy.in/search-medicines?search=Penciclav%20500%20mg/125%20mg%20Tablet",
+                    "checked_at": "2026-10-09T16:54:36.846137+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "pharmeasy",
+                    "pharmacy_name": "PharmEasy",
+                    "search_url": "https://pharmeasy.in/search/all?name=Penciclav%20500%20mg/125%20mg%20Tablet",
+                    "checked_at": "2026-10-09T16:54:39.942215+00:00",
+                    "status": "product_not_found",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "tata1mg",
+                    "pharmacy_name": "Tata 1mg",
+                    "search_url": "https://www.1mg.com/search/all?name=Penciclav%20500%20mg/125%20mg%20Tablet",
+                    "checked_at": "2026-10-09T16:54:40.038983+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "netmeds",
+                    "pharmacy_name": "Netmeds",
+                    "search_url": "https://www.netmeds.com/products/?q=Penciclav%20500%20mg/125%20mg%20Tablet",
+                    "checked_at": "2026-10-09T16:54:40.404141+00:00",
+                    "status": "product_not_found",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "medplus",
+                    "pharmacy_name": "MedPlus Mart",
+                    "search_url": "https://www.medplusmart.com/searchAll/Penciclav%20500%20mg/125%20mg%20Tablet",
+                    "checked_at": "2026-10-09T16:54:40.743814+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "MedPlus prices require a working product-page or partner integration."
+                  }
+                ],
+                "successful_pharmacies": 0,
+                "note": "Public listed prices. Final price may depend on location, offers, fees, and checkout."
+              },
+              "composition_match": true,
+              "savings": []
+            },
+            {
+              "medicine": "Moxikind-CV 625 Tablet",
+              "composition": [
+                {
+                  "drug": "Amoxycillin",
+                  "strength": "500mg"
+                },
+                {
+                  "drug": "Clavulanic Acid",
+                  "strength": "125mg"
+                }
+              ],
+              "regulatory": "Schedule H",
+              "prices": {
+                "medicine": "Moxikind-CV 625 Tablet",
+                "status": "ok",
+                "quotes": [
+                  {
+                    "pharmacy": "apollo",
+                    "pharmacy_name": "Apollo Pharmacy / Apollo 24|7",
+                    "search_url": "https://www.apollopharmacy.in/search-medicines?search=Moxikind-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:40.743833+00:00",
+                    "product_name": "Moxikind-CV 625 Tablet 10's",
+                    "product_url": "https://www.apollopharmacy.in/medicine/moxikind-cv-625mg-tablet",
+                    "price": 184.0,
+                    "mrp": null,
+                    "currency": "INR",
+                    "pack_size": "Moxikind-CV 625 Tablet 10's",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 18.4,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "pharmeasy",
+                    "pharmacy_name": "PharmEasy",
+                    "search_url": "https://pharmeasy.in/search/all?name=Moxikind-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:41.004594+00:00",
+                    "product_name": "Moxikind Cv 625Mg Strip Of 10 Tablets",
+                    "product_url": "https://pharmeasy.in/online-medicine-order/moxikind-cv-625mg-strip-of-10-tablets-18592",
+                    "price": 169.41,
+                    "mrp": 184.14,
+                    "currency": "INR",
+                    "pack_size": "10 Tablet(s) in Strip",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 16.941,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "tata1mg",
+                    "pharmacy_name": "Tata 1mg",
+                    "search_url": "https://www.1mg.com/search/all?name=Moxikind-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:41.657167+00:00",
+                    "product_name": "Moxikind-CV 625 Tablet",
+                    "product_url": "https://www.1mg.com/drugs/moxikind-cv-625-tablet-329310",
+                    "price": 168.0,
+                    "mrp": 184.14,
+                    "currency": "INR",
+                    "pack_size": "10 tablets",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 16.8,
+                    "conditions": [
+                      "on order above ₹1200"
+                    ],
+                    "conditional": true,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "netmeds",
+                    "pharmacy_name": "Netmeds",
+                    "search_url": "https://www.netmeds.com/products/?q=Moxikind-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:42.122418+00:00",
+                    "product_name": "Moxikind CV 625mg Tablet 10'S",
+                    "product_url": "https://www.netmeds.com/product/moxikind-cv-625mg-tablet-10s-lui5t5-8312503",
+                    "price": 143.63,
+                    "mrp": 184.14,
+                    "currency": "INR",
+                    "pack_size": "10 Tablet(s) in a Strip",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 14.363,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "medplus",
+                    "pharmacy_name": "MedPlus Mart",
+                    "search_url": "https://www.medplusmart.com/searchAll/Moxikind-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:42.156573+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "MedPlus prices require a working product-page or partner integration."
+                  }
+                ],
+                "successful_pharmacies": 4,
+                "note": "Public listed prices. Final price may depend on location, offers, fees, and checkout."
+              },
+              "composition_match": true,
+              "savings": [
+                {
+                  "pharmacy": "pharmeasy",
+                  "unit": "tablet",
+                  "amount_per_unit": 1.151,
+                  "percent": 6.36,
+                  "original_product_url": "https://pharmeasy.in/online-medicine-order/augmentin-duo-625mg-strip-of-10-tablets-11551",
+                  "alternative_product_url": "https://pharmeasy.in/online-medicine-order/moxikind-cv-625mg-strip-of-10-tablets-18592"
+                },
+                {
+                  "pharmacy": "netmeds",
+                  "unit": "tablet",
+                  "amount_per_unit": 2.245,
+                  "percent": 13.52,
+                  "original_product_url": "https://www.netmeds.com/product/augmentin-625-duo-tablet-10s-lui7t5-8350103",
+                  "alternative_product_url": "https://www.netmeds.com/product/moxikind-cv-625mg-tablet-10s-lui5t5-8312503"
+                },
+                {
+                  "pharmacy": "apollo",
+                  "unit": "tablet",
+                  "amount_per_unit": 1.25,
+                  "percent": 6.36,
+                  "original_product_url": "https://www.apollopharmacy.in/medicine/augmentin-duo-625mg-tablet",
+                  "alternative_product_url": "https://www.apollopharmacy.in/medicine/moxikind-cv-625mg-tablet"
+                }
+              ]
+            },
+            {
+              "medicine": "Moxiforce-CV 625 Tablet",
+              "composition": [
+                {
+                  "drug": "Amoxycillin",
+                  "strength": "500mg"
+                },
+                {
+                  "drug": "Clavulanic Acid",
+                  "strength": "125mg"
+                }
+              ],
+              "regulatory": "Schedule H",
+              "prices": {
+                "medicine": "Moxiforce-CV 625 Tablet",
+                "status": "ok",
+                "quotes": [
+                  {
+                    "pharmacy": "apollo",
+                    "pharmacy_name": "Apollo Pharmacy / Apollo 24|7",
+                    "search_url": "https://www.apollopharmacy.in/search-medicines?search=Moxiforce-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:42.156590+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "pharmeasy",
+                    "pharmacy_name": "PharmEasy",
+                    "search_url": "https://pharmeasy.in/search/all?name=Moxiforce-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:42.761306+00:00",
+                    "product_name": "Moxiforce Cv 625Mg Strip Of 10 Tablets",
+                    "product_url": "https://pharmeasy.in/online-medicine-order/moxiforce-cv-625-strip-of-10-tablets-18100",
+                    "price": 182.3,
+                    "mrp": 184.14,
+                    "currency": "INR",
+                    "pack_size": "10 Tablet(s) in Strip",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 18.23,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "tata1mg",
+                    "pharmacy_name": "Tata 1mg",
+                    "search_url": "https://www.1mg.com/search/all?name=Moxiforce-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:42.901717+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "netmeds",
+                    "pharmacy_name": "Netmeds",
+                    "search_url": "https://www.netmeds.com/products/?q=Moxiforce-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:43.509872+00:00",
+                    "product_name": "Moxiforce CV 625 Tablet 10'S",
+                    "product_url": "https://www.netmeds.com/product/moxiforce-cv-625-tablet-10s-lui4zl-8295756",
+                    "price": 162.83,
+                    "mrp": 182.96,
+                    "currency": "INR",
+                    "pack_size": "10 Tablet(s) in a Strip",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 16.283,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "medplus",
+                    "pharmacy_name": "MedPlus Mart",
+                    "search_url": "https://www.medplusmart.com/searchAll/Moxiforce-CV%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:43.706126+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "MedPlus prices require a working product-page or partner integration."
+                  }
+                ],
+                "successful_pharmacies": 2,
+                "note": "Public listed prices. Final price may depend on location, offers, fees, and checkout."
+              },
+              "composition_match": true,
+              "savings": [
+                {
+                  "pharmacy": "pharmeasy",
+                  "unit": "tablet",
+                  "amount_per_unit": 0.0,
+                  "percent": 0.0,
+                  "original_product_url": "https://pharmeasy.in/online-medicine-order/augmentin-duo-625mg-strip-of-10-tablets-11551",
+                  "alternative_product_url": "https://pharmeasy.in/online-medicine-order/moxiforce-cv-625-strip-of-10-tablets-18100"
+                },
+                {
+                  "pharmacy": "netmeds",
+                  "unit": "tablet",
+                  "amount_per_unit": 0.325,
+                  "percent": 1.96,
+                  "original_product_url": "https://www.netmeds.com/product/augmentin-625-duo-tablet-10s-lui7t5-8350103",
+                  "alternative_product_url": "https://www.netmeds.com/product/moxiforce-cv-625-tablet-10s-lui4zl-8295756"
+                }
+              ]
+            },
+            {
+              "medicine": "Fightox 625 Tablet",
+              "composition": [
+                {
+                  "drug": "Amoxycillin",
+                  "strength": "500mg"
+                },
+                {
+                  "drug": "Clavulanic Acid",
+                  "strength": "125mg"
+                }
+              ],
+              "regulatory": "Schedule H",
+              "prices": {
+                "medicine": "Fightox 625 Tablet",
+                "status": "ok",
+                "quotes": [
+                  {
+                    "pharmacy": "apollo",
+                    "pharmacy_name": "Apollo Pharmacy / Apollo 24|7",
+                    "search_url": "https://www.apollopharmacy.in/search-medicines?search=Fightox%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:43.706146+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "pharmeasy",
+                    "pharmacy_name": "PharmEasy",
+                    "search_url": "https://pharmeasy.in/search/all?name=Fightox%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:43.723790+00:00",
+                    "product_name": "Fightox 625Mg Strip Of 10 Tablets",
+                    "product_url": "https://pharmeasy.in/online-medicine-order/fightox-625mg-strip-of-10-tablets-101181",
+                    "price": 181.79,
+                    "mrp": 195.47,
+                    "currency": "INR",
+                    "pack_size": "10 Tablet(s) in Strip",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 18.179,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "pharmeasy",
+                    "pharmacy_name": "PharmEasy",
+                    "search_url": "https://pharmeasy.in/search/all?name=Fightox%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:43.723790+00:00",
+                    "product_name": "Fightox 625Mg Tablet",
+                    "product_url": "https://pharmeasy.in/online-medicine-order/fightox-625mg-tablet-888",
+                    "price": 134.5,
+                    "mrp": 149.44,
+                    "currency": "INR",
+                    "pack_size": "6 Tablet(s) in Strip",
+                    "pack_quantity": 6,
+                    "unit": "tablet",
+                    "unit_price": 22.4167,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "tata1mg",
+                    "pharmacy_name": "Tata 1mg",
+                    "search_url": "https://www.1mg.com/search/all?name=Fightox%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:44.177105+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "No matching public price found. Add a verified product URL to pharmacy_products.json."
+                  },
+                  {
+                    "pharmacy": "netmeds",
+                    "pharmacy_name": "Netmeds",
+                    "search_url": "https://www.netmeds.com/products/?q=Fightox%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:44.535556+00:00",
+                    "product_name": "Fightox 625mg Tablet 10'S",
+                    "product_url": "https://www.netmeds.com/product/fightox-625mg-tablet-10s-lui6e1-8323215",
+                    "price": 173.97,
+                    "mrp": 195.47,
+                    "currency": "INR",
+                    "pack_size": "10 Tablet(s) in a Strip",
+                    "pack_quantity": 10,
+                    "unit": "tablet",
+                    "unit_price": 17.397,
+                    "conditions": [],
+                    "conditional": false,
+                    "price_basis": "public_page",
+                    "status": "ok"
+                  },
+                  {
+                    "pharmacy": "medplus",
+                    "pharmacy_name": "MedPlus Mart",
+                    "search_url": "https://www.medplusmart.com/searchAll/Fightox%20625%20Tablet",
+                    "checked_at": "2026-10-09T16:54:44.892102+00:00",
+                    "status": "integration_required",
+                    "price": null,
+                    "message": "MedPlus prices require a working product-page or partner integration."
+                  }
+                ],
+                "successful_pharmacies": 2,
+                "note": "Public listed prices. Final price may depend on location, offers, fees, and checkout."
+              },
+              "composition_match": true,
+              "savings": [
+                {
+                  "pharmacy": "pharmeasy",
+                  "unit": "tablet",
+                  "amount_per_unit": 0.0,
+                  "percent": 0.0,
+                  "original_product_url": "https://pharmeasy.in/online-medicine-order/augmentin-duo-625mg-strip-of-10-tablets-11551",
+                  "alternative_product_url": "https://pharmeasy.in/online-medicine-order/fightox-625mg-strip-of-10-tablets-101181"
+                },
+                {
+                  "pharmacy": "netmeds",
+                  "unit": "tablet",
+                  "amount_per_unit": 0.0,
+                  "percent": 0.0,
+                  "original_product_url": "https://www.netmeds.com/product/augmentin-625-duo-tablet-10s-lui7t5-8350103",
+                  "alternative_product_url": "https://www.netmeds.com/product/fightox-625mg-tablet-10s-lui6e1-8323215"
+                }
+              ]
+            }
+          ],
+          "max_potential_savings_percent": 13.52,
+          "verified_composition_matches": 4,
+          "note": "Composition matches are based on the local dataset; consult a doctor before changing medicines."
+        }
+      ]
+    }
+  ],
+  "disclaimer": "Please consult a doctor."
+}
