@@ -24,13 +24,6 @@ function LandingPage({ onStart }) {
                     </a>
 
                     <div className="nav-actions">
-                        <button
-                            className="nav-signin"
-                            type="button"
-                            onClick={() => window.alert("Sign in is coming soon.")}
-                        >
-                            Sign In
-                        </button>
 
                         <button
                             className="nav-start"

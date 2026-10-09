@@ -52,21 +52,11 @@
     white-space: nowrap;
 }
 
-.nav-signin {
-    background: white;
-    color: #0866f5;
-    border: 1px solid #cce2f5;
-}
-
 .nav-start {
     background: #0866f5;
     color: white;
     border: 1px solid #0866f5;
     box-shadow: 0 5px 15px rgb(8 102 245 / 15%);
-}
-
-.nav-signin:hover {
-    background: #eff6ff;
 }
 
 .nav-start:hover {

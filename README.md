@@ -138,7 +138,7 @@ responses include a top-level `disclaimer`: `Please consult a doctor.` The
 frontend must display this with the response data. If any requested medicine
 matches Schedule X, the entire request returns a `block` action with `reason="schedule_x"`
 with no message or results, and no downstream service runs. The CLI prints
-nothing for that request; a future HTTP/frontend layer must also honor this
+nothing for that request; the HTTP/frontend layer also honors this
 action and reason. The Schedule X check runs before intent blocking and clarification.
 Safety attaches H/G disclaimers to its messages and response routing retains them
 on final data responses; included H/G substitutes also trigger the disclaimer.
@@ -147,7 +147,7 @@ Price comparisons and alternative searches omit Schedule X and unverified substi
 names or fetching prices. Included H/G substitutes also trigger the disclaimer.
 Unknown regulatory labels request clarification. General-health requests without
 medicines need no regulatory lookup. These are application routing rules using
-the dataset labels; they do not authorize dispensing. No HTTP server exists yet.
+the dataset labels; they do not authorize dispensing. The HTTP server uses these same routing rules.
 
 ## Pharmacy prices
 
@@ -190,7 +190,6 @@ objects for both price and alternative intents. Each comparison contains:
 
 - `original`: name, composition, regulatory label, and pharmacy quotes.
 - `alternatives`: the same information plus `composition_match` and `savings`.
-- `max_potential_savings_percent`: null when no valid comparison is possible.
 - `verified_composition_matches`: count based on the local composition records.
 
 Each product's `prices.quotes[]` includes the pharmacy, price, MRP when exposed,
@@ -206,9 +205,9 @@ Different pack quantities are normalized per tablet/capsule. No savings are
 computed from missing composition, unknown pack quantities, or conditional
 prices. A composition match is a dataset comparison, not medical interchangeability.
 
-The HTTP/frontend layer is still to be implemented. It should display quotes,
-conditions and missing-source statuses, preserve H/G disclaimers, and honor X
-silent Schedule X blocking before rendering any comparison.
+The frontend displays quotes, conditions and missing prices, preserves H/G
+disclaimers, and silently suppresses Schedule X responses. Maximum savings
+is omitted; eligible per-pharmacy, per-unit savings remain.
 
 `examples/price_response.json` contains an actual observed response for Augmentin
 with both price and alternative intents. Its prices are a dated reference for
@@ -220,6 +219,65 @@ Run the routing tests without Ollama:
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-The tests cover the CLI conversation flow using mocked extraction, as well as
+The tests cover HTTP sessions and the CLI conversation flow using mocked extraction, as well as
 medicine routing and pharmacy parsers. They do not prove real model extraction;
 that requires the Ollama server and the configured model to be available.
+
+
+## Run the connected application
+
+Start Ollama with the configured model, then start the backend from the project root:
+
+```powershell
+.\.venv\Scripts\python.exe -m backend.api
+```
+
+In a second terminal:
+
+```powershell
+cd Frontend
+npm.cmd ci
+npm.cmd run dev
+```
+
+Open http://localhost:5173. No account or sign-in is needed. Acknowledge the
+medical disclaimer and send a message. Vite proxies `/api` to the Python server
+at http://127.0.0.1:8000. `GET /api/health` is a server liveness check; it does not
+verify Ollama or pharmacy connectivity. Production hosting needs to forward
+`/api` to this backend on the same origin.
+
+`POST /api/chat` accepts `message`, a UUID `request_id`, and an optional UUID
+`session_id`. It returns `{session_id, result}`. The frontend creates a fresh
+anonymous session on New chat, handles block/clarify/error/response separately,
+and waits for the server to complete safety checks and routing. No raw extraction
+or internal `continue` result is sent to the frontend. Schedule X returns a
+control result with no message or medicine details and renders no assistant reply.
+
+Conversation state is shared by `backend/services/conversation.py` and the CLI.
+`backend/services/sessions.py` keeps bounded, expiring in-memory sessions and
+serializes requests within each session. Retries reuse the request ID, avoiding
+repeated model calls or history changes for completed requests. Errors can be
+retried. New chat cancels waiting in the browser and ignores late responses;
+server work already running may finish in the old session.
+
+Run one backend worker for this in-memory implementation. Restarting the server
+or 30 minutes of inactivity clears a session. Shared durable session storage is
+needed before scaling to multiple workers. The API is intended for local use;
+public hosting also needs deployment access controls and abuse limits.
+
+API limits, ports, session settings, frontend timeout, and shared messages are in
+`constants.txt`. Vite exposes only the public frontend settings and API limits,
+not the model prompts. Restart both servers after editing configuration.
+
+Frontend verification:
+
+```powershell
+cd Frontend
+npm.cmd test
+npm.cmd run lint
+npm.cmd run build
+```
+
+These tests mock model output and external pharmacy requests. Live answers still
+require Ollama; pharmacy price completeness remains dependent on public pages
+and the configured product catalogue.

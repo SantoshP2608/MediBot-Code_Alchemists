@@ -1,59 +1,75 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import MedicineSandbox from "./MedicineSandbox";
-import { sampleSandbox } from "./sampleSandbox";
+import ResponseMessage from "./components/ResponseMessage";
+import { sendMessage } from "./api/chat";
+import { config } from "./config";
 
-const welcome = {
-  role: "assistant",
-  text: "Hello! I'm MediBot. Ask me about a medicine, its information, or price comparisons.",
-};
+const welcome = { id: 'welcome', role: 'assistant', text: config.welcome };
 
-function App() {
+function ChatPage() {
   const [messages, setMessages] = useState([welcome]);
   const [input, setInput] = useState("");
   const [accepted, setAccepted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const messagesEnd = useRef(null);
+  const session = useRef(null);
+  const generation = useRef(0);
+  const inflight = useRef(null);
 
   useEffect(() => {
     messagesEnd.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, loading]);
+
+  useEffect(() => () => {
+    generation.current += 1;
+    inflight.current?.abort();
+  }, []);
+
+  async function ask(question, requestId, retryId) {
+    if (inflight.current) return;
+    if (!session.current) session.current = crypto.randomUUID();
+    const currentGeneration = generation.current;
+    const controller = new AbortController();
+    inflight.current = controller;
+    setLoading(true);
+    setMessages((previous) => retryId ? previous.filter((item) => item.id !== retryId)
+      : [...previous, { id: requestId, role: 'user', text: question }]);
+    try {
+      const body = await sendMessage({ message: question, session_id: session.current,
+        request_id: requestId }, controller.signal);
+      if (currentGeneration !== generation.current) return;
+      session.current = body.session_id;
+      const result = body.result;
+      if (!(result.action === 'block' && result.reason === 'schedule_x')) {
+        setMessages((previous) => [...previous, { id: crypto.randomUUID(), role: 'assistant',
+          result, retry: result.action === 'error' ? { question, requestId } : null }]);
+      }
+    } catch (error) {
+      if (currentGeneration !== generation.current || controller.signal.aborted) return;
+      setMessages((previous) => [...previous, { id: crypto.randomUUID(), role: 'assistant',
+        text: error.message, retry: { question, requestId } }]);
+    } finally {
+      if (currentGeneration === generation.current) {
+        inflight.current = null;
+        setLoading(false);
+      }
+    }
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
-
     const question = input.trim();
-    if (!question || !accepted) return;
-
-    setMessages((previous) => [
-      ...previous,
-      { role: "user", text: question },
-      {
-        role: "assistant",
-        text: "Your message was received. Answers will appear here once the backend is connected.",
-      },
-    ]);
-
+    if (!question || !accepted || inflight.current) return;
     setInput("");
-  }
-
-  function previewSandbox() {
-    if (!accepted) return;
-
-    setMessages((previous) => [
-      ...previous,
-      {
-        role: "user",
-        text: "Show me a sample medicine comparison.",
-      },
-      {
-        role: "assistant",
-        text: "Here are your details for Example Medicine 500. This comparison uses fictional sample data.",
-        sandbox: sampleSandbox,
-      },
-    ]);
+    ask(question, crypto.randomUUID());
   }
 
   function startNewChat() {
+    generation.current += 1;
+    inflight.current?.abort();
+    inflight.current = null;
+    session.current = crypto.randomUUID();
+    setLoading(false);
     setMessages([welcome]);
     setInput("");
   }
@@ -63,7 +79,7 @@ function App() {
       <header className="chat-header">
         <div className="brand">
           <img
-            src="/medibot-logo.jfif"
+            src="/medibot-logo.png"
             alt="MediBot logo"
             className="bot-logo"
           />
@@ -104,17 +120,8 @@ function App() {
       <section className="chat-panel" aria-label="Medication chat">
         <div className="chat-panel-heading">
           <h2>Chat with MediBot</h2>
-          <span className="preview-badge">Frontend preview</span>
-        </div>
 
-        <button
-          className="sandbox-preview-button"
-          type="button"
-          onClick={previewSandbox}
-          disabled={!accepted}
-        >
-          Preview sample comparison
-        </button>
+        </div>
 
         <div
           className="messages"
@@ -122,23 +129,27 @@ function App() {
           aria-label="Conversation"
           aria-live="polite"
         >
-          {messages.map((message, index) => (
+          {messages.map((message) => (
             <div
               className={`message-row ${message.role}`}
-              key={index}
+              key={message.id}
             >
               <div className="message-bubble">
                 <span className="message-author">
                   {message.role === "user" ? "You" : "MediBot"}
                 </span>
-                <p>{message.text}</p>
-                {message.role === "assistant" && message.sandbox && (
-                  <MedicineSandbox data={message.sandbox} />
-                )}
+                {message.text && <p>{message.text}</p>}
+                {message.result && <ResponseMessage result={message.result} />}
+                {message.retry && <button className="retry-button" type="button"
+                  disabled={loading || !accepted}
+                  onClick={() => ask(message.retry.question, message.retry.requestId, message.id)}>
+                  Retry
+                </button>}
               </div>
             </div>
           ))}
 
+          {loading && <p className="loading-message" role="status">{config.loading}</p>}
           <div ref={messagesEnd} />
         </div>
 
@@ -153,24 +164,24 @@ function App() {
             }
             value={input}
             onChange={(event) => setInput(event.target.value)}
-            disabled={!accepted}
-            maxLength={2000}
+            disabled={!accepted || loading}
+            maxLength={config.maxMessageLength}
           />
 
           <button
             type="submit"
-            disabled={!accepted || !input.trim()}
+            disabled={!accepted || loading || !input.trim()}
           >
             Send <span aria-hidden="true">➜</span>
           </button>
         </form>
 
         <p className="chat-footer">
-          Information only · Backend not connected yet
+          Information only · Check prices at the pharmacy before purchasing
         </p>
       </section>
     </main>
   );
 }
 
-export default App;
+export default ChatPage;

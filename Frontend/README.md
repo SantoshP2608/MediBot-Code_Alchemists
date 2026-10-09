@@ -1,16 +1,18 @@
-# React + Vite
+# MediBot frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite chat connected to the Python backend. Start the backend with
+`python -m backend.api` from the repository root, then run `npm.cmd ci` and
+`npm.cmd run dev` here. Open http://localhost:5173.
 
-Currently, two official plugins are available:
+No sign-in UI or account is required. The chat renders safety messages,
+clarification questions, medicine uses and side effects, general health answers,
+and original/substitute pharmacy quotes. Schedule H/G disclaimers remain visible;
+Schedule X produces no assistant reply. Maximum savings and sample comparisons
+have been removed. Missing prices display as unavailable.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+`vite.config.js` reads the public settings from `../constants.txt` and forwards
+`/api` to the backend. For production, configure the host to proxy `/api` to Python.
+Sessions are anonymous and held by the backend. New chat starts a fresh session.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Checks: `npm.cmd test`, `npm.cmd run lint`, `npm.cmd run build`.
+See the root README for Ollama setup, API behavior, and deployment limitations.

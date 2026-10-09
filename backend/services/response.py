@@ -90,10 +90,8 @@ def build_price_comparison(medicine, substitutes, prices):
         comparable = matches and bool(dosage_form(medicine)) and dosage_form(medicine) == dosage_form(substitute)
         alternative["savings"] = compare_unit_prices(original["prices"], alternative["prices"]) if comparable else []
         alternatives.append(alternative)
-    percentages = [saving["percent"] for row in alternatives for saving in row["savings"]]
     return {
         "original": original, "alternatives": alternatives,
-        "max_potential_savings_percent": max(percentages) if percentages else None,
         "verified_composition_matches": sum(row["composition_match"] for row in alternatives),
         "note": CONSTANTS["messages"]["composition_match_note"],
     }

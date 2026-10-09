@@ -104,14 +104,6 @@
   font-size: 16px;
 }
 
-.preview-badge {
-  padding: 6px 10px;
-  border-radius: 20px;
-  background: #eff6ff;
-  color: #2563eb;
-  font-size: 11px;
-}
-
 .messages {
   height: 380px;
   overflow-y: auto;
@@ -246,17 +238,12 @@ button:disabled {
   flex-shrink: 0;
 }
 
-.sandbox-preview-button {
-  margin: 14px 22px 0;
-  padding: 8px 12px;
-  border: 1px dashed #93b4ed;
-  border-radius: 8px;
-  background: #eff6ff;
-  color: #2563eb;
-  font-size: 12px;
-}
-
 .assistant .message-bubble:has(.medicine-sandbox) {
   width: 100%;
   max-width: 100%;
 }
+.response-disclaimer { padding: 10px; border: 1px solid #fcd89c; border-radius: 8px; background: #fff8eb; color: #795321; }
+.retry-button { margin-top: 12px; padding: 8px 14px; border: 1px solid #93b4ed; border-radius: 8px; color: #1d4ed8; background: white; }
+.loading-message { color: #64748b; font-size: 14px; }
+.medicine-information h3 { font-size: 15px; }
+.medicine-information li { margin: 5px 0; font-size: 14px; }

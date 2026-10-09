@@ -43,7 +43,7 @@ class BackendFlowTests(unittest.TestCase):
                      "regulatory": "OTC", "side_effects": ["Example effect"]}),)
         output = io.StringIO()
         with patch("builtins.input", side_effect=["Side effects?", "Example 650", "Prescribe Example", "exit"]), \
-                patch("backend.cli.safety_cli.extract_query", side_effect=answers) as extract, \
+                patch("backend.services.conversation.extract_query", side_effect=answers) as extract, \
                 patch("backend.data.medicine_database.load_database", return_value=database), redirect_stdout(output):
             main()
         calls = extract.call_args_list
@@ -58,7 +58,7 @@ class BackendFlowTests(unittest.TestCase):
         database = (("example 650 tablet", {"name": "Example 650 Tablet", "regulatory": "Schedule X"}),)
         output = io.StringIO()
         with patch("builtins.input", side_effect=["Example side effects", "exit"]), \
-                patch("backend.cli.safety_cli.extract_query", return_value=extraction()), \
+                patch("backend.services.conversation.extract_query", return_value=extraction()), \
                 patch("backend.data.medicine_database.load_database", return_value=database), redirect_stdout(output):
             main()
         self.assertNotIn("EXTRACTION:", output.getvalue())
@@ -67,8 +67,8 @@ class BackendFlowTests(unittest.TestCase):
     def test_cli_returns_error_when_extraction_fails(self):
         output = io.StringIO()
         with patch("builtins.input", side_effect=["Question", "exit"]), \
-                patch("backend.cli.safety_cli.extract_query", side_effect=RuntimeError("Service unavailable")), \
-                patch("backend.cli.safety_cli.logger.exception"), redirect_stdout(output):
+                patch("backend.services.conversation.extract_query", side_effect=RuntimeError("Service unavailable")), \
+                patch("backend.services.conversation.logger.exception"), redirect_stdout(output):
             main()
         self.assertIn('"action": "error"', output.getvalue())
         self.assertNotIn('"action": "continue"', output.getvalue())

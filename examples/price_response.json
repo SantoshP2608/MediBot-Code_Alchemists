@@ -560,7 +560,6 @@
               ]
             }
           ],
-          "max_potential_savings_percent": 13.52,
           "verified_composition_matches": 4,
           "note": "Composition matches are based on the local dataset; consult a doctor before changing medicines."
         }
@@ -1118,7 +1117,6 @@
               ]
             }
           ],
-          "max_potential_savings_percent": 13.52,
           "verified_composition_matches": 4,
           "note": "Composition matches are based on the local dataset; consult a doctor before changing medicines."
         }

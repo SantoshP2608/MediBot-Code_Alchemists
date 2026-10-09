@@ -195,7 +195,10 @@
     "handler_missing": "No handler for {intent} yet.",
     "medicine_not_found": "I couldn't find {medicine_name} in the medicine database. Please provide the full product name and strength.",
     "medicine_conflict": "I found conflicting database records for {medicine_name}. Please consult a doctor.",
-    "medicine_ambiguous": "Which {medicine_name} product do you mean? Please provide the full product name and strength."
+    "medicine_ambiguous": "Which {medicine_name} product do you mean? Please provide the full product name and strength.",
+    "empty_chat_message": "Please enter a message.",
+    "request_id_conflict": "This request ID was already used for a different message.",
+    "session_capacity": "MediBot is busy. Please try again shortly."
   },
   "patterns": {
     "remove_pack_prefix": "(?:strip|pack|bottle)\\s+of\\s+\\d+\\s*",
@@ -221,5 +224,32 @@
     "result_heading": "\nRESULT:",
     "frontend_heading": "\nMessage for frontend:",
     "data_hint": "\nResponse data is shown above."
+  },
+  "api": {
+    "title": "MediBot",
+    "host": "127.0.0.1",
+    "port": 8000,
+    "prefix": "/api",
+    "frontend_port": 5173,
+    "max_message_length": 2000,
+    "session_ttl_seconds": 1800,
+    "max_sessions": 1000,
+    "cached_replies": 20,
+    "request_timeout_ms": 300000,
+    "cors_origins": [
+      "http://localhost:5173",
+      "http://127.0.0.1:5173"
+    ]
+  },
+  "frontend": {
+    "welcome": "Hello! I'm MediBot. Ask me about medicines, uses, side effects, prices, alternatives, or general health.",
+    "loading": "Preparing your answer...",
+    "network_error": "Could not reach MediBot. Check the connection and try again.",
+    "timeout_error": "This request took too long. You can retry it.",
+    "invalid_response": "MediBot returned an unexpected response. Please retry.",
+    "no_data": "No information is listed for this medicine.",
+    "price_unavailable": "Price unavailable",
+    "no_alternatives": "No verified alternatives are listed in the database.",
+    "no_quotes": "No pharmacy prices were found."
   }
 }

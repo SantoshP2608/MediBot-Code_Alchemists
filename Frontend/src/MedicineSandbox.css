@@ -20,17 +20,9 @@
   font-size: 16px;
 }
 
-.demo-label {
-  padding: 4px 8px;
-  border-radius: 6px;
-  background: #fff7ed;
-  color: #9a591b;
-  font-size: 10px;
-}
-
 .sandbox-summary {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
   margin-bottom: 18px;
 }
@@ -59,16 +51,6 @@
 .summary-card small {
   font-size: 11px;
   color: #64748b;
-}
-
-.savings-card {
-  background: #eff6ff;
-  border-color: #a8c5ff;
-}
-
-.savings-card strong {
-  font-size: 22px;
-  color: #2563eb;
 }
 
 .comparison-scroll {
@@ -153,3 +135,8 @@
     padding: 12px;
   }
 }
+.quote { min-width: 140px; display: flex; flex-direction: column; gap: 5px; }
+.quote small { display: block; }
+.quote a { color: #1d4ed8; }
+.medicine-sandbox h4 { font-size: 13px; margin: 18px 0 10px; }
+.pharmacy-quotes > .sandbox-note { flex-basis: 100%; }

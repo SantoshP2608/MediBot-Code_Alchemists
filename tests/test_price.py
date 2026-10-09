@@ -134,15 +134,16 @@ class PriceTests(unittest.TestCase):
         prices = {original["name"]: price(original["name"], 100, 10),
                   substitute["name"]: price(substitute["name"], 48, 6)}
         result = build_price_comparison(original, [substitute], prices)
-        self.assertEqual(result["max_potential_savings_percent"], 20)
+        self.assertEqual(result["alternatives"][0]["savings"][0]["percent"], 20)
+        self.assertNotIn("max_potential_savings_percent", result)
         prices[substitute["name"]]["quotes"][0]["conditional"] = True
-        self.assertIsNone(build_price_comparison(original, [substitute], prices)["max_potential_savings_percent"])
+        self.assertEqual(build_price_comparison(original, [substitute], prices)["alternatives"][0]["savings"], [])
         prices[substitute["name"]]["quotes"][0]["conditional"] = False
         substitute["composition"] = [{"drug": "Example", "strength": "250mg"}]
         self.assertFalse(build_price_comparison(original, [substitute], prices)["alternatives"][0]["composition_match"])
         substitute["composition"] = original["composition"]
         substitute["name"] = "Substitute Tablet SR"
-        self.assertIsNone(build_price_comparison(original, [substitute], prices)["max_potential_savings_percent"])
+        self.assertEqual(build_price_comparison(original, [substitute], prices)["alternatives"][0]["savings"], [])
 
 
 if __name__ == "__main__":
