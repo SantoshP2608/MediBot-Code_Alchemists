@@ -5,8 +5,9 @@ import { sendMessage } from "./api/chat";
 import { config } from "./config";
 
 const welcome = {
+  id: "welcome",
   role: "assistant",
-  text: "Hi! I'm Chitti, your medical assistant. Ask me about medicines, their uses and side effects, or compare prices. How can I help you today?",
+  text: config.welcome,
 };
 
 function ChatPage() {
@@ -64,6 +65,7 @@ function ChatPage() {
     const question = input.trim();
     if (!question || !accepted || inflight.current) return;
     setInput("");
+    ask(question, crypto.randomUUID());
   }
 
   const inputRef = useRef(null);
@@ -77,23 +79,6 @@ function ChatPage() {
     textarea.style.overflowY =
       textarea.scrollHeight > 160 ? "auto" : "hidden";
   }, [input]);
-
-  function previewSandbox() {
-    if (!accepted) return;
-
-    setMessages((previous) => [
-      ...previous,
-      {
-        role: "user",
-        text: "Show me a sample medicine comparison.",
-      },
-      {
-        role: "assistant",
-        text: "Here are your details for Example Medicine 500. This comparison uses fictional sample data.",
-        sandbox: sampleSandbox,
-      },
-    ]);
-  }
 
   function startNewChat() {
     generation.current += 1;
@@ -162,7 +147,6 @@ function ChatPage() {
       >
         <div className="chat-panel-heading chitti-panel-heading">
           <h2>Chat with Chitti</h2>
-          <span className="preview-badge">Frontend preview</span>
         </div>
 
         <div
@@ -191,11 +175,13 @@ function ChatPage() {
                   </strong>
                 </div>
 
-                <p>{message.text}</p>
-
-                {message.role === "assistant" && message.sandbox && (
-                  <MedicineSandbox data={message.sandbox} />
-                )}
+                {message.text && <p>{message.text}</p>}
+                {message.result && <ResponseMessage result={message.result} />}
+                {message.retry && <button className="retry-button" type="button"
+                  disabled={loading || !accepted}
+                  onClick={() => ask(message.retry.question, message.retry.requestId, message.id)}>
+                  Retry
+                </button>}
               </div>
             </div>
           ))}
@@ -226,8 +212,8 @@ function ChatPage() {
                 event.currentTarget.form?.requestSubmit();
               }
             }}
-            disabled={!accepted}
-            maxLength={2000}
+            disabled={!accepted || loading}
+            maxLength={config.maxMessageLength}
           />
 
           <button

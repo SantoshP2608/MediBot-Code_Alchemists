@@ -146,34 +146,6 @@
   font-size: 17px;
 }
 
-.preview-badge {
-  flex-shrink: 0;
-  padding: 6px 10px;
-  border-radius: 20px;
-  background: #e8f5fc;
-  color: #087596;
-  font-size: 11px;
-}
-
-/* Sample comparison button */
-.sandbox-preview-button {
-  margin: 16px 24px 0;
-  padding: 9px 14px;
-  border: 1px solid #b8dfe8;
-  border-radius: 10px;
-  background: #eefaff;
-  color: #086b82;
-  font: inherit;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.sandbox-preview-button:hover:not(:disabled) {
-  background: #e0f5f8;
-  border-color: #85cbd5;
-}
-
 /* Conversation area */
 .messages {
   height: 380px;
@@ -259,6 +231,45 @@
 .assistant .message-bubble:has(.medicine-sandbox) {
   width: 100%;
   max-width: 100%;
+}
+
+.message-bubble .response-disclaimer {
+  margin: 10px 0;
+  padding: 10px 12px;
+  border: 1px solid #efd9ab;
+  border-radius: 10px;
+  background: #fff9eb;
+  color: #79521c;
+}
+
+.retry-button {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border: 1px solid #8bcddc;
+  border-radius: 10px;
+  background: white;
+  color: #086b92;
+  font: inherit;
+  cursor: pointer;
+}
+
+.retry-button:hover:not(:disabled) {
+  background: #eefaff;
+}
+
+.loading-message {
+  color: #55758b;
+  font-size: 14px;
+}
+
+.medicine-information h3 {
+  font-size: 15px;
+}
+
+.medicine-information li {
+  margin: 5px 0;
+  font-size: 14px;
+  line-height: 1.65;
 }
 
 /* Message composer */
@@ -417,15 +428,6 @@
 
   .chat-panel-heading h2 {
     font-size: 15px;
-  }
-
-  .preview-badge {
-    padding: 5px 8px;
-    font-size: 10px;
-  }
-
-  .sandbox-preview-button {
-    margin: 14px 16px 0;
   }
 
   .messages {

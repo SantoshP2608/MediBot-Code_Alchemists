@@ -243,7 +243,7 @@
     ]
   },
   "frontend": {
-    "welcome": "Hello! I'm MediBot. Ask me about medicines, uses, side effects, prices, alternatives, or general health.",
+    "welcome": "Hi! I'm Chitti, your medical assistant. Ask me about medicines, their uses and side effects, or compare prices. How can I help you today?",
     "loading": "Preparing your answer...",
     "network_error": "Could not reach MediBot. Check the connection and try again.",
     "timeout_error": "This request took too long. You can retry it.",
