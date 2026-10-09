@@ -59,7 +59,7 @@ python -m venv .venv
 For the interactive tester, install Ollama, start its local server, and pull the model:
 
 ```powershell
-ollama pull qwen2.5:3b
+ollama pull qwen3:8b
 .\.venv\Scripts\python.exe -m backend.cli.safety_cli
 ```
 
@@ -72,6 +72,13 @@ available with `python -m backend.llm.extractor` or the compatibility entry poin
 same host and default model as extraction; `OLLAMA_CHAT_MODEL` can override the
 answering model separately. Both extraction and answering require a running
 Ollama server with the configured model available.
+
+Both model calls default to `qwen3:8b` with thinking disabled. The initial context
+limit is 2,048 tokens to leave more memory for inference on a 6 GB GPU. Increase
+`ollama.options.num_ctx` in `constants.txt` if longer requests or conversations
+are truncated, then check GPU memory usage and latency again. Restart the backend
+after configuration changes. Remove or update any existing `OLLAMA_MODEL` or
+`OLLAMA_CHAT_MODEL` environment overrides if they point to a different model.
 
 ## Request handling
 

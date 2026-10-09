@@ -44,13 +44,14 @@
     "model_env": "OLLAMA_MODEL",
     "chat_model_env": "OLLAMA_CHAT_MODEL",
     "host": "http://localhost:11434",
-    "model": "qwen2.5:3b",
+    "model": "qwen3:8b",
+    "think": false,
     "timeout_seconds": 120.0,
     "history_limit": 6,
     "keep_alive": "10m",
     "options": {
       "temperature": 0,
-      "num_ctx": 4096,
+      "num_ctx": 2048,
       "num_predict": 512
     },
     "schema_suffix": "\nJSON schema:\n"

@@ -33,6 +33,7 @@ def get_response(message: str, *, previous_messages: list[str] | None = None) ->
                 "latest_message": message.strip(),
             })},
         ],
+        think=OLLAMA["think"],
         options=dict(OLLAMA["options"]),
         keep_alive=OLLAMA["keep_alive"],
     )

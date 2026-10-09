@@ -6,6 +6,7 @@ from unittest.mock import patch
 from backend.llm.chatbot import get_response
 from backend.models.schemas import Extraction
 from backend.services.response import handle_response
+from backend.config.settings import CONSTANTS
 
 
 class ChatbotTests(unittest.TestCase):
@@ -16,10 +17,22 @@ class ChatbotTests(unittest.TestCase):
             actual = get_response("General health question", previous_messages=[str(n) for n in range(8)])
         self.assertEqual(actual, "Example health information.")
         self.assertEqual(chat.call_args.kwargs["model"], "test-model")
+        self.assertFalse(chat.call_args.kwargs["think"])
         payload = json.loads(chat.call_args.kwargs["messages"][1]["content"])
         self.assertEqual(payload["previous_user_messages"], [str(n) for n in range(2, 8)])
         self.assertEqual(payload["latest_message"], "General health question")
         self.assertIn("Do not diagnose", chat.call_args.kwargs["messages"][0]["content"])
+
+    def test_chatbot_uses_shared_default_and_model_environment_fallback(self):
+        answer = SimpleNamespace(message=SimpleNamespace(content="Example answer."))
+        with patch("backend.llm.chatbot.client.chat", return_value=answer) as chat, \
+                patch.dict("os.environ", {}, clear=True):
+            get_response("General health question")
+        self.assertEqual(chat.call_args.kwargs["model"], CONSTANTS["ollama"]["model"])
+        with patch("backend.llm.chatbot.client.chat", return_value=answer) as chat, \
+                patch.dict("os.environ", {"OLLAMA_MODEL": "test-model"}, clear=True):
+            get_response("General health question")
+        self.assertEqual(chat.call_args.kwargs["model"], "test-model")
 
     def test_empty_input_or_answer_is_an_error(self):
         with patch("backend.llm.chatbot.client.chat") as chat:

@@ -44,6 +44,7 @@ def extract_query(
             },
         ],
         format=Extraction.model_json_schema(),
+        think=OLLAMA["think"],
         options=dict(OLLAMA["options"]),
         keep_alive=OLLAMA["keep_alive"],
     )

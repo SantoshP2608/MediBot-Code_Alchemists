@@ -9,6 +9,7 @@ from pydantic import ValidationError
 from backend.llm.extractor import extract_query
 from backend.models.schemas import Extraction
 from backend.cli.safety_cli import main
+from backend.config.settings import CONSTANTS
 
 
 def extraction(**overrides):
@@ -29,6 +30,19 @@ class BackendFlowTests(unittest.TestCase):
         self.assertEqual(payload["pending_request"], "Side effects?")
         self.assertEqual(payload["clarification_question"], "Which medicine?")
         self.assertEqual(payload["latest_message"], "Example 650")
+        self.assertFalse(chat.call_args.kwargs["think"])
+        self.assertEqual(chat.call_args.kwargs["options"], CONSTANTS["ollama"]["options"])
+
+    def test_extractor_uses_configured_model_and_respects_environment_override(self):
+        answer = SimpleNamespace(message=SimpleNamespace(content=extraction().model_dump_json()))
+        with patch("backend.llm.extractor.client.chat", return_value=answer) as chat, \
+                patch.dict("os.environ", {}, clear=True):
+            extract_query("Example")
+        self.assertEqual(chat.call_args.kwargs["model"], CONSTANTS["ollama"]["model"])
+        with patch("backend.llm.extractor.client.chat", return_value=answer) as chat, \
+                patch.dict("os.environ", {"OLLAMA_MODEL": "test-model"}):
+            extract_query("Example")
+        self.assertEqual(chat.call_args.kwargs["model"], "test-model")
 
     def test_invalid_llm_output_never_reaches_response_handler(self):
         with patch("backend.llm.extractor.client.chat", return_value=SimpleNamespace(
