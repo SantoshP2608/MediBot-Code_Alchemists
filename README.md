@@ -80,6 +80,53 @@ are truncated, then check GPU memory usage and latency again. Restart the backen
 after configuration changes. Remove or update any existing `OLLAMA_MODEL` or
 `OLLAMA_CHAT_MODEL` environment overrides if they point to a different model.
 
+## Troubleshooting Ollama on another laptop
+
+The chat message `I couldn't process your request. Please try again.` means the
+backend caught an exception. Its terminal logs the traceback; the browser message
+alone cannot distinguish a connection failure, missing model, timeout, or invalid
+extraction JSON. Downloading a model does not verify the application's connection.
+
+Run these checks in PowerShell from the project root on the affected laptop:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install --upgrade -r requirements.txt
+ollama --version
+ollama list
+Invoke-RestMethod http://localhost:11434/api/tags
+```
+
+The Python `ollama` client must be version 0.5 or newer because both model calls
+use the `think` argument. Older clients can raise
+`TypeError: Client.chat() got an unexpected keyword argument 'think'` before
+contacting the server. Update the Ollama desktop application separately if it is
+outdated. If the tags request cannot connect, open Ollama or run `ollama serve`
+in a separate terminal. If `qwen3:8b` is absent from the list, pull that exact tag
+with `ollama pull qwen3:8b`.
+
+Set the intended configuration in the terminal used to start the backend:
+
+```powershell
+$env:OLLAMA_HOST = 'http://localhost:11434'
+$env:OLLAMA_MODEL = 'qwen3:8b'
+$env:OLLAMA_CHAT_MODEL = 'qwen3:8b'
+.\.venv\Scripts\python.exe -m backend.api
+```
+
+`localhost` refers to the machine running the Python backend. These settings
+assume the backend and Ollama run on the same laptop. Restart the backend after
+updating dependencies or environment variables. To test extraction directly and
+see its exception without the chat error handler, run:
+
+```powershell
+.\.venv\Scripts\python.exe -c "from backend.llm.extractor import extract_query; print(extract_query('hi how are you').model_dump_json(indent=2))"
+```
+
+A timeout may mean model loading or CPU inference exceeded the configured
+120-second Ollama timeout. Check the traceback and `ollama ps` before changing
+timeouts. A JSON validation error means the model response failed the extraction
+schema; it is not evidence that the server is unreachable.
+
 ## Request handling
 
 - Schedule X is checked first in `backend/safety/safety_guard.py`, including
