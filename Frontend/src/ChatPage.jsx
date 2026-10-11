@@ -220,16 +220,24 @@ function ChatPage() {
           {loading && (
             <div className="chat-thinking">
               <LatticeLoader
-                label="Thinking"
                 status="working"
+                label="Thinking"
+                doneLabel="Done in"
+                errorLabel="Failed after"
                 pattern="orbit"
                 grid={3}
                 shape="round"
+                doneColor="#22c55e"
+                errorColor="#ef4444"
                 cellSize={6}
                 gap={2}
+                fontSize={14}
                 step={90}
-                showTimer={false}
-                glow
+                idleOpacity={0.15}
+                glow={false}
+                glowColor=""
+                showTimer
+                color="#f5f5f5"
               />
             </div>
           )}
