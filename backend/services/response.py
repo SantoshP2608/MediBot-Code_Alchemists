@@ -15,7 +15,7 @@ from decimal import Decimal
 
 from backend.models.schemas import Extraction, Medicine
 from backend.data.medicine_database import find_medicine, normalize
-from backend.safety.safety_guard import ALLOWED_REGULATORY, DOCTOR_DISCLAIMER, check_safety, make_result
+from backend.safety.safety_guard import ALLOWED_REGULATORY, SCHEDULE_HG_DISCLAIMER, check_safety, make_result
 
 
 def call_service(module_name: str, function_name: str, *args, **kwargs) -> dict:
@@ -172,5 +172,5 @@ def handle_response(
     result = make_result("response", "requests_routed", features=intents)
     result["results"] = results
     if needs_disclaimer:
-        result["disclaimer"] = DOCTOR_DISCLAIMER
+        result["disclaimer"] = SCHEDULE_HG_DISCLAIMER
     return result

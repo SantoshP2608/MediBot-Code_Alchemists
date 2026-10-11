@@ -37,7 +37,8 @@
       "schedule g"
     ],
     "restricted_category": "schedule x",
-    "doctor_disclaimer": "Please consult a doctor."
+    "doctor_disclaimer": "This is a Schedule X medicine, which is subject to strict prescription controls. For your safety, MediBot cannot provide information about this medicine. Please consult a qualified doctor or pharmacist for appropriate guidance.",
+    "schedule_hg_disclaimer": "Here are the details about this medicine. However, it's best to consult a doctor and obtain a prescription before using it."
   },
   "ollama": {
     "host_env": "OLLAMA_HOST",

@@ -4,6 +4,7 @@ from backend.data.medicine_database import find_medicine, is_ingredient_query, n
 
 
 DOCTOR_DISCLAIMER = CONSTANTS["regulatory"]["doctor_disclaimer"]
+SCHEDULE_HG_DISCLAIMER = CONSTANTS["regulatory"]["schedule_hg_disclaimer"]
 ALLOWED_REGULATORY = set(CONSTANTS["regulatory"]["allowed_categories"])
 
 
@@ -39,7 +40,7 @@ def check_safety(extraction: Extraction) -> dict:
     def result(action, reason, message=None, features=None):
         output = make_result(action, reason, message, features)
         if needs_disclaimer:
-            output["disclaimer"] = DOCTOR_DISCLAIMER
+            output["disclaimer"] = SCHEDULE_HG_DISCLAIMER
         return output
 
     # After the Schedule X check, block prohibited intents.
