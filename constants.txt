@@ -25,7 +25,7 @@
     "usage_information": "The right dose depends on the medicine and individual circumstances. For your safety, please follow the instructions on the medicine's label or leaflet, or ask a doctor or pharmacist if you're unsure. This is especially important for children, older adults, pregnancy, and people with existing health conditions. If you share the medicine's name and strength, I can help explain its general label instructions.",
     "availability": "Sorry, I couldn't fetch this data.",
     "other": "I'm here to help with medicines and medication-related questions. You can ask me about a medicine's uses, side effects, precautions, or available alternatives. What would you like to know?"
-  }
+  },
   "regulatory": {
     "allowed_categories": [
       "otc",
