@@ -3,7 +3,7 @@ services:
     name: medibot-code-alchemists-api
     runtime: python
     plan: free
-    buildCommand: pip install -r requirements.txt && python -m playwright install --with-deps chromium
+    buildCommand: pip install -r requirements.txt && python -m playwright install chromium
     startCommand: test -n "$MEDIBOT_API_TOKEN" && test -n "$OLLAMA_HOST" && test -n "$OLLAMA_HEADERS" && uvicorn backend.api.app:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /api/health
     envVars:
@@ -15,5 +15,9 @@ services:
         sync: false
       - key: MEDIBOT_API_TOKEN
         sync: false
+      - key: OLLAMA_MODEL
+        value: qwen2.5:3b
+      - key: OLLAMA_CHAT_MODEL
+        value: qwen2.5:3b
       - key: MEDIBOT_BROWSER_CHANNEL
         value: chromium

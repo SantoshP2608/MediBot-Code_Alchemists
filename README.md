@@ -396,6 +396,9 @@ Ollama's unauthenticated port directly to the internet. For example, an
 authenticated tunnel can use Cloudflare Access service-token headers, stored
 in Render as a JSON object in `OLLAMA_HEADERS`. Keep those credentials private.
 The Render API token and Ollama tunnel credentials are separate secrets.
+The Render Blueprint selects the installed `qwen2.5:3b` model for both tasks;
+change `OLLAMA_MODEL` and `OLLAMA_CHAT_MODEL` in Render if you want another
+locally available model.
 The Blueprint uses Render Free: services sleep when idle, and the 102 MB medicine
 dataset plus browser-based price lookup may exceed its available memory.
 
