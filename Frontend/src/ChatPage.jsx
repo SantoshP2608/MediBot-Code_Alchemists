@@ -22,7 +22,14 @@ function ChatPage() {
   const activeOffer = useRef(null);
 
   useEffect(() => {
-    messagesEnd.current?.scrollIntoView({ behavior: "smooth" });
+    const container = messagesEnd.current?.parentElement;
+
+    if (container && (messages.length > 1 || loading)) {
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: "smooth",
+      });
+    }
   }, [messages, loading]);
 
   useEffect(() => () => {
@@ -49,12 +56,16 @@ function ChatPage() {
       session.current = body.session_id;
       const result = body.result;
       activeOffer.current = result.action === 'clarify' ? result.selection_offer || null : null;
-      setMessages((previous) => [...previous, { id: crypto.randomUUID(), role: 'assistant',
-        result, retry: result.action === 'error' ? { question, requestId, selection } : null }]);
+      setMessages((previous) => [...previous, {
+        id: crypto.randomUUID(), role: 'assistant',
+        result, retry: result.action === 'error' ? { question, requestId, selection } : null
+      }]);
     } catch (error) {
       if (currentGeneration !== generation.current || controller.signal.aborted) return;
-      setMessages((previous) => [...previous, { id: crypto.randomUUID(), role: 'assistant',
-        text: error.message, retry: { question, requestId, selection } }]);
+      setMessages((previous) => [...previous, {
+        id: crypto.randomUUID(), role: 'assistant',
+        text: error.message, retry: { question, requestId, selection }
+      }]);
     } finally {
       if (currentGeneration === generation.current) {
         inflight.current = null;
@@ -72,6 +83,12 @@ function ChatPage() {
   }
 
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (!loading && accepted) {
+      inputRef.current?.focus({ preventScroll: true });
+    }
+  }, [loading, accepted]);
 
   useEffect(() => {
     const textarea = inputRef.current;
@@ -140,6 +157,9 @@ function ChatPage() {
             type="checkbox"
             checked={accepted}
             onChange={(event) => setAccepted(event.target.checked)}
+            onClick={(event) => {
+              event.stopPropagation();
+            }}
           />
           I understand and acknowledge this disclaimer.
         </label>
