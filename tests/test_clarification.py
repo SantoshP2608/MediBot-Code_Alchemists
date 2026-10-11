@@ -162,7 +162,7 @@ class ClarificationTests(unittest.TestCase):
                 ('restricted tablet', {'name': 'Restricted Tablet', 'regulatory': 'Schedule X'}),)):
             result = self.send('Restricted Tablet', turn(medicines=[product('Restricted Tablet')]))
         self.assertEqual(result['reason'], 'schedule_x')
-        self.assertIsNone(result['message'])
+        self.assertEqual(result['message'], 'Please consult a doctor.')
 
     def test_failed_model_call_leaves_pending_state_for_retry(self):
         self.send('Side effects?', turn(['side_effects']))
@@ -173,6 +173,20 @@ class ClarificationTests(unittest.TestCase):
         self.assertEqual(result['action'], 'error')
         self.assertEqual(self.state.pending_extraction.model_dump(), pending)
         self.assertEqual(self.state.previous_messages, ['Side effects?'])
+
+    def test_blocked_requests_never_enter_response_routing(self):
+        for intents, expected in [(['price_comparison'], 'Please consult a doctor.'),
+                                  (['usage_information'], 'I cannot prescribe the usage.Please consult a doctor. ')]:
+            with self.subTest(intents=intents), \
+                    patch('backend.data.medicine_database.load_database', return_value=(
+                        ('restricted tablet', {'name': 'Restricted Tablet', 'regulatory': 'Schedule X'}),)), \
+                    patch('backend.services.conversation.handle_response') as route:
+                result = self.send('Restricted Tablet', turn(intents, [product('Restricted Tablet')]))
+            self.assertEqual(result['action'], 'block')
+            self.assertEqual(result['message'], expected)
+            self.assertFalse(result['continue_to_response'])
+            self.assertNotIn('results', result)
+            route.assert_not_called()
 
     def test_http_uses_turn_schema_and_preserves_retry_idempotency(self):
         updates = [turn(['side_effects']), turn(medicines=[product('Example', '650')],

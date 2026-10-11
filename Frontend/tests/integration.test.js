@@ -31,7 +31,7 @@ test('clarification, blocked responses and errors show messages and H/G disclaim
     assert.match(html, /Please specify the medicine/);
     assert.match(html, /Please consult a doctor/);
   }
-  assert.equal(render({ action: 'block', reason: 'schedule_x', message: null }), '');
+  assert.match(render({ action: 'block', reason: 'schedule_x', message: 'Please consult a doctor.' }), /Please consult a doctor/);
 });
 
 test('uses, side effects and general health render independently without raw HTML injection', () => {

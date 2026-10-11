@@ -2,7 +2,6 @@ import MedicineSandbox from '../MedicineSandbox';
 import { config } from '../config';
 
 export default function ResponseMessage({ result, onSelect, choicesDisabled = true }) {
-  if (result.action === 'block' && result.reason === 'schedule_x') return null;
   const shown = new Set();
   return <>
     {result.disclaimer && <p className="response-disclaimer" role="note">{result.disclaimer}</p>}

@@ -24,10 +24,12 @@ def check_safety(extraction: Extraction) -> dict:
     resolved = [(medicine, find_medicine(medicine)) for medicine in extraction.medicines]
 
     # Schedule X takes precedence even over blocked intents or clarification.
-    # The action is block, but no message/content is sent for this category.
+    # Return a direct message without exposing medicine data or running handlers.
     if any(normalize(row.get("regulatory", "")) == CONSTANTS["regulatory"]["restricted_category"]
            for _, matches in resolved for row in matches):
-        return make_result("block", "schedule_x")
+        message = next((message for intent, message in BLOCKED_INTENTS.items()
+                        if intent in intents), DOCTOR_DISCLAIMER)
+        return make_result("block", "schedule_x", message)
 
     needs_disclaimer = any(
         normalize(row.get("regulatory", "")) in set(CONSTANTS["regulatory"]["disclaimer_categories"])

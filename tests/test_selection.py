@@ -92,7 +92,7 @@ class SelectionTests(unittest.TestCase):
         with patch('backend.services.price.get_prices') as prices:
             selected = self.client.post('/api/select', json=payload).json()['result']
         self.assertEqual(selected['reason'], 'schedule_x')
-        self.assertIsNone(selected['message'])
+        self.assertEqual(selected['message'], 'Please consult a doctor.')
         prices.assert_not_called()
 
     def test_selection_replaces_only_unresolved_medicine(self):

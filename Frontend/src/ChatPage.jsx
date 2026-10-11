@@ -49,10 +49,8 @@ function ChatPage() {
       session.current = body.session_id;
       const result = body.result;
       activeOffer.current = result.action === 'clarify' ? result.selection_offer || null : null;
-      if (!(result.action === 'block' && result.reason === 'schedule_x')) {
-        setMessages((previous) => [...previous, { id: crypto.randomUUID(), role: 'assistant',
-          result, retry: result.action === 'error' ? { question, requestId, selection } : null }]);
-      }
+      setMessages((previous) => [...previous, { id: crypto.randomUUID(), role: 'assistant',
+        result, retry: result.action === 'error' ? { question, requestId, selection } : null }]);
     } catch (error) {
       if (currentGeneration !== generation.current || controller.signal.aborted) return;
       setMessages((previous) => [...previous, { id: crypto.randomUUID(), role: 'assistant',

@@ -131,7 +131,8 @@ schema; it is not evidence that the server is unreachable.
 
 - Schedule X is checked first in `backend/safety/safety_guard.py`, including
   mixed or ambiguous requests. It returns `action="block"`, `reason="schedule_x"`,
-  and `message=null`; the CLI shows no response for this case.
+  and a direct message: the configured blocked-intent message when applicable,
+  otherwise `Please consult a doctor.` No response handlers run.
 - Prescribing, prescription-status, diagnosis, interaction, usage instructions,
   availability, and unrelated intents are blocked after the Schedule X check,
   including mixed requests. Clarification does not affect their blocking.
@@ -219,9 +220,9 @@ The regulatory category comes from the dataset. Schedule H and Schedule G
 responses include a top-level `disclaimer`: `Please consult a doctor.` The
 frontend must display this with the response data. If any requested medicine
 matches Schedule X, the entire request returns a `block` action with `reason="schedule_x"`
-with no message or results, and no downstream service runs. The CLI prints
-nothing for that request; the HTTP/frontend layer also honors this
-action and reason. The Schedule X check runs before intent blocking and clarification.
+with a direct message and no results, and no downstream service runs. The CLI
+and frontend display the configured blocked-intent message when applicable, or
+`Please consult a doctor.` for otherwise supported requests. The Schedule X check runs before intent blocking and clarification.
 Safety attaches H/G disclaimers to its messages and response routing retains them
 on final data responses; included H/G substitutes also trigger the disclaimer.
 
@@ -288,7 +289,7 @@ computed from missing composition, unknown pack quantities, or conditional
 prices. A composition match is a dataset comparison, not medical interchangeability.
 
 The frontend displays quotes, conditions and missing prices, preserves H/G
-disclaimers, and silently suppresses Schedule X responses. Maximum savings
+disclaimers, and displays the direct Schedule X blocking message. Maximum savings
 is omitted; eligible per-pharmacy, per-unit savings remain.
 
 `examples/price_response.json` contains an actual observed response for Augmentin
@@ -333,7 +334,7 @@ verify Ollama or pharmacy connectivity. Production hosting needs to forward
 anonymous session on New chat, handles block/clarify/error/response separately,
 and waits for the server to complete safety checks and routing. No raw extraction
 or internal `continue` result is sent to the frontend. Schedule X returns a
-control result with no message or medicine details and renders no assistant reply.
+blocking message without medicine details; the frontend renders this direct reply.
 
 Conversation state is shared by `backend/services/conversation.py` and the CLI.
 `backend/services/sessions.py` keeps bounded, expiring in-memory sessions and

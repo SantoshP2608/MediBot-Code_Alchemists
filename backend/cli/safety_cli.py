@@ -26,6 +26,7 @@ def main():
 
         extraction, result = process_message(state, message)
         if result["action"] == "block" and result["reason"] == "schedule_x":
+            print(result['message'])
             continue
         if extraction is not None:
             print(CONSTANTS["cli"]["extraction_heading"])

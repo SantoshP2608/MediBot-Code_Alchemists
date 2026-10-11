@@ -194,10 +194,10 @@ test('failed medicine selections retry the same selection payload', async () => 
   assert.equal(container.querySelectorAll('.message-row.user').length, 2);
 });
 
-test('blocked messages render, Schedule X stays silent, and comparisons use the response renderer', async () => {
+test('blocked messages render, Schedule X shows a direct message, and comparisons use the response renderer', async () => {
   const results = [
     { action: 'block', reason: 'availability', message: 'Availability is not supported.' },
-    { action: 'block', reason: 'schedule_x', message: null },
+    { action: 'block', reason: 'schedule_x', message: 'Please consult a doctor.' },
     { action: 'response', results: [{ intent: 'price_comparison', status: 'ok', data: [{
       original: { medicine: 'Example Tablet', regulatory: 'OTC', composition: [], prices: { quotes: [] } },
       alternatives: [],
@@ -209,7 +209,8 @@ test('blocked messages render, Schedule X stays silent, and comparisons use the 
   assert.ok(container.textContent.includes('Availability is not supported.'));
   const assistantCount = container.querySelectorAll('.message-row.assistant').length;
   await clickSend('Restricted medicine');
-  assert.equal(container.querySelectorAll('.message-row.assistant').length, assistantCount);
+  assert.equal(container.querySelectorAll('.message-row.assistant').length, assistantCount + 1);
+  assert.ok(container.textContent.includes('Please consult a doctor.'));
   assert.equal(container.querySelector('[role="status"]'), null);
   await clickSend('Compare Example prices');
   assert.ok(container.querySelector('.medicine-sandbox'));

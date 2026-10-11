@@ -68,7 +68,7 @@ class BackendFlowTests(unittest.TestCase):
         self.assertIn("Example effect", output.getvalue())
         self.assertIn('"action": "block"', output.getvalue())
 
-    def test_cli_prints_no_extraction_or_response_for_x(self):
+    def test_cli_prints_direct_message_without_extraction_or_data_for_x(self):
         database = (("example 650 tablet", {"name": "Example 650 Tablet", "regulatory": "Schedule X"}),)
         output = io.StringIO()
         with patch("builtins.input", side_effect=["Example side effects", "exit"]), \
@@ -77,6 +77,7 @@ class BackendFlowTests(unittest.TestCase):
             main()
         self.assertNotIn("EXTRACTION:", output.getvalue())
         self.assertNotIn("RESULT:", output.getvalue())
+        self.assertIn("Please consult a doctor.", output.getvalue())
 
     def test_cli_returns_error_when_extraction_fails(self):
         output = io.StringIO()

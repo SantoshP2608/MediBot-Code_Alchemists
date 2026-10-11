@@ -24,7 +24,7 @@ class SafetyTests(unittest.TestCase):
                 result = check_safety(request(intent, clarify=True))
                 self.assertEqual(result["action"], "block")
                 self.assertEqual(result["reason"], "schedule_x")
-                self.assertIsNone(result["message"])
+                self.assertEqual(result["message"], BLOCKED_INTENTS.get(intent, "Please consult a doctor."))
                 self.assertNotIn("resolved_medicines", result)
                 self.assertFalse(result["continue_to_response"])
 

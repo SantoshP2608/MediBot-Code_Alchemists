@@ -105,7 +105,7 @@ def handle_response(
     """Return block/clarify immediately, otherwise dispatch every requested intent.
 
     All mentioned medicines are checked against the database before dispatch.
-    The safety stage blocks Schedule X without a message. Schedule H/G adds a disclaimer.
+    The safety stage returns a direct blocking message for Schedule X. Schedule H/G adds a disclaimer.
     The regulatory label is read from the dataset, not inferred by the model.
     """
     safety_result = check_safety(extraction)

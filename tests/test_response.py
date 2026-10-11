@@ -2,7 +2,7 @@ import unittest
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
-from backend.models.schemas import Extraction
+from backend.models.schemas import BLOCKED_INTENTS, Extraction
 from backend.services.response import normalize, handle_response
 
 
@@ -121,7 +121,7 @@ class ResponseTests(unittest.TestCase):
                     result = handle_response(request([intent]))
                 self.assertEqual(result["action"], "block")
                 self.assertEqual(result["reason"], "schedule_x")
-                self.assertIsNone(result["message"])
+                self.assertEqual(result["message"], BLOCKED_INTENTS.get(intent, "Please consult a doctor."))
                 self.assertNotIn("results", result)
                 service.assert_not_called()
 

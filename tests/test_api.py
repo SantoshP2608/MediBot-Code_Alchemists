@@ -86,7 +86,7 @@ class ApiTests(unittest.TestCase):
                 if schedule == 'Schedule X':
                     self.assertEqual(result['action'], 'block')
                     self.assertEqual(result['reason'], 'schedule_x')
-                    self.assertIsNone(result['message'])
+                    self.assertEqual(result['message'], 'Please consult a doctor.')
                     self.assertNotIn('results', result)
                 else:
                     self.assertEqual(result['action'], 'response')

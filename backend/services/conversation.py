@@ -140,15 +140,17 @@ def process_message(state, message, selected_medicine=None):
         if missing_intent:
             safety = check_safety(extraction)
             if safety['reason'] == 'schedule_x':
-                result = safety
+                result = safety | {'message': CONSTANTS['regulatory']['doctor_disclaimer']}
             else:
                 result = make_result('clarify', 'missing_intent',
                                      extraction.clarification_question or CONSTANTS['messages']['missing_intent'])
                 if safety.get('disclaimer'):
                     result['disclaimer'] = safety['disclaimer']
         else:
-            result = handle_response(extraction, effective_message,
-                                     [] if new_request else state.previous_messages)
+            result = check_safety(extraction)
+            if result['action'] == 'continue':
+                result = handle_response(extraction, effective_message,
+                                         [] if new_request else state.previous_messages)
         if result['action'] == 'clarify':
             question = result['message']
             same = (not new_request and state.pending_extraction is not None
