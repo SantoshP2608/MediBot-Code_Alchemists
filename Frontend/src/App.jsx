@@ -21,7 +21,7 @@ function App() {
       <div className="chat-page-background">
         <div className="home-back-bar">
           <button type="button" onClick={goHome}>
-            ← Back to home
+            Back to home
           </button>
         </div>
 
