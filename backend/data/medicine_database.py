@@ -24,6 +24,24 @@ def load_database() -> tuple[tuple[str, dict], ...]:
     return tuple((normalize(record["name"]), record) for record in records)
 
 
+def product_name_aliases(key: str) -> set[str]:
+    """Recognize a brand or brand/form while leaving product choice unresolved."""
+    words = key.split()
+    forms = set(CONSTANTS['matching']['forms']) | {'infusion', 'solution', 'ointment'}
+    brand = []
+    for word in words:
+        if word.isdigit() or word in forms:
+            break
+        brand.append(word)
+    aliases = set()
+    if brand and len(' '.join(brand)) >= 3:
+        aliases.add(' '.join(brand))
+        # A formulation can be supplied without the intervening strength.
+        without_strength = re.sub(r'\b\d+(?:\s+(?:mg|mcg|g|ml|iu))?\b', '', key)
+        aliases.add(' '.join(without_strength.split()))
+    return aliases
+
+
 def find_medicine(medicine: Medicine) -> list[dict]:
     name = normalize(medicine.name)
     if not name:
@@ -45,6 +63,9 @@ def find_medicine(medicine: Medicine) -> list[dict]:
     if not matches:
         matches = [record for key, record in records
                    if key.startswith(name + " ") and matches_strength(record)]
+    if not matches:
+        matches = [record for key, record in records
+                   if name in product_name_aliases(key) and matches_strength(record)]
     unique = []
     for record in matches:
         if record not in unique:
@@ -64,7 +85,8 @@ def suggest_products(medicine: Medicine) -> list[dict]:
     for key, record in load_database():
         composition = record.get('composition', [])
         ingredient_match = any(normalize(item.get('drug', '')) == name for item in composition)
-        if not ((' ' + name + ' ') in (' ' + key + ' ') or ingredient_match):
+        if not (key == name or key.startswith(name + ' ') or ingredient_match
+                or name in product_name_aliases(key)):
             continue
         if normalize(record.get('regulatory', '')) not in allowed:
             continue
@@ -105,6 +127,10 @@ def explicit_medicine_mentions(message: str) -> list[Medicine]:
             spans.setdefault(' '.join(words[start:end]), []).append((start, end))
     found = {}
     for key, record in load_database():
+        for alias in product_name_aliases(key):
+            if alias in spans:
+                for start, end in spans[alias]:
+                    found.setdefault((start, end), alias)
         if key in spans:
             for start, end in spans[key]:
                 found[(start, end)] = record['name']

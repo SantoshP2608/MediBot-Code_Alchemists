@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 
 from backend.api.app import create_app
 from backend.data.medicine_database import explicit_medicine_mentions, normalize, suggest_products
-from backend.models.schemas import Extraction, Medicine
+from backend.models.schemas import Extraction, Medicine, TurnUpdate
 
 
 def record(name, drugs=None, category='OTC'):
@@ -144,6 +144,65 @@ class SelectionTests(unittest.TestCase):
                          [('Paracetamol', '500mg'), ('Zed 500 Tablet', None)])
         self.assertEqual(explicit_medicine_mentions('Price of unparacetamol'), [])
         self.assertEqual(explicit_medicine_mentions('Price of something for fever'), [])
+
+    def add_dolo(self):
+        self.rows.extend([record('Dolo 500 Tablet'), record('Dolo 650 Tablet'),
+                          record('Dolo 250 Suspension')])
+
+    def test_price_of_dolo_offers_clickable_choices_when_model_omits_brand(self):
+        self.add_dolo()
+        empty = TurnUpdate(relation='new_request', intent_operation='replace', intents=['price_comparison'],
+                           medicine_operation='replace', medicines=[], unresolved_question=None)
+        with patch('backend.services.conversation.extract_query', return_value=empty):
+            result = self.client.post('/api/chat', json={'message': 'price of dolo',
+                'session_id': self.session, 'request_id': str(uuid4())}).json()['result']
+        self.assertEqual(result['reason'], 'ambiguous_medicine')
+        names = [row['name'] for row in result['medicine_choices']]
+        self.assertIn('Dolo 500 Tablet', names)
+        self.assertIn('Dolo 650 Tablet', names)
+        with patch('backend.services.price.get_prices', return_value=[]), \
+                patch('backend.services.conversation.extract_query') as model:
+            selected = self.client.post('/api/select', json=self.selection_payload(result)).json()['result']
+        self.assertEqual(selected['results'][0]['intent'], 'price_comparison')
+        model.assert_not_called()
+
+    def test_dolo_tablet_matches_across_omitted_strength_and_excludes_suspension(self):
+        self.add_dolo()
+        self.rows.append(record('Nvm Dolo Tablet SR'))
+        result = self.chat(medicines=[Medicine(name='Dolo tablet', strength=None)], text='Price of Dolo tablet')
+        self.assertEqual(result['reason'], 'ambiguous_medicine')
+        self.assertEqual({row['name'] for row in result['medicine_choices']},
+                         {'Dolo 500 Tablet', 'Dolo 650 Tablet'})
+
+    def test_model_clarification_does_not_hide_product_choices(self):
+        self.add_dolo()
+        extraction = Extraction(medicines=[Medicine(name='Dolo', strength=None)],
+                                intents=['price_comparison'], needs_clarification=True,
+                                clarification_question='Which medicine?')
+        with patch('backend.services.conversation.extract_query', return_value=extraction):
+            result = self.client.post('/api/chat', json={'message': 'Price of Dolo',
+                'session_id': self.session, 'request_id': str(uuid4())}).json()['result']
+        self.assertTrue(result['medicine_choices'])
+
+    def test_selecting_product_without_intent_preserves_it_while_asking_for_intent(self):
+        self.add_dolo()
+        update = TurnUpdate(relation='new_request', intent_operation='keep', intents=[],
+                            medicine_operation='replace', medicines=[Medicine(name='Dolo tablet', strength=None)],
+                            unresolved_question=None)
+        with patch('backend.services.conversation.extract_query', return_value=update):
+            result = self.client.post('/api/chat', json={'message': 'Dolo tablet',
+                'session_id': self.session, 'request_id': str(uuid4())}).json()['result']
+        selected = self.client.post('/api/select', json=self.selection_payload(result)).json()['result']
+        self.assertEqual(selected['reason'], 'missing_intent')
+        self.assertNotIn('medicine_choices', selected)
+        update = update.model_copy(update={'relation': 'continuation', 'intent_operation': 'replace',
+                                          'intents': ['price_comparison'], 'medicine_operation': 'keep', 'medicines': []})
+        with patch('backend.services.conversation.extract_query', return_value=update), \
+                patch('backend.services.price.get_prices', return_value=[]):
+            answer = self.client.post('/api/chat', json={'message': 'Prices',
+                'session_id': self.session, 'request_id': str(uuid4())}).json()['result']
+        self.assertEqual(answer['results'][0]['intent'], 'price_comparison')
+        self.assertEqual(answer['results'][0]['data'][0]['original']['medicine'], 'Dolo 500 Tablet')
 
 
 if __name__ == '__main__':

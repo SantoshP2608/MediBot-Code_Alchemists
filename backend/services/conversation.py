@@ -43,7 +43,8 @@ def offer_products(state, extraction, result):
     state.selection_offer = None
     state.selection_choices = {}
     state.selection_medicine_index = None
-    if result['reason'] not in {'ambiguous_medicine', 'medicine_not_found'}:
+    if result['reason'] not in {'ambiguous_medicine', 'medicine_not_found',
+                                'ambiguous_request', 'missing_intent'}:
         return
     for index, medicine in enumerate(extraction.medicines):
         if len(find_medicine(medicine)) == 1:
@@ -113,7 +114,7 @@ def process_message(state, message, selected_medicine=None):
                                    clarification_question=state.clarification_question,
                                    pending_state=pending_state)
         new_request = isinstance(turn, TurnUpdate) and turn.relation == 'new_request'
-        missing_intent = False
+        missing_intent = state.missing_intent if selected_medicine is not None else False
         if isinstance(turn, TurnUpdate):
             extraction, missing_intent = resolve_turn(turn, state.pending_extraction, state.missing_intent)
             # A supplied product is validated by the database, not by repeating
@@ -129,8 +130,8 @@ def process_message(state, message, selected_medicine=None):
         else:
             extraction = turn
         if (selected_medicine is None and not extraction.medicines
-                and set(extraction.intents).intersection({
-                    'price_comparison', 'alternative_search', 'side_effects', 'uses_of_medicine'})):
+                and (missing_intent or set(extraction.intents).intersection({
+                    'price_comparison', 'alternative_search', 'side_effects', 'uses_of_medicine'}))):
             mentions = explicit_medicine_mentions(message)
             if mentions:
                 extraction = Extraction(**(extraction.model_dump() | {'medicines': mentions}))

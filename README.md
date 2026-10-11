@@ -182,7 +182,10 @@ with restricted, unverified, or conflicting regulatory/database records are omit
 Users can still type an exact product if it is not among the displayed choices.
 If extraction omits every medicine from a medicine-specific request, the backend
 also checks the latest message for literal database product and ingredient names.
-This fallback preserves stated strengths and does not infer a medicine from symptoms.
+This fallback also recognizes short brands such as `Dolo` and brand/form requests
+such as `Dolo tablet` with an omitted strength. It preserves stated strengths and
+does not infer a medicine from symptoms. Product choices can appear during intent
+clarification too; selecting a product retains it while the missing intent is requested.
 
 The frontend sends a choice to `POST /api/select` with `session_id`, `request_id`,
 `product_id`, and `selection_offer`. IDs are bound to that session's current
