@@ -18,14 +18,14 @@
     "other"
   ],
   "blocked_intents": {
-    "prescribing_request": "I cannot prescribe medicines. Please consult your doctor.",
+    "prescribing_request": "Choosing the right medicine depends on your health, medical history, and other medications you may take. I can't recommend a personalized treatment or advise you to start or stop a medicine, but I can explain the general uses, benefits, and risks of a specific medicine. A doctor or pharmacist can help you decide what's appropriate for you.",
     "prescription_status": "Please consult your doctor or pharmacist about prescription requirements.",
-    "diagnosis_request": "I cannot diagnose medical conditions. Please consult your doctor.",
+    "diagnosis_request": "I can help you understand medicines, but I can't diagnose a condition or determine what's causing your symptoms. A qualified healthcare professional can assess your symptoms and recommend appropriate care. If you're experiencing severe or sudden symptoms, such as chest pain or difficulty breathing, seek emergency medical care. If you'd like, I can also explain the general uses and precautions of a specific medicine.",
     "interaction_check": "Please consult your doctor or pharmacist before combining medicines.",
-    "usage_information": "I cannot prescribe the usage.Please consult a doctor. ",
-    "availability": "Sorry, I couldn't fetch this data .",
-    "other": "I am a medibot and I can only answer to the questions related to medicines."
-  },
+    "usage_information": "The right dose depends on the medicine and individual circumstances. For your safety, please follow the instructions on the medicine's label or leaflet, or ask a doctor or pharmacist if you're unsure. This is especially important for children, older adults, pregnancy, and people with existing health conditions. If you share the medicine's name and strength, I can help explain its general label instructions.",
+    "availability": "Sorry, I couldn't fetch this data.",
+    "other": "I'm here to help with medicines and medication-related questions. You can ask me about a medicine's uses, side effects, precautions, or available alternatives. What would you like to know?"
+  }
   "regulatory": {
     "allowed_categories": [
       "otc",
@@ -250,7 +250,7 @@
     ]
   },
   "frontend": {
-    "welcome": "Hi! I'm Chitti, your medical assistant. Ask me about medicines, their uses and side effects, or compare prices. How can I help you today?",
+    "welcome": "I'm MediBot, here to help you understand medicines and their safe use. I provide general medication information, not medical diagnoses or personalized treatment. My responses aren't a substitute for advice from a qualified doctor or pharmacist. If you're unsure about a medicine, please check with a healthcare professional.",
     "loading": "Preparing your answer...",
     "network_error": "Could not reach MediBot. Check the connection and try again.",
     "timeout_error": "This request took too long. You can retry it.",
