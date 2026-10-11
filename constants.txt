@@ -259,5 +259,19 @@
     "price_unavailable": "Price unavailable",
     "no_alternatives": "No verified alternatives are listed in the database.",
     "no_quotes": "No pharmacy prices were found."
+  },
+  "clarification_intent_replies": {
+    "price": "price_comparison",
+    "prices": "price_comparison",
+    "price comparison": "price_comparison",
+    "compare prices": "price_comparison",
+    "cost": "price_comparison",
+    "use": "uses_of_medicine",
+    "uses": "uses_of_medicine",
+    "side effect": "side_effects",
+    "side effects": "side_effects",
+    "alternative": "alternative_search",
+    "alternatives": "alternative_search",
+    "cheaper alternatives": "alternative_search"
   }
 }

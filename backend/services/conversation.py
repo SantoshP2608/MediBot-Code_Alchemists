@@ -79,7 +79,7 @@ def resolve_turn(turn, pending, pending_missing_intent=False):
     """Merge intent operations deterministically; revalidate medicines downstream."""
     related = turn.relation == 'continuation' and pending is not None
     intents = list(pending.intents) if related and not pending_missing_intent else []
-    if turn.intent_operation == 'replace' or not related:
+    if turn.intent_operation == 'replace' or not related or pending_missing_intent:
         intents = list(turn.intents)
     elif turn.intent_operation == 'add':
         intents = list(dict.fromkeys(intents + turn.intents))
@@ -92,6 +92,18 @@ def resolve_turn(turn, pending, pending_missing_intent=False):
                       needs_clarification=bool(question), clarification_question=question), not intents
 
 
+def explicit_intent_reply(state, message):
+    """Accept exact menu answers only while an intent clarification is pending."""
+    if not state.missing_intent or state.pending_extraction is None:
+        return None
+    reply = ' '.join(message.casefold().split()).strip(' .!?')
+    intent = CONSTANTS['clarification_intent_replies'].get(reply)
+    if intent is None:
+        return None
+    return TurnUpdate(relation='continuation', intent_operation='replace', intents=[intent],
+                      medicine_operation='keep', medicines=[], unresolved_question=None)
+
+
 def process_message(state, message, selected_medicine=None):
     extraction = None
     try:
@@ -102,12 +114,15 @@ def process_message(state, message, selected_medicine=None):
             }
             if state.missing_intent:
                 pending_state['intents'] = []
+        intent_reply = explicit_intent_reply(state, message)
         if selected_medicine is not None:
             medicines = list(state.pending_extraction.medicines)
             medicines[state.selection_medicine_index] = selected_medicine
             turn = Extraction(**(state.pending_extraction.model_dump() | {
                 'medicines': medicines, 'needs_clarification': False, 'clarification_question': None,
             }))
+        elif intent_reply is not None:
+            turn = intent_reply
         else:
             turn = extract_query(message, previous_messages=state.previous_messages,
                                    pending_request=state.pending_request,
