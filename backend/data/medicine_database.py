@@ -92,3 +92,36 @@ def suggest_products(medicine: Medicine) -> list[dict]:
             if len(verified) >= CONSTANTS['routing']['candidate_limit']:
                 break
     return verified
+
+
+def explicit_medicine_mentions(message: str) -> list[Medicine]:
+    """Recover literal database product/ingredient mentions, never infer from symptoms."""
+    words = normalize(message).split()
+    spans = {}
+    for start in range(len(words)):
+        # Bound phrase lengths so long user messages cannot allocate a quadratic
+        # number of large strings. This is a literal-name fallback only.
+        for end in range(start + 1, min(start + 32, len(words)) + 1):
+            spans.setdefault(' '.join(words[start:end]), []).append((start, end))
+    found = {}
+    for key, record in load_database():
+        if key in spans:
+            for start, end in spans[key]:
+                found[(start, end)] = record['name']
+        for ingredient in record.get('composition', []):
+            name = normalize(ingredient.get('drug', ''))
+            if name in spans:
+                for start, end in spans[name]:
+                    found.setdefault((start, end), ingredient['drug'])
+    # Prefer an exact product over an ingredient occurring inside that product.
+    chosen = []
+    for (start, end), name in sorted(found.items(), key=lambda row: (-(row[0][1] - row[0][0]), row[0][0])):
+        if any(start < other_end and end > other_start for other_start, other_end, _ in chosen):
+            continue
+        strength = None
+        if end < len(words) and words[end].isdigit():
+            strength = words[end]
+            if end + 1 < len(words) and words[end + 1] in {'mg', 'mcg', 'g', 'ml', 'iu'}:
+                strength += words[end + 1]
+        chosen.append((start, end, Medicine(name=name, strength=strength)))
+    return [medicine for _, _, medicine in sorted(chosen, key=lambda row: row[0])]

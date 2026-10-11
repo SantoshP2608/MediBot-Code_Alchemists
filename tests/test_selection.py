@@ -5,7 +5,7 @@ from uuid import uuid4
 from fastapi.testclient import TestClient
 
 from backend.api.app import create_app
-from backend.data.medicine_database import normalize, suggest_products
+from backend.data.medicine_database import explicit_medicine_mentions, normalize, suggest_products
 from backend.models.schemas import Extraction, Medicine
 
 
@@ -114,6 +114,36 @@ class SelectionTests(unittest.TestCase):
         result = self.chat()
         self.chat(['other'], text='Forget it')
         self.assertEqual(self.client.post('/api/select', json=self.selection_payload(result)).status_code, 409)
+
+    def test_model_omission_still_offers_products_for_literal_ingredient(self):
+        empty = Extraction(medicines=[], intents=['price_comparison'],
+                           needs_clarification=False, clarification_question=None)
+        with patch('backend.services.conversation.extract_query', return_value=empty):
+            result = self.client.post('/api/chat', json={'message': 'Price of paracetamol',
+                'session_id': self.session, 'request_id': str(uuid4())}).json()['result']
+        self.assertEqual(result['action'], 'clarify')
+        self.assertTrue(result['medicine_choices'])
+        self.assertNotEqual(result['reason'], 'missing_medicine')
+
+    def test_screenshot_query_recovers_exact_product_and_keeps_price_intent(self):
+        self.rows.append(record('Paracetamol Tablet'))
+        empty = Extraction(medicines=[], intents=['price_comparison'],
+                           needs_clarification=False, clarification_question=None)
+        with patch('backend.services.conversation.extract_query', return_value=empty), \
+                patch('backend.services.price.get_prices', return_value=[]):
+            result = self.client.post('/api/chat', json={
+                'message': 'price comparison of paracetamol tablet',
+                'session_id': self.session, 'request_id': str(uuid4())}).json()['result']
+        self.assertEqual(result['action'], 'response')
+        self.assertEqual(result['results'][0]['intent'], 'price_comparison')
+        self.assertEqual(result['results'][0]['data'][0]['original']['medicine'], 'Paracetamol Tablet')
+
+    def test_literal_recovery_preserves_strength_and_multiple_mentions_without_substrings(self):
+        mentions = explicit_medicine_mentions('Compare paracetamol 500mg and Zed 500 Tablet prices')
+        self.assertEqual([(m.name, m.strength) for m in mentions],
+                         [('Paracetamol', '500mg'), ('Zed 500 Tablet', None)])
+        self.assertEqual(explicit_medicine_mentions('Price of unparacetamol'), [])
+        self.assertEqual(explicit_medicine_mentions('Price of something for fever'), [])
 
 
 if __name__ == '__main__':

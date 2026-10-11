@@ -6,7 +6,7 @@ from uuid import uuid4
 from backend.config.settings import CONSTANTS
 from backend.llm.extractor import extract_turn as extract_query
 from backend.models.schemas import BLOCKED_INTENTS, Extraction, Medicine, TurnUpdate
-from backend.data.medicine_database import find_medicine, suggest_products
+from backend.data.medicine_database import explicit_medicine_mentions, find_medicine, suggest_products
 from backend.services.response import handle_response
 from backend.safety.safety_guard import check_safety, make_result
 
@@ -128,6 +128,12 @@ def process_message(state, message, selected_medicine=None):
                 }))
         else:
             extraction = turn
+        if (selected_medicine is None and not extraction.medicines
+                and set(extraction.intents).intersection({
+                    'price_comparison', 'alternative_search', 'side_effects', 'uses_of_medicine'})):
+            mentions = explicit_medicine_mentions(message)
+            if mentions:
+                extraction = Extraction(**(extraction.model_dump() | {'medicines': mentions}))
         effective_message = message
         if not new_request and state.pending_request:
             effective_message = state.pending_request + '\nClarification reply: ' + message

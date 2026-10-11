@@ -179,6 +179,9 @@ products first, and label combinations with their additional ingredients. Within
 those groups, matching product names precede ingredient-only matches. Products
 with restricted, unverified, or conflicting regulatory/database records are omitted.
 Users can still type an exact product if it is not among the displayed choices.
+If extraction omits every medicine from a medicine-specific request, the backend
+also checks the latest message for literal database product and ingredient names.
+This fallback preserves stated strengths and does not infer a medicine from symptoms.
 
 The frontend sends a choice to `POST /api/select` with `session_id`, `request_id`,
 `product_id`, and `selection_offer`. IDs are bound to that session's current
