@@ -173,6 +173,11 @@ complete request. Missing regulatory data returns an error that requires a datas
 correction. Completing or blocking a request clears pending state; failed model
 or service calls preserve it for retry. A medicine supplied without an intent asks
 what information the user wants.
+While that intent question is pending, exact replies such as `prices`, `uses`,
+`side effects`, and `alternatives` fill the intent directly, preserving the medicine
+without another extraction call. The reply aliases are in
+`clarification_intent_replies` in `constants.txt`. Longer or mixed requests still
+use model extraction, and all replies pass the existing safety checks.
 
 Ambiguous or unmatched medicines now offer up to ten clickable database products.
 Choices search product names and exact ingredient names, put single-ingredient

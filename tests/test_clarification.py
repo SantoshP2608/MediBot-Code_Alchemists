@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
 
 from backend.api.app import create_app
 from backend.models.schemas import TurnUpdate
-from backend.services.conversation import Conversation, process_message
+from backend.services.conversation import Conversation, process_message, resolve_turn
 
 
 def turn(intents=None, medicines=None, relation='new_request',
@@ -207,6 +207,83 @@ class ClarificationTests(unittest.TestCase):
         self.assertEqual(chat.call_args.kwargs['format'], TurnUpdate.model_json_schema())
         context = json.loads(chat.call_args.kwargs['messages'][1]['content'])
         self.assertEqual(context['pending_state']['intents'], ['side_effects'])
+
+    def test_menu_answers_fill_missing_intent_without_model_and_retain_medicine(self):
+        for reply, intent in [(' PRICES! ', 'price_comparison'), ('uses', 'uses_of_medicine'),
+                              ('side effects', 'side_effects'), ('alternatives', 'alternative_search')]:
+            with self.subTest(reply=reply):
+                self.state = Conversation()
+                self.send('Example 650', turn(medicines=[product('Example', '650')]))
+                with patch('backend.services.conversation.extract_query') as model, \
+                        patch('backend.services.price.get_prices', return_value=[]):
+                    extraction, result = process_message(self.state, reply)
+                model.assert_not_called()
+                self.assertEqual(result['action'], 'response')
+                self.assertEqual(result['results'][0]['intent'], intent)
+                self.assertEqual(extraction.medicines[0].name, 'Example')
+                self.assertEqual(extraction.medicines[0].strength, '650')
+                self.assertIsNone(self.state.pending_extraction)
+
+    def test_keep_operation_accepts_model_intent_when_none_was_stored(self):
+        self.send('Example 650', turn(medicines=[product('Example', '650')]))
+        update = turn(['price_comparison'], relation='continuation',
+                      intent_operation='keep', medicine_operation='keep')
+        extraction, missing = resolve_turn(update, self.state.pending_extraction, True)
+        self.assertFalse(missing)
+        self.assertEqual(extraction.intents, ['price_comparison'])
+        self.assertEqual(extraction.medicines[0].strength, '650')
+
+    def test_mixed_or_negated_reply_still_uses_model_and_blocking_rules(self):
+        for message in ['Not prices; how do I take it?', 'Prices and dosage']:
+            with self.subTest(message=message):
+                self.state = Conversation()
+                self.send('Example 650', turn(medicines=[product('Example', '650')]))
+                with patch('backend.services.conversation.extract_query', return_value=turn(
+                        ['price_comparison', 'usage_information'], relation='continuation',
+                        medicine_operation='keep')) as model, \
+                        patch('backend.services.conversation.handle_response') as handler:
+                    _, result = process_message(self.state, message)
+                model.assert_called_once()
+                handler.assert_not_called()
+                self.assertEqual(result['action'], 'block')
+
+    def test_short_intent_reply_without_pending_task_still_uses_model(self):
+        with patch('backend.services.conversation.extract_query', return_value=turn(['price_comparison'])) as model:
+            _, result = process_message(self.state, 'prices')
+        model.assert_called_once()
+        self.assertEqual(result['reason'], 'missing_medicine')
+
+    def test_short_intent_reply_still_runs_schedule_x_check(self):
+        self.send('Example 650', turn(medicines=[product('Example', '650')]))
+        with patch('backend.data.medicine_database.load_database', return_value=(
+                ('example 650 tablet', {'name': 'Example 650 Tablet', 'regulatory': 'Schedule X'}),)), \
+                patch('backend.services.conversation.extract_query') as model, \
+                patch('backend.services.conversation.handle_response') as handler:
+            _, result = process_message(self.state, 'prices')
+        model.assert_not_called()
+        handler.assert_not_called()
+        self.assertEqual(result['reason'], 'schedule_x')
+        self.assertEqual(result['message'], 'Please consult a doctor.')
+
+    def test_dolo_then_prices_through_http_does_not_repeat_question(self):
+        client = TestClient(create_app())
+        session = str(uuid4())
+        initial = turn(medicines=[product('Dolo 650 Tablet')])
+        with patch('backend.data.medicine_database.load_database', return_value=(
+                ('dolo 650 tablet', {'name': 'Dolo 650 Tablet', 'regulatory': 'OTC'}),)), \
+                patch('backend.services.conversation.extract_query', return_value=initial) as model, \
+                patch('backend.services.price.get_prices', return_value=[]) as prices:
+            first = client.post('/api/chat', json={'message': 'dolo 650 tablets',
+                'session_id': session, 'request_id': str(uuid4())}).json()['result']
+            payload = {'message': 'prices', 'session_id': session, 'request_id': str(uuid4())}
+            second = client.post('/api/chat', json=payload)
+            retry = client.post('/api/chat', json=payload)
+        self.assertEqual(first['reason'], 'missing_intent')
+        self.assertEqual(second.json()['result']['action'], 'response')
+        self.assertEqual(second.json()['result']['results'][0]['intent'], 'price_comparison')
+        self.assertEqual(second.json(), retry.json())
+        model.assert_called_once()
+        prices.assert_called_once()
 
 
 if __name__ == '__main__':
