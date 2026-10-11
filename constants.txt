@@ -203,7 +203,9 @@
     "session_capacity": "MediBot is busy. Please try again shortly.",
     "missing_intent": "What would you like to know about this medicine: its uses, side effects, prices, or alternatives?",
     "clarification_no_progress": "I still couldn't resolve the missing information. {question} You can also start a new request.",
-    "clarification_stalled": "I couldn't resolve this request after repeated clarification. Please start again with your question and the full product name, including strength if needed."
+    "clarification_stalled": "I couldn't resolve this request after repeated clarification. Please start again with your question and the full product name, including strength if needed.",
+    "select_medicine": "Choose the exact product below to continue your request. Single-ingredient products are shown first; combination products contain additional ingredients.",
+    "stale_selection": "These medicine choices are no longer active. Please use the choices from your latest request."
   },
   "patterns": {
     "remove_pack_prefix": "(?:strip|pack|bottle)\\s+of\\s+\\d+\\s*",

@@ -50,3 +50,45 @@ def find_medicine(medicine: Medicine) -> list[dict]:
         if record not in unique:
             unique.append(record)
     return unique
+
+
+def suggest_products(medicine: Medicine) -> list[dict]:
+    """Find selectable products by product name or exact ingredient name."""
+    name = normalize(medicine.name)
+    if not name:
+        return []
+    strength = normalize(medicine.strength or '')
+    allowed = set(CONSTANTS['regulatory']['allowed_categories'])
+    suggestions = []
+    seen = set()
+    for key, record in load_database():
+        composition = record.get('composition', [])
+        ingredient_match = any(normalize(item.get('drug', '')) == name for item in composition)
+        if not ((' ' + name + ' ') in (' ' + key + ' ') or ingredient_match):
+            continue
+        if normalize(record.get('regulatory', '')) not in allowed:
+            continue
+        if strength:
+            values = [normalize(item.get('strength') or '') for item in composition]
+            if not ((' ' + strength + ' ') in (' ' + key + ' ') or
+                    any(value == strength or (strength.isdigit() and value.split()[:1] == [strength])
+                        for value in values)):
+                continue
+        if record['name'] in seen:
+            continue
+        seen.add(record['name'])
+        suggestions.append(record)
+    # Single-ingredient products precede combinations; stable alphabetical order.
+    suggestions.sort(key=lambda row: (
+        len(row.get('composition', [])) != 1,
+        (' ' + name + ' ') not in (' ' + normalize(row['name']) + ' '),
+        normalize(row['name']),
+    ))
+    # Exact selections must not resolve to conflicting database records.
+    verified = []
+    for row in suggestions:
+        if len(find_medicine(Medicine(name=row['name'], strength=None))) == 1:
+            verified.append(row)
+            if len(verified) >= CONSTANTS['routing']['candidate_limit']:
+                break
+    return verified

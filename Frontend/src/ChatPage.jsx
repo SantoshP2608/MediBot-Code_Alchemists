@@ -19,6 +19,7 @@ function ChatPage() {
   const session = useRef(null);
   const generation = useRef(0);
   const inflight = useRef(null);
+  const activeOffer = useRef(null);
 
   useEffect(() => {
     messagesEnd.current?.scrollIntoView({ behavior: "smooth" });
@@ -29,29 +30,33 @@ function ChatPage() {
     inflight.current?.abort();
   }, []);
 
-  async function ask(question, requestId, retryId) {
+  async function ask(question, requestId, retryId, selection = null) {
     if (inflight.current) return;
     if (!session.current) session.current = crypto.randomUUID();
     const currentGeneration = generation.current;
     const controller = new AbortController();
     inflight.current = controller;
+    activeOffer.current = null;
     setLoading(true);
     setMessages((previous) => retryId ? previous.filter((item) => item.id !== retryId)
       : [...previous, { id: requestId, role: 'user', text: question }]);
     try {
-      const body = await sendMessage({ message: question, session_id: session.current,
-        request_id: requestId }, controller.signal);
+      const payload = selection
+        ? { ...selection, session_id: session.current, request_id: requestId }
+        : { message: question, session_id: session.current, request_id: requestId };
+      const body = await sendMessage(payload, controller.signal, selection ? 'select' : 'chat');
       if (currentGeneration !== generation.current) return;
       session.current = body.session_id;
       const result = body.result;
+      activeOffer.current = result.action === 'clarify' ? result.selection_offer || null : null;
       if (!(result.action === 'block' && result.reason === 'schedule_x')) {
         setMessages((previous) => [...previous, { id: crypto.randomUUID(), role: 'assistant',
-          result, retry: result.action === 'error' ? { question, requestId } : null }]);
+          result, retry: result.action === 'error' ? { question, requestId, selection } : null }]);
       }
     } catch (error) {
       if (currentGeneration !== generation.current || controller.signal.aborted) return;
       setMessages((previous) => [...previous, { id: crypto.randomUUID(), role: 'assistant',
-        text: error.message, retry: { question, requestId } }]);
+        text: error.message, retry: { question, requestId, selection } }]);
     } finally {
       if (currentGeneration === generation.current) {
         inflight.current = null;
@@ -85,6 +90,7 @@ function ChatPage() {
     inflight.current?.abort();
     inflight.current = null;
     session.current = crypto.randomUUID();
+    activeOffer.current = null;
     setLoading(false);
     setMessages([welcome]);
     setInput("");
@@ -176,10 +182,16 @@ function ChatPage() {
                 </div>
 
                 {message.text && <p>{message.text}</p>}
-                {message.result && <ResponseMessage result={message.result} />}
+                {message.result && <ResponseMessage result={message.result}
+                  choicesDisabled={loading || !accepted || activeOffer.current !== message.result.selection_offer}
+                  onSelect={(item, offer) => {
+                    if (offer !== activeOffer.current) return;
+                    ask(item.name, crypto.randomUUID(), null,
+                      { product_id: item.product_id, selection_offer: offer });
+                  }} />}
                 {message.retry && <button className="retry-button" type="button"
                   disabled={loading || !accepted}
-                  onClick={() => ask(message.retry.question, message.retry.requestId, message.id)}>
+                  onClick={() => ask(message.retry.question, message.retry.requestId, message.id, message.retry.selection)}>
                   Retry
                 </button>}
               </div>

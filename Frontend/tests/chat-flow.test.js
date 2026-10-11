@@ -143,6 +143,57 @@ test('Retry reuses request IDs, renders the recovered response, and does not dup
   assert.ok(!container.textContent.includes(config.network_error));
 });
 
+test('clicking a medicine submits its ID and disables old choices after an intent change', async () => {
+  const calls = [];
+  const choice = (offer) => ({ action: 'clarify', message: 'Choose a product', selection_offer: offer,
+    medicine_choices: [{ product_id: `${offer}-product`, name: 'Example 500 Tablet', combination: false,
+      composition: [{ drug: 'Paracetamol', strength: '500mg' }] },
+    { product_id: `${offer}-combo`, name: 'Example Plus', combination: true,
+      composition: [{ drug: 'Paracetamol', strength: '500mg' }, { drug: 'Other', strength: '100mg' }] }] });
+  globalThis.fetch = async (url, options) => {
+    const payload = JSON.parse(options.body);
+    calls.push({ url, payload });
+    return response(payload, calls.length < 3 ? choice(`offer-${calls.length}`) : answer('Selected result'));
+  };
+  await acceptDisclaimer();
+  await clickSend('Price of paracetamol');
+  assert.ok(container.textContent.includes('Paracetamol 500mg'));
+  assert.ok(container.textContent.includes('Combination product'));
+  assert.equal(container.querySelector('.medicine-choice').disabled, false);
+  await clickSend('Side effects instead');
+  const buttons = container.querySelectorAll('.medicine-choice');
+  assert.equal(buttons[0].disabled, true);
+  assert.equal(buttons[2].disabled, false);
+  await act(async () => buttons[2].click());
+  assert.equal(calls[2].url, `${config.apiPrefix}/select`);
+  assert.equal(calls[2].payload.product_id, 'offer-2-product');
+  assert.equal(calls[2].payload.selection_offer, 'offer-2');
+  assert.equal(calls[2].payload.message, undefined);
+  assert.equal(calls[2].payload.session_id, calls[0].payload.session_id);
+  assert.ok(container.textContent.includes('Selected result'));
+  assert.ok([...container.querySelectorAll('.medicine-choice')].every((button) => button.disabled));
+});
+
+test('failed medicine selections retry the same selection payload', async () => {
+  const calls = [];
+  globalThis.fetch = async (url, options) => {
+    const payload = JSON.parse(options.body);
+    calls.push({ url, payload });
+    if (calls.length === 1) return response(payload, { action: 'clarify', selection_offer: 'offer',
+      medicine_choices: [{ product_id: 'product', name: 'Example Tablet', composition: [] }] });
+    if (calls.length === 2) throw new TypeError('Network error');
+    return response(payload, answer('Recovered selection'));
+  };
+  await acceptDisclaimer();
+  await clickSend('Price of paracetamol');
+  await act(async () => container.querySelector('.medicine-choice').click());
+  await act(async () => container.querySelector('.retry-button').click());
+  assert.deepEqual(calls[2], calls[1]);
+  assert.equal(calls[2].url, `${config.apiPrefix}/select`);
+  assert.ok(container.textContent.includes('Recovered selection'));
+  assert.equal(container.querySelectorAll('.message-row.user').length, 2);
+});
+
 test('blocked messages render, Schedule X stays silent, and comparisons use the response renderer', async () => {
   const results = [
     { action: 'block', reason: 'availability', message: 'Availability is not supported.' },

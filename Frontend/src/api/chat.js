@@ -1,6 +1,6 @@
 import { config } from '../config';
 
-export async function sendMessage(payload, signal) {
+export async function sendMessage(payload, signal, endpoint = 'chat') {
   const controller = new AbortController();
   let timedOut = false;
   const abort = () => controller.abort();
@@ -8,7 +8,7 @@ export async function sendMessage(payload, signal) {
   if (signal.aborted) abort();
   const timer = setTimeout(() => { timedOut = true; controller.abort(); }, config.requestTimeoutMs);
   try {
-    const response = await fetch(`${config.apiPrefix}/chat`, {
+    const response = await fetch(`${config.apiPrefix}/${endpoint}`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload), signal: controller.signal,
     });

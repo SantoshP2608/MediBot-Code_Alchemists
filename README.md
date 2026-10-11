@@ -173,6 +173,20 @@ correction. Completing or blocking a request clears pending state; failed model
 or service calls preserve it for retry. A medicine supplied without an intent asks
 what information the user wants.
 
+Ambiguous or unmatched medicines now offer up to ten clickable database products.
+Choices search product names and exact ingredient names, put single-ingredient
+products first, and label combinations with their additional ingredients. Within
+those groups, matching product names precede ingredient-only matches. Products
+with restricted, unverified, or conflicting regulatory/database records are omitted.
+Users can still type an exact product if it is not among the displayed choices.
+
+The frontend sends a choice to `POST /api/select` with `session_id`, `request_id`,
+`product_id`, and `selection_offer`. IDs are bound to that session's current
+clarification. The backend replaces only the unresolved medicine, retains the
+active intents, and runs the normal safety checks and response routing without
+another extraction call. Successful selection retries return the cached response.
+Changing the task invalidates earlier offers; previous buttons become inactive.
+
 | Intent | Handler |
 | --- | --- |
 | `price_comparison` | Fetch prices for the original medicine and its verified substitutes |

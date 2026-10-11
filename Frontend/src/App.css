@@ -534,3 +534,47 @@
     transform: none !important;
   }
 }
+
+.medicine-choices {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.medicine-choice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 12px 16px;
+  border: 1px solid #9acfdc;
+  border-radius: 12px;
+  background: #fff;
+  color: #17435e;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.medicine-choice span {
+  font-size: 0.85rem;
+}
+
+.medicine-choice:hover:not(:disabled),
+.medicine-choice:focus-visible {
+  background: #eaf8fc;
+  outline: 2px solid #008ca9;
+  outline-offset: 2px;
+}
+
+.medicine-choice:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.medicine-choice .combination-label {
+  color: #76510a;
+  background: #fff3cf;
+  padding: 2px 7px;
+  border-radius: 5px;
+}

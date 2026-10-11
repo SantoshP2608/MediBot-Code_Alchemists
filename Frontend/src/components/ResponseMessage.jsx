@@ -1,13 +1,23 @@
 import MedicineSandbox from '../MedicineSandbox';
 import { config } from '../config';
 
-export default function ResponseMessage({ result }) {
+export default function ResponseMessage({ result, onSelect, choicesDisabled = true }) {
   if (result.action === 'block' && result.reason === 'schedule_x') return null;
   const shown = new Set();
   return <>
     {result.disclaimer && <p className="response-disclaimer" role="note">{result.disclaimer}</p>}
     {result.message && <p>{result.message}</p>}
-    {result.candidates?.length > 0 && <ul>{result.candidates.map((item, index) =>
+    {result.medicine_choices?.length > 0 && <div className="medicine-choices">
+      {result.medicine_choices.map((item) => <button type="button" className="medicine-choice"
+        key={item.product_id} disabled={choicesDisabled}
+        onClick={() => onSelect?.(item, result.selection_offer)}>
+        <strong>{item.name}</strong>
+        <span>{item.composition?.map((ingredient) =>
+          `${ingredient.drug} ${ingredient.strength || ''}`.trim()).join(' + ')}</span>
+        {item.combination && <span className="combination-label">Combination product</span>}
+      </button>)}
+    </div>}
+    {!result.medicine_choices?.length && result.candidates?.length > 0 && <ul>{result.candidates.map((item, index) =>
       <li key={index}>{typeof item === 'string' ? item : item.name}</li>)}</ul>}
     {result.results?.map((item, index) => {
       if (item.status !== 'ok') return <p key={index}>{item.message || config.no_data}</p>;

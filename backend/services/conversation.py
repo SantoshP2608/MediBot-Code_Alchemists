@@ -1,10 +1,12 @@
 """Conversation processing shared by the CLI and HTTP interface."""
 from dataclasses import dataclass, field
 import logging
+from uuid import uuid4
 
 from backend.config.settings import CONSTANTS
 from backend.llm.extractor import extract_turn as extract_query
-from backend.models.schemas import BLOCKED_INTENTS, Extraction, TurnUpdate
+from backend.models.schemas import BLOCKED_INTENTS, Extraction, Medicine, TurnUpdate
+from backend.data.medicine_database import find_medicine, suggest_products
 from backend.services.response import handle_response
 from backend.safety.safety_guard import check_safety, make_result
 
@@ -21,6 +23,9 @@ class Conversation:
     candidates: list[str] = field(default_factory=list)
     clarification_repeats: int = 0
     missing_intent: bool = False
+    selection_offer: str | None = None
+    selection_choices: dict[str, Medicine] = field(default_factory=dict)
+    selection_medicine_index: int | None = None
 
     def clear_pending(self):
         self.pending_request = self.clarification_question = None
@@ -28,6 +33,45 @@ class Conversation:
         self.candidates = []
         self.clarification_repeats = 0
         self.missing_intent = False
+        self.selection_offer = None
+        self.selection_choices = {}
+        self.selection_medicine_index = None
+
+
+def offer_products(state, extraction, result):
+    """Bind product choices to the current unresolved medicine and task."""
+    state.selection_offer = None
+    state.selection_choices = {}
+    state.selection_medicine_index = None
+    if result['reason'] not in {'ambiguous_medicine', 'medicine_not_found'}:
+        return
+    for index, medicine in enumerate(extraction.medicines):
+        if len(find_medicine(medicine)) == 1:
+            continue
+        records = suggest_products(medicine)
+        if not records:
+            return
+        state.selection_offer = str(uuid4())
+        state.selection_medicine_index = index
+        choices = []
+        for record in records:
+            product_id = str(uuid4())
+            state.selection_choices[product_id] = Medicine(name=record['name'], strength=None)
+            composition = record.get('composition', [])
+            choices.append({'product_id': product_id, 'name': record['name'],
+                            'composition': composition, 'combination': len(composition) > 1})
+        result['selection_offer'] = state.selection_offer
+        result['medicine_choices'] = choices
+        result['message'] = CONSTANTS['messages']['select_medicine']
+        return
+
+
+def process_selection(state, product_id, offer_id):
+    if (not state.pending_extraction or state.selection_offer != offer_id
+            or product_id not in state.selection_choices or state.selection_medicine_index is None):
+        raise ValueError(CONSTANTS['messages']['stale_selection'])
+    medicine = state.selection_choices[product_id]
+    return process_message(state, medicine.name, selected_medicine=medicine)
 
 
 def resolve_turn(turn, pending, pending_missing_intent=False):
@@ -47,7 +91,7 @@ def resolve_turn(turn, pending, pending_missing_intent=False):
                       needs_clarification=bool(question), clarification_question=question), not intents
 
 
-def process_message(state, message):
+def process_message(state, message, selected_medicine=None):
     extraction = None
     try:
         pending_state = None
@@ -57,7 +101,14 @@ def process_message(state, message):
             }
             if state.missing_intent:
                 pending_state['intents'] = []
-        turn = extract_query(message, previous_messages=state.previous_messages,
+        if selected_medicine is not None:
+            medicines = list(state.pending_extraction.medicines)
+            medicines[state.selection_medicine_index] = selected_medicine
+            turn = Extraction(**(state.pending_extraction.model_dump() | {
+                'medicines': medicines, 'needs_clarification': False, 'clarification_question': None,
+            }))
+        else:
+            turn = extract_query(message, previous_messages=state.previous_messages,
                                    pending_request=state.pending_request,
                                    clarification_question=state.clarification_question,
                                    pending_state=pending_state)
@@ -110,6 +161,8 @@ def process_message(state, message):
             state.clarification_question = question
             state.clarification_reason = result['reason']
             state.candidates = result.get('candidates', [])
+            offer_products(state, extraction, result)
+            state.clarification_question = result['message']
             if state.clarification_repeats >= 2:
                 result = make_result('error', 'clarification_stalled',
                                      CONSTANTS['messages']['clarification_stalled']) | {

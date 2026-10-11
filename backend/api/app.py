@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from backend.config.settings import CONSTANTS
-from backend.services.conversation import process_message
+from backend.services.conversation import process_message, process_selection
 from backend.services.sessions import SessionCapacityError, SessionStore
 
 API = CONSTANTS['api']
@@ -31,6 +31,19 @@ class ChatRequest(BaseModel):
         return value
 
 
+class SelectionRequest(BaseModel):
+    model_config = ConfigDict(extra='forbid', strict=True)
+    session_id: UUID
+    request_id: UUID
+    product_id: UUID
+    selection_offer: UUID
+
+    @field_validator('session_id', 'request_id', 'product_id', 'selection_offer', mode='before')
+    @classmethod
+    def parse_uuid(cls, value):
+        return UUID(value) if isinstance(value, str) else value
+
+
 def create_app(store=None):
     application = FastAPI(title=API['title'])
     application.state.sessions = store if store is not None else SessionStore()
@@ -41,8 +54,7 @@ def create_app(store=None):
     def health():
         return {'status': 'ok'}
 
-    @application.post(API['prefix'] + '/chat')
-    def chat(request: ChatRequest, response: Response):
+    def execute(request, response, signature, handler):
         session_id = str(request.session_id or uuid4())
         request_id = str(request.request_id)
         response.headers['Cache-Control'] = 'no-store'
@@ -50,17 +62,30 @@ def create_app(store=None):
             with application.state.sessions.acquire(session_id) as session:
                 if request_id in session.replies:
                     original, result = session.replies[request_id]
-                    if original != request.message:
+                    if original != signature:
                         raise HTTPException(409, CONSTANTS['messages']['request_id_conflict'])
                 else:
-                    _, result = process_message(session.conversation, request.message)
+                    try:
+                        _, result = handler(session.conversation)
+                    except ValueError as error:
+                        raise HTTPException(409, str(error)) from None
                     if result['action'] != 'error':
-                        session.replies[request_id] = (request.message, result)
+                        session.replies[request_id] = (signature, result)
                         while len(session.replies) > API['cached_replies']:
                             session.replies.popitem(last=False)
                 return {'session_id': session_id, 'result': result}
         except SessionCapacityError:
             raise HTTPException(503, CONSTANTS['messages']['session_capacity']) from None
+
+    @application.post(API['prefix'] + '/chat')
+    def chat(request: ChatRequest, response: Response):
+        return execute(request, response, ('chat', request.message),
+                       lambda state: process_message(state, request.message))
+
+    @application.post(API['prefix'] + '/select')
+    def select(request: SelectionRequest, response: Response):
+        return execute(request, response, ('select', str(request.product_id), str(request.selection_offer)),
+                       lambda state: process_selection(state, str(request.product_id), str(request.selection_offer)))
 
     return application
 
