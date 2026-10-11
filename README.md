@@ -158,9 +158,20 @@ The interactive tester calls `backend.services.response.handle_response()`, whic
 the safety check and dispatches only after a `continue` action. It returns blocking or clarification messages immediately;
 otherwise, it returns a `response` action with a `results` list for every intent.
 When a lookup needs clarification, reply with the full product name and strength.
-The CLI retains the pending request and clarification question and passes both
-to the extractor with the next reply. Completing or blocking the
-request clears that pending state.
+The CLI and HTTP server retain the pending intents, medicine details, clarification
+reason, and candidate products. The model returns a structured turn update:
+medicine-only replies keep the intent; `instead` replaces intents; `also` adds
+intents; a separate request replaces the pending task. The backend merges these
+updates and validates the resulting products before dispatch. Strength-only replies
+are interpreted using the stored medicine details. A supplied product is checked
+by the database rather than repeating the previous medicine question.
+
+Repeated clarification without progress first explains the obstacle, then ends
+the pending task after two unsuccessful follow-up replies and asks for a fresh
+complete request. Missing regulatory data returns an error that requires a dataset
+correction. Completing or blocking a request clears pending state; failed model
+or service calls preserve it for retry. A medicine supplied without an intent asks
+what information the user wants.
 
 | Intent | Handler |
 | --- | --- |
@@ -199,7 +210,7 @@ on final data responses; included H/G substitutes also trigger the disclaimer.
 
 Price comparisons and alternative searches omit Schedule X and unverified substitutes before returning
 names or fetching prices. Included H/G substitutes also trigger the disclaimer.
-Unknown regulatory labels request clarification. General-health requests without
+Unknown regulatory labels return a data-verification error. General-health requests without
 medicines need no regulatory lookup. These are application routing rules using
 the dataset labels; they do not authorize dispensing. The HTTP server uses these same routing rules.
 

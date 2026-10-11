@@ -3,7 +3,8 @@ from dataclasses import dataclass, field
 import logging
 
 from backend.config.settings import CONSTANTS
-from backend.llm.extractor import extract_query
+from backend.llm.extractor import extract_turn as extract_query
+from backend.models.schemas import BLOCKED_INTENTS, Extraction, TurnUpdate
 from backend.services.response import handle_response
 from backend.safety.safety_guard import check_safety, make_result
 
@@ -15,20 +16,108 @@ class Conversation:
     previous_messages: list[str] = field(default_factory=list)
     pending_request: str | None = None
     clarification_question: str | None = None
+    pending_extraction: Extraction | None = None
+    clarification_reason: str | None = None
+    candidates: list[str] = field(default_factory=list)
+    clarification_repeats: int = 0
+    missing_intent: bool = False
+
+    def clear_pending(self):
+        self.pending_request = self.clarification_question = None
+        self.pending_extraction = self.clarification_reason = None
+        self.candidates = []
+        self.clarification_repeats = 0
+        self.missing_intent = False
+
+
+def resolve_turn(turn, pending, pending_missing_intent=False):
+    """Merge intent operations deterministically; revalidate medicines downstream."""
+    related = turn.relation == 'continuation' and pending is not None
+    intents = list(pending.intents) if related and not pending_missing_intent else []
+    if turn.intent_operation == 'replace' or not related:
+        intents = list(turn.intents)
+    elif turn.intent_operation == 'add':
+        intents = list(dict.fromkeys(intents + turn.intents))
+    # Never drop newly detected prohibited intents, even if the operation is keep.
+    intents = list(dict.fromkeys(intents + [i for i in turn.intents if i in BLOCKED_INTENTS]))
+    medicines = (pending.medicines + turn.medicines
+                 if related and turn.medicine_operation == 'keep' else turn.medicines)
+    question = (turn.unresolved_question or '').strip() or None
+    return Extraction(medicines=medicines, intents=intents or ['other'],
+                      needs_clarification=bool(question), clarification_question=question), not intents
 
 
 def process_message(state, message):
     extraction = None
     try:
-        extraction = extract_query(message, previous_messages=state.previous_messages,
+        pending_state = None
+        if state.pending_extraction is not None:
+            pending_state = state.pending_extraction.model_dump() | {
+                'reason': state.clarification_reason, 'candidates': state.candidates,
+            }
+            if state.missing_intent:
+                pending_state['intents'] = []
+        turn = extract_query(message, previous_messages=state.previous_messages,
                                    pending_request=state.pending_request,
-                                   clarification_question=state.clarification_question)
-        result = handle_response(extraction, message, state.previous_messages)
-        if result['action'] == 'clarify':
-            state.pending_request = state.pending_request or message
-            state.clarification_question = result['message']
+                                   clarification_question=state.clarification_question,
+                                   pending_state=pending_state)
+        new_request = isinstance(turn, TurnUpdate) and turn.relation == 'new_request'
+        missing_intent = False
+        if isinstance(turn, TurnUpdate):
+            extraction, missing_intent = resolve_turn(turn, state.pending_extraction, state.missing_intent)
+            # A supplied product is validated by the database, not by repeating
+            # the model's old medicine question. Other ambiguity still matters.
+            if (not new_request and turn.intent_operation == 'keep'
+                    and turn.medicine_operation == 'replace' and turn.medicines
+                    and state.clarification_reason in {
+                        'missing_medicine', 'missing_medicine_name',
+                        'medicine_not_found', 'ambiguous_medicine'}):
+                extraction = Extraction(**(extraction.model_dump() | {
+                    'needs_clarification': False, 'clarification_question': None,
+                }))
         else:
-            state.pending_request = state.clarification_question = None
+            extraction = turn
+        effective_message = message
+        if not new_request and state.pending_request:
+            effective_message = state.pending_request + '\nClarification reply: ' + message
+        if missing_intent:
+            safety = check_safety(extraction)
+            if safety['reason'] == 'schedule_x':
+                result = safety
+            else:
+                result = make_result('clarify', 'missing_intent',
+                                     extraction.clarification_question or CONSTANTS['messages']['missing_intent'])
+                if safety.get('disclaimer'):
+                    result['disclaimer'] = safety['disclaimer']
+        else:
+            result = handle_response(extraction, effective_message,
+                                     [] if new_request else state.previous_messages)
+        if result['action'] == 'clarify':
+            question = result['message']
+            same = (not new_request and state.pending_extraction is not None
+                    and state.pending_extraction.medicines == extraction.medicines
+                    and state.pending_extraction.intents == extraction.intents
+                    and state.clarification_reason == result['reason'])
+            state.clarification_repeats = state.clarification_repeats + 1 if same else 0
+            if state.clarification_repeats:
+                result['message'] = CONSTANTS['messages']['clarification_no_progress'].format(
+                    question=result['message'])
+            if new_request or not state.pending_request or (
+                    isinstance(turn, TurnUpdate) and turn.intent_operation != 'keep'):
+                state.pending_request = message
+            state.pending_extraction = extraction
+            state.missing_intent = missing_intent
+            state.clarification_question = question
+            state.clarification_reason = result['reason']
+            state.candidates = result.get('candidates', [])
+            if state.clarification_repeats >= 2:
+                result = make_result('error', 'clarification_stalled',
+                                     CONSTANTS['messages']['clarification_stalled']) | {
+                    key: value for key, value in result.items() if key == 'disclaimer'
+                }
+                state.clear_pending()
+        else:
+            state.clear_pending()
         state.previous_messages = (state.previous_messages + [message])[-CONSTANTS['ollama']['history_limit']:]
         return extraction, result
     except Exception:

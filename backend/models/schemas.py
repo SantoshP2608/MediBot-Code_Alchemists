@@ -21,6 +21,19 @@ class Medicine(BaseModel):
     strength: str | None
 
 
+class TurnUpdate(BaseModel):
+    """Interpret a message; the conversation service owns the accumulated task."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    relation: Literal["new_request", "continuation"]
+    intent_operation: Literal["keep", "replace", "add"]
+    intents: list[Intent]
+    medicine_operation: Literal["keep", "replace"]
+    medicines: list[Medicine]
+    unresolved_question: str | None
+
+
 class Extraction(BaseModel):
     model_config = ConfigDict(extra="forbid")
 

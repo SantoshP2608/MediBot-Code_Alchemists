@@ -3,7 +3,7 @@ import json
 import os
 
 from ollama import Client
-from backend.models.schemas import Extraction, Medicine
+from backend.models.schemas import Extraction, Medicine, TurnUpdate
 
 
 OLLAMA = CONSTANTS["ollama"]
@@ -29,27 +29,46 @@ def extract_query(
         "clarification_question": clarification_question,
     }
 
+    return _extract(payload, Extraction, SYSTEM_PROMPT)
+
+
+def extract_turn(message, previous_messages=None, pending_request=None,
+                 clarification_question=None, pending_state=None) -> TurnUpdate:
+    """Extract explicit task updates without asking the model to merge intents."""
+    payload = {
+        "previous_user_messages": (previous_messages or [])[-OLLAMA["history_limit"]:],
+        "latest_message": message,
+        "pending_request": pending_request,
+        "clarification_question": clarification_question,
+        "pending_state": pending_state,
+    }
+    return _extract(payload, TurnUpdate, CONSTANTS["prompts"]["conversation_turn"])
+
+
+def _extract(payload, schema, prompt):
+    json_schema = schema.model_json_schema()
     response = client.chat(
         model=os.environ.get(OLLAMA["model_env"], OLLAMA["model"]),
         messages=[
             {
                 "role": "system",
-                "content": SYSTEM_PROMPT
-                + OLLAMA["schema_suffix"]
-                + json.dumps(Extraction.model_json_schema()),
+                # Structured output already supplies the turn schema. Avoid
+                # duplicating it in the small local-model context window.
+                "content": prompt if schema is TurnUpdate else (
+                    prompt + OLLAMA["schema_suffix"] + json.dumps(json_schema)),
             },
             {
                 "role": "user",
                 "content": json.dumps(payload),
             },
         ],
-        format=Extraction.model_json_schema(),
+        format=json_schema,
         think=OLLAMA["think"],
         options=dict(OLLAMA["options"]),
         keep_alive=OLLAMA["keep_alive"],
     )
 
-    return Extraction.model_validate_json(response.message.content)
+    return schema.model_validate_json(response.message.content)
 
 
 if __name__ == "__main__":

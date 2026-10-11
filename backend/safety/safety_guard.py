@@ -91,7 +91,7 @@ def check_safety(extraction: Extraction) -> dict:
             output["candidates"] = list(dict.fromkeys(row["name"] for row in matches))[:CONSTANTS["routing"]["candidate_limit"]]
             return output
         if normalize(matches[0].get("regulatory", "")) not in ALLOWED_REGULATORY:
-            return result("clarify", "unknown_regulatory_status",
+            return result("error", "unknown_regulatory_status",
                           CONSTANTS["messages"]["unknown_regulatory_status"])
         medicines.append(matches[0])
 
