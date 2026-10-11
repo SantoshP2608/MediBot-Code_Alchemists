@@ -60,7 +60,7 @@
   min-width: 0;
 }
 
-.brand > div {
+.brand>div {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -209,7 +209,7 @@
   color: #075b78;
 }
 
-.message-bubble > p {
+.message-bubble>p {
   margin: 4px 0 0;
   font-size: 14px;
   font-weight: 400;
@@ -505,9 +505,20 @@
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
+
   .message-form button,
   .message-form button svg {
     transition: none;
     transform: none !important;
   }
+}
+
+.chat-thinking {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: fit-content;
+  max-width: 100%;
+  padding: 12px 16px;
+  margin: 8px 0;
 }

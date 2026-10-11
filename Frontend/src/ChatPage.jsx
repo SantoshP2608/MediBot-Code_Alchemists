@@ -3,6 +3,7 @@ import "./App.css";
 import ResponseMessage from "./components/ResponseMessage";
 import { sendMessage } from "./api/chat";
 import { config } from "./config";
+import LatticeLoader from "./components/LatticeLoader";
 
 const welcome = {
   id: "welcome",
@@ -216,7 +217,22 @@ function ChatPage() {
             </div>
           ))}
 
-          {loading && <p className="loading-message" role="status">{config.loading}</p>}
+          {loading && (
+            <div className="chat-thinking">
+              <LatticeLoader
+                label="Thinking"
+                status="working"
+                pattern="orbit"
+                grid={3}
+                shape="round"
+                cellSize={6}
+                gap={2}
+                step={90}
+                showTimer={false}
+                glow
+              />
+            </div>
+          )}
           <div ref={messagesEnd} />
         </div>
 
