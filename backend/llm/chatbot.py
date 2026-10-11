@@ -5,14 +5,11 @@ from backend.config.settings import CONSTANTS
 import json
 import os
 
-from ollama import Client
-
-
-OLLAMA = CONSTANTS["ollama"]
+from backend.llm.ollama_client import OLLAMA, create_ollama_client
 
 SYSTEM_PROMPT = CONSTANTS["prompts"]["chatbot"]
 
-client = Client(host=os.environ.get(OLLAMA["host_env"], OLLAMA["host"]), timeout=OLLAMA["timeout_seconds"])
+client = create_ollama_client()
 
 
 def get_response(message: str, *, previous_messages: list[str] | None = None) -> str:

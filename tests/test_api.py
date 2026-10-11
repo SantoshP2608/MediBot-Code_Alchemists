@@ -1,5 +1,6 @@
 import unittest
 from concurrent.futures import ThreadPoolExecutor
+import os
 from threading import Event
 from unittest.mock import patch
 from uuid import uuid4
@@ -35,6 +36,22 @@ class ApiTests(unittest.TestCase):
             self.assertEqual(self.client.post('/api/chat', json={'message': 'ok',
                 'request_id': str(uuid4()), 'intents': ['general_health']}).status_code, 422)
         model.assert_not_called()
+
+    def test_proxy_token_protects_chat_and_selection_but_not_health(self):
+        with patch.dict(os.environ, {'MEDIBOT_API_TOKEN': 'test-api-token'}):
+            client = TestClient(create_app())
+        self.assertEqual(client.get('/api/health').status_code, 200)
+        request = {'message': 'Question', 'request_id': str(uuid4())}
+        with patch('backend.services.conversation.extract_query') as model:
+            self.assertEqual(client.post('/api/chat', json=request).status_code, 401)
+            self.assertEqual(client.post('/api/select', json={}).status_code, 401)
+        model.assert_not_called()
+        with patch('backend.services.conversation.extract_query',
+                   return_value=extraction(intents=['availability'])) as model:
+            response = client.post('/api/chat', json=request,
+                                   headers={'Authorization': 'Bearer test-api-token'})
+        self.assertEqual(response.status_code, 200)
+        model.assert_called_once()
 
     def test_clarification_preserves_context_and_sessions_are_isolated(self):
         with patch('backend.services.conversation.extract_query', side_effect=[

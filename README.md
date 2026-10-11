@@ -374,6 +374,31 @@ at http://127.0.0.1:8000. `GET /api/health` is a server liveness check; it does 
 verify Ollama or pharmacy connectivity. Production hosting needs to forward
 `/api` to this backend on the same origin.
 
+## Vercel and Render deployment
+
+The repository includes `render.yaml` for the Python API and
+`Frontend/vercel.json` for the Vercel API function. Set Vercel's project root to
+`Frontend`, with `MEDIBOT_BACKEND_URL` set to the Render service's HTTPS origin
+and `MEDIBOT_API_TOKEN` set to the same random secret configured on Render.
+Generate the secret locally with
+`python -c "import secrets; print(secrets.token_urlsafe(32))"` and enter it in
+both providers without committing it.
+The Vercel function forwards only chat, selection, and health requests; the
+secret is not included in frontend assets. The free function limit is 60 seconds,
+so slower model replies may time out.
+The proxy itself remains publicly callable for this no-sign-in demo; the shared
+token prevents direct unauthenticated calls to Render, but does not provide
+visitor-level access control or rate limiting.
+
+The Render service also requires `OLLAMA_HOST` and `OLLAMA_HEADERS`. Use a
+securely authenticated tunnel from the computer running Ollama; do not expose
+Ollama's unauthenticated port directly to the internet. For example, an
+authenticated tunnel can use Cloudflare Access service-token headers, stored
+in Render as a JSON object in `OLLAMA_HEADERS`. Keep those credentials private.
+The Render API token and Ollama tunnel credentials are separate secrets.
+The Blueprint uses Render Free: services sleep when idle, and the 102 MB medicine
+dataset plus browser-based price lookup may exceed its available memory.
+
 `POST /api/chat` accepts `message`, a UUID `request_id`, and an optional UUID
 `session_id`. It returns `{session_id, result}`. The frontend creates a fresh
 anonymous session on New chat, handles block/clarify/error/response separately,

@@ -1,7 +1,10 @@
+import hmac
+import os
 from uuid import UUID, uuid4
 
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from backend.config.settings import CONSTANTS
@@ -49,6 +52,17 @@ def create_app(store=None):
     application.state.sessions = store if store is not None else SessionStore()
     application.add_middleware(CORSMiddleware, allow_origins=API['cors_origins'],
                                allow_methods=['GET', 'POST'], allow_headers=['Content-Type'])
+    api_token = os.environ.get('MEDIBOT_API_TOKEN')
+
+    @application.middleware('http')
+    async def authenticate_proxy(request, call_next):
+        if api_token is not None and request.url.path in (
+                API['prefix'] + '/chat', API['prefix'] + '/select'):
+            authorization = request.headers.get('authorization', '')
+            expected = f'Bearer {api_token}'
+            if not hmac.compare_digest(authorization.encode(), expected.encode()):
+                return JSONResponse(status_code=401, content={'detail': 'Unauthorized'})
+        return await call_next(request)
 
     @application.get(API['prefix'] + '/health')
     def health():

@@ -2,18 +2,13 @@ from backend.config.settings import CONSTANTS
 import json
 import os
 
-from ollama import Client
 from backend.models.schemas import Extraction, Medicine, TurnUpdate
+from backend.llm.ollama_client import OLLAMA, create_ollama_client
 
-
-OLLAMA = CONSTANTS["ollama"]
 
 SYSTEM_PROMPT = CONSTANTS["prompts"]["extractor"]
 
-client = Client(
-    host=os.environ.get(OLLAMA["host_env"], OLLAMA["host"]),
-    timeout=OLLAMA["timeout_seconds"],
-)
+client = create_ollama_client()
 
 
 def extract_query(
