@@ -237,7 +237,7 @@ function ChatPage() {
                 glow={false}
                 glowColor=""
                 showTimer
-                color="#f5f5f5"
+                color="#89878B"
               />
             </div>
           )}
