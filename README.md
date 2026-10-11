@@ -310,8 +310,16 @@ computed from missing composition, unknown pack quantities, or conditional
 prices. A composition match is a dataset comparison, not medical interchangeability.
 
 The frontend displays quotes, conditions and missing prices, preserves H/G
-disclaimers, and displays the direct Schedule X blocking message. Maximum savings
-is omitted; eligible per-pharmacy, per-unit savings remain.
+disclaimers, and displays the direct Schedule X blocking message. Each comparison
+also returns `max_savings`: the single largest unconditional percentage discount
+across the original and matching alternatives at all quoted pharmacies. It uses
+`(MRP - price) / MRP * 100` with the selected quote's own pack MRP, and includes
+the medicine, pharmacy, price, MRP, amount saved, pack size, and source link.
+Alternatives must match ingredients, strengths, dosage form and release markers.
+Missing/invalid MRPs and conditional offers are excluded; no eligible discount
+returns `null` and hides the card. Exact ties retain the first quote. This ranks
+discount percentages, not lowest unit cost; delivery fees are excluded. Existing
+per-pharmacy, per-unit savings remain.
 
 `examples/price_response.json` contains an actual observed response for Augmentin
 with both price and alternative intents. Its prices are a dated reference for

@@ -7,7 +7,7 @@ from backend.services.price import (
     PageData, checked_url, get_prices, money, pack_details, pharmacy_quotes,
     product_identity, read_netmeds, read_pharmeasy, read_structured_offers, read_tata1mg,
 )
-from backend.services.response import build_price_comparison
+from backend.services.response import build_price_comparison, maximum_savings
 
 
 def state_page(state, next_data=False):
@@ -18,6 +18,38 @@ def state_page(state, next_data=False):
 
 
 class PriceTests(unittest.TestCase):
+    def test_max_savings_searches_original_and_matching_alternatives_across_pharmacies(self):
+        original = {"name": "Original Tablet", "composition": [{"drug": "Example", "strength": "500mg"}]}
+        alternative = {**original, "name": "Alternative Tablet"}
+        wrong_form = {**original, "name": "Alternative Capsule"}
+        wrong_strength = {**original, "name": "Weaker Tablet", "composition": [{"drug": "Example", "strength": "250mg"}]}
+        def quote(pharmacy, price, mrp):
+            return {"status": "ok", "pharmacy": pharmacy, "price": price, "mrp": mrp,
+                    "conditional": False, "pack_size": "10 tablets"}
+        prices = {
+            original["name"]: {"quotes": [quote("a", 80, 100), quote("b", 70, 100)]},
+            alternative["name"]: {"quotes": [quote("a", 50, 100), quote("b", 30, 40)]},
+            wrong_form["name"]: {"quotes": [quote("a", 1, 100)]},
+            wrong_strength["name"]: {"quotes": [quote("a", 1, 100)]},
+        }
+        result = build_price_comparison(original, [alternative, wrong_form, wrong_strength], prices)
+        best = result["max_savings"]
+        self.assertEqual((best["medicine"], best["pharmacy"], best["percent"], best["amount"]),
+                         ("Alternative Tablet", "a", 50, 50))
+        prices[alternative["name"]]["quotes"][0]["conditional"] = True
+        self.assertEqual(build_price_comparison(original, [alternative], prices)["max_savings"]["medicine"], "Original Tablet")
+
+    def test_max_savings_excludes_unusable_quotes_and_handles_ties(self):
+        valid = {"status": "ok", "price": 75, "mrp": 100, "pharmacy": "a"}
+        for changes in ({"mrp": None}, {"mrp": 0}, {"mrp": "NaN"}, {"price": float("inf")},
+                        {"price": True}, {"price": -1}, {"price": 100}, {"price": 101},
+                        {"conditional": True}, {"status": "network_error"}):
+            with self.subTest(changes=changes):
+                self.assertIsNone(maximum_savings([{"medicine": "Example", "prices": {"quotes": [{**valid, **changes}]}}]))
+        products = [{"medicine": "Example", "prices": {"quotes": [valid, {**valid, "pharmacy": "b"}]}}]
+        self.assertEqual(maximum_savings(products)["pharmacy"], "a")
+        self.assertIsNone(maximum_savings([]))
+
     def test_product_matching_does_not_confuse_strength_or_release(self):
         self.assertEqual(product_identity("Augmentin 625 Duo Tablet"),
                          product_identity("Augmentin Duo 625Mg Strip Of 10 Tablets"))

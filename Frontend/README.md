@@ -7,8 +7,13 @@ React + Vite chat connected to the Python backend. Start the backend with
 No sign-in UI or account is required. The chat renders safety messages,
 clarification questions, medicine uses and side effects, general health answers,
 and original/substitute pharmacy quotes. Schedule H/G disclaimers remain visible;
-Schedule X produces no assistant reply. Maximum savings and sample comparisons
-have been removed. Missing prices display as unavailable.
+Schedule X produces the configured direct blocking message. Maximum savings shows
+one highest percentage discount across the original and verified matching alternatives
+at all quoted pharmacies: `(MRP - price) / MRP * 100`, using that quote's own pack MRP.
+Conditional offers, invalid/missing MRPs, and mismatched ingredients, strengths, or
+dosage forms are excluded. Ties keep the first quote; no eligible discount means
+no card. This ranks percentage discounts, not the lowest cost per unit. Missing
+prices display as unavailable.
 
 `vite.config.js` reads the public settings from `../constants.txt` and forwards
 `/api` to the backend. For production, configure the host to proxy `/api` to Python.

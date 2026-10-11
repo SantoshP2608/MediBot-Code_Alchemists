@@ -152,6 +152,19 @@
   gap: 8px;
 }
 
+.max-savings {
+  margin: 20px 0;
+  padding: 18px;
+  border: 1px solid #97d5bd;
+  border-radius: 14px;
+  background: #effbf5;
+  color: #214b65;
+  overflow-wrap: anywhere;
+}
+
+.max-savings h4 { margin-top: 0; }
+.max-savings a { display: inline-block; margin-top: 12px; color: #087596; }
+
 .quote {
   display: block;
   padding: 10px 12px;

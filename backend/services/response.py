@@ -11,7 +11,7 @@ the listed substitutes; this module does not recommend a substitute.
 from backend.config.settings import CONSTANTS
 
 import importlib
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 
 from backend.models.schemas import Extraction, Medicine
 from backend.data.medicine_database import find_medicine, normalize
@@ -73,6 +73,35 @@ def compare_unit_prices(original, alternative):
     return savings
 
 
+def maximum_savings(products):
+    """Select the largest unconditional discount from each quote's own pack MRP."""
+    candidates = []
+    for product in products:
+        for quote in product["prices"].get("quotes", []):
+            if quote.get("status") != "ok" or quote.get("conditional"):
+                continue
+            try:
+                price, mrp = (Decimal(str(quote.get(field))) for field in ("price", "mrp"))
+            except InvalidOperation:
+                continue
+            if not price.is_finite() or not mrp.is_finite() or not 0 < price < mrp:
+                continue
+            percent = (mrp - price) / mrp * 100
+            candidates.append((percent, {
+                "medicine": product["medicine"],
+                "pharmacy": quote.get("pharmacy"),
+                "pharmacy_name": quote.get("pharmacy_name") or quote.get("pharmacy"),
+                "price": float(price), "mrp": float(mrp),
+                "amount": float(round(mrp - price, 2)),
+                "percent": float(round(percent, CONSTANTS["pricing"]["percent_precision"])),
+                "pack_size": quote.get("pack_size"),
+                "product_url": quote.get("product_url"),
+                "search_url": quote.get("search_url"),
+            }))
+    # Stable order breaks exact ties without comparing different pack prices.
+    return max(candidates, key=lambda row: row[0])[1] if candidates else None
+
+
 def build_price_comparison(medicine, substitutes, prices):
     def product(record):
         return {
@@ -81,6 +110,7 @@ def build_price_comparison(medicine, substitutes, prices):
             "prices": prices.get(record["name"], {"medicine": record["name"], "status": "no_prices", "quotes": []}),
         }
     original = product(medicine)
+    eligible_products = [original]
     alternatives = []
     for substitute in substitutes:
         alternative = product(substitute)
@@ -88,10 +118,13 @@ def build_price_comparison(medicine, substitutes, prices):
         matches = signature is not None and signature == composition_signature(substitute)
         alternative["composition_match"] = matches
         comparable = matches and bool(dosage_form(medicine)) and dosage_form(medicine) == dosage_form(substitute)
+        if comparable:
+            eligible_products.append(alternative)
         alternative["savings"] = compare_unit_prices(original["prices"], alternative["prices"]) if comparable else []
         alternatives.append(alternative)
     return {
         "original": original, "alternatives": alternatives,
+        "max_savings": maximum_savings(eligible_products),
         "verified_composition_matches": sum(row["composition_match"] for row in alternatives),
         "note": CONSTANTS["messages"]["composition_match_note"],
     }

@@ -37,6 +37,8 @@ function Quotes({ prices, savings = [] }) {
 
 export default function MedicineSandbox({ data }) {
   const original = data.original;
+  const best = data.max_savings;
+  const bestLink = best && sourceLink(best);
   const composition = original.composition.map((row) =>
     `${row.drug}${row.strength ? ` (${row.strength})` : ''}`).join(' + ');
   return <section className="medicine-sandbox" aria-label="Medicine comparison">
@@ -47,6 +49,16 @@ export default function MedicineSandbox({ data }) {
       <div className="summary-card"><span className="summary-label">ACTIVE COMPOSITION</span>
         <strong>{composition || config.no_data}</strong></div>
     </div>
+    {best && <aside className="max-savings" aria-label="Maximum savings">
+      <h4>Maximum savings · {best.percent}% off MRP</h4>
+      <strong>{best.medicine}</strong>
+      <div>{best.pharmacy_name || best.pharmacy}</div>
+      <p>{money(best.price)} · MRP {money(best.mrp)} · Save {money(best.amount)}</p>
+      {best.pack_size && <div>{best.pack_size}</div>}
+      <p className="sandbox-note">Highest discount from this product’s own MRP among the displayed eligible quotes.
+        This is a price comparison, not a recommendation to switch medicines. Delivery fees are excluded.</p>
+      {bestLink && <a href={bestLink} target="_blank" rel="noopener noreferrer">View best offer</a>}
+    </aside>}
     <h4>Pharmacy prices</h4><Quotes prices={original.prices} />
     <h4>Listed alternatives</h4>
     {!data.alternatives.length ? <p>{config.no_alternatives}</p> :

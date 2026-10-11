@@ -60,6 +60,27 @@ test('actual comparison schema renders once for combined intents with missing pr
   assert.match(html, /View pharmacy/);
 });
 
+test('maximum savings displays one offer with its own MRP and a safe pharmacy link', () => {
+  const data = {
+    original: { medicine: 'Example', composition: [], prices: { quotes: [] } }, alternatives: [],
+    max_savings: { medicine: 'Alternative Tablet', pharmacy_name: 'Pharmacy A', price: 50,
+      mrp: 100, amount: 50, percent: 50, pack_size: '10 tablets', product_url: 'https://pharmeasy.in/example' },
+  };
+  const response = () => render({ action: 'response', results: [{ intent: 'price_comparison', status: 'ok', data: [data] }] });
+  const html = response();
+  assert.match(html, /Maximum savings · 50% off MRP/);
+  assert.match(html, /Alternative Tablet/);
+  assert.match(html, /Pharmacy A/);
+  assert.match(html, /MRP ₹100.00/);
+  assert.match(html, /Save ₹50.00/);
+  assert.match(html, /10 tablets/);
+  assert.match(html, /href="https:\/\/pharmeasy.in\/example"/);
+  data.max_savings.product_url = 'javascript:alert(1)';
+  assert.doesNotMatch(response(), /href="javascript:/);
+  data.max_savings = null;
+  assert.doesNotMatch(response(), /Maximum savings/);
+});
+
 test('empty quotes and alternatives do not invent prices', () => {
   const html = render({ action: 'response', results: [{ intent: 'price_comparison', status: 'ok', data: [{
     original: { medicine: 'Example', composition: [], prices: { quotes: [] } }, alternatives: [],
