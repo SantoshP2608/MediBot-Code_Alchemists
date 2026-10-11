@@ -21,6 +21,14 @@ function Quotes({ prices, savings = [] }) {
       return <div className="quote" key={`${quote.pharmacy}-${index}`}>
         <strong>{quote.pharmacy_name || quote.pharmacy}</strong>
         <div>{quote.status === 'ok' ? money(quote.price) || config.price_unavailable : config.price_unavailable}</div>
+        {quote.status !== 'ok' && <small>{({
+          access_denied: 'Pharmacy restricted automated access',
+          network_error: 'Pharmacy could not be reached',
+          integration_required: 'Online price could not be verified',
+          product_not_found: 'Exact product not found',
+          parse_error: 'Pharmacy page could not be read',
+          price_not_found: 'No public price found',
+        })[quote.status] || 'Price could not be verified'}</small>}
         {money(quote.mrp) && <small>MRP: {money(quote.mrp)}</small>}
         {quote.pack_size && <small>{quote.pack_size}</small>}
         {money(quote.unit_price) && quote.unit && <small>{money(quote.unit_price)} per {quote.unit}</small>}

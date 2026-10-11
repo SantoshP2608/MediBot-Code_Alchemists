@@ -106,7 +106,8 @@
       "name": "Apollo Pharmacy / Apollo 24|7",
       "host": "www.apollopharmacy.in",
       "search": "https://www.apollopharmacy.in/search-medicines?search={query}",
-      "product_path": "/medicine/"
+      "product_path": "/medicine/",
+      "product_paths": ["/medicine/", "/otc/"]
     },
     "pharmeasy": {
       "name": "PharmEasy",

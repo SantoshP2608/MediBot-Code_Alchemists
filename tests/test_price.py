@@ -6,6 +6,7 @@ from unittest.mock import patch
 from backend.services.price import (
     PageData, checked_url, get_prices, money, pack_details, pharmacy_quotes,
     product_identity, read_netmeds, read_pharmeasy, read_structured_offers, read_tata1mg,
+    _product_links,
 )
 from backend.services.response import build_price_comparison, maximum_savings
 
@@ -18,6 +19,42 @@ def state_page(state, next_data=False):
 
 
 class PriceTests(unittest.TestCase):
+    def test_rendered_search_discovers_verified_links_and_reuses_without_caching_prices(self):
+        _product_links.clear()
+        search = '<a href="https://evil.example/medicine/example-650-tablet">bad</a>'
+        rendered = '<div role="link" data-redirect-url="/otc/example-650-tablet-15-s">Example</div>'
+        product = '<script type="application/ld+json">' + json.dumps({
+            '@type': 'Product', 'name': 'Example 650 Tablet',
+            'offers': {'priceCurrency': 'INR', 'price': 75}}) + '</script>'
+        with patch('backend.services.price.fetch_page', side_effect=[search, product, product]) as fetch, \
+                patch('backend.services.pharmacy_browser.render_search', return_value=rendered) as render:
+            first = pharmacy_quotes('Example 650 Tablet', 'apollo', {})
+            second = pharmacy_quotes('Example 650 Tablet', 'apollo', {})
+        self.assertEqual(first[0]['price'], 75)
+        self.assertEqual(second[0]['price'], 75)
+        self.assertEqual(fetch.call_count, 3)
+        render.assert_called_once()
+        self.assertEqual(fetch.call_args.args[0], 'https://www.apollopharmacy.in/otc/example-650-tablet-15-s')
+        _product_links.clear()
+
+    def test_discovery_rejects_wrong_product_even_when_link_matches(self):
+        _product_links.clear()
+        rendered = '<a href="/drugs/example-650-tablet-123">Example</a>'
+        product = '<script type="application/ld+json">' + json.dumps({
+            '@type': 'Product', 'name': 'Example 65 Tablet',
+            'offers': {'priceCurrency': 'INR', 'price': 75}}) + '</script>'
+        with patch('backend.services.price.fetch_page', side_effect=['', product]), \
+                patch('backend.services.pharmacy_browser.render_search', return_value=rendered):
+            self.assertIsNone(pharmacy_quotes('Example 650 Tablet', 'tata1mg', {})[0]['price'])
+        _product_links.clear()
+
+    def test_tata_structured_fallback_skips_malformed_unrelated_script(self):
+        page = PageData('<script type="application/ld+json">broken</script>' +
+            '<script type="application/ld+json">' + json.dumps({
+                '@type': 'Product', 'name': 'Example Tablet',
+                'offers': {'priceCurrency': 'INR', 'price': 50}}) + '</script>')
+        self.assertEqual(read_tata1mg(page, 'https://www.1mg.com/drugs/example-123')[0]['price'], 50)
+
     def test_max_savings_searches_original_and_matching_alternatives_across_pharmacies(self):
         original = {"name": "Original Tablet", "composition": [{"drug": "Example", "strength": "500mg"}]}
         alternative = {**original, "name": "Alternative Tablet"}

@@ -1,4 +1,4 @@
-"""Public pharmacy price readers. No private API, stock checks, or browser needed.
+"""Public pharmacy price readers with optional browser-assisted link discovery.
 
 Prices are public page observations, not checkout quotes. Unreadable pages and
 unmapped products return explicit statuses. Never extract arbitrary numbers
@@ -15,6 +15,9 @@ from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from html import unescape
 from html.parser import HTMLParser
+from collections import OrderedDict
+from threading import Lock
+from time import monotonic
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urljoin, urlparse
 from urllib.request import HTTPRedirectHandler, Request, build_opener
@@ -24,6 +27,43 @@ CATALOGUE_PATH = PROJECT_ROOT / CONSTANTS["paths"]["pharmacy_catalogue"]
 TIMEOUT = CONSTANTS["pricing"]["timeout_seconds"]
 MAX_PAGE_BYTES = CONSTANTS["pricing"]["max_page_bytes"]
 PHARMACIES = CONSTANTS["pharmacies"]
+_product_links = OrderedDict()
+_link_lock = Lock()
+
+
+def discovered_links(name, pharmacy, links=None):
+    """Cache product URLs for an hour, never cache their prices."""
+    key = (name, pharmacy)
+    with _link_lock:
+        if links is not None:
+            _product_links[key] = (monotonic() + (3600 if links else 120), links)
+            _product_links.move_to_end(key)
+            while len(_product_links) > 512:
+                _product_links.popitem(last=False)
+        entry = _product_links.get(key)
+        if entry and entry[0] > monotonic():
+            return entry[1]
+        _product_links.pop(key, None)
+        return None
+
+
+def matching_product_links(page, url, name, pharmacy):
+    links = []
+    for link in page.links:
+        product_url = urljoin(url, link)
+        try:
+            checked_url(product_url, pharmacy)
+        except ValueError:
+            continue
+        path = urlparse(product_url).path
+        source = PHARMACIES[pharmacy]
+        if not path.startswith(tuple(source.get('product_paths', [source['product_path']]))):
+            continue
+        slug = re.sub(CONSTANTS['patterns']['trailing_product_id'], '', path.rsplit('/', 1)[-1])
+        slug = re.sub(r'-(\d+)-s$', r" \1's", slug)
+        if product_identity(slug) == product_identity(name) and product_url not in links:
+            links.append(product_url)
+    return links[:3]
 
 
 def plain_text(value):
@@ -108,6 +148,8 @@ class PageData(HTMLParser):
             self.current = [attrs, ""]
         if tag == "a" and attrs.get("href"):
             self.links.append(attrs["href"])
+        if attrs.get('data-redirect-url'):
+            self.links.append(attrs['data-redirect-url'])
 
     def handle_data(self, data):
         if self.current is not None:
@@ -196,7 +238,7 @@ def read_tata1mg(page, url):
     box = dynamic.get("priceBox", {})
     prices = box.get("priceList", [])
     if not sku.get("name") or not prices:
-        return []
+        return read_structured_offers(page, url)
     selected = next((row for row in prices if row.get("type") == box.get("selected")), prices[0])
     discount = selected.get("discount") or {}
     conditions = []
@@ -215,9 +257,16 @@ def read_structured_offers(page, url):
     for attrs, body in page.scripts:
         if attrs.get("type") != "application/ld+json":
             continue
-        data = json.loads(body)
+        try:
+            data = json.loads(body)
+        except ValueError:
+            continue
+        if not isinstance(data, (dict, list)):
+            continue
         nodes = data if isinstance(data, list) else data.get("@graph", [data])
         for node in nodes:
+            if not isinstance(node, dict):
+                continue
             if node.get("@type") == "MedicalWebPage":
                 node = node.get("mainEntity", {})
             if node.get("@type") not in {"Product", "Drug"}:
@@ -225,6 +274,8 @@ def read_structured_offers(page, url):
             offers = node.get("offers", [])
             offers = offers if isinstance(offers, list) else [offers]
             for offer in offers:
+                if not isinstance(offer, dict):
+                    continue
                 if offer.get("priceCurrency") == CONSTANTS["pricing"]["currency"]:
                     name = node.get("proprietaryName") or node.get("name", "")
                     quotes.append(quote_data(name, url, offer.get("price")))
@@ -243,6 +294,8 @@ def pharmacy_quotes(name, pharmacy, catalogue):
     urls = catalogue.get(name, {}).get(pharmacy, [])
     if isinstance(urls, str):
         urls = [urls]
+    cached = discovered_links(name, pharmacy) if not urls else None
+    urls = urls or cached or []
     if not urls and pharmacy == "medplus":
         return [{**base, "status": "integration_required", "price": None,
                  "message": CONSTANTS["messages"]["medplus_integration_required"]}]
@@ -253,16 +306,26 @@ def pharmacy_quotes(name, pharmacy, catalogue):
             extracted = READERS[pharmacy](page, url)
             # Search pages may provide links but no prices. Fetch one matching
             # product link if its slug clearly matches the full product identity.
-            if not extracted and not urls and pharmacy in {"apollo", "tata1mg"}:
-                for link in page.links:
-                    path = urlparse(link).path
-                    prefix = source["product_path"]
-                    if path.startswith(prefix):
-                        slug = re.sub(CONSTANTS["patterns"]["trailing_product_id"], CONSTANTS["patterns"]["remove_text"], path.rsplit("/", 1)[-1])
-                        if product_identity(slug) == product_identity(name):
-                            product_url = checked_url(urljoin(url, link), pharmacy)
-                            extracted = READERS[pharmacy](PageData(fetch_page(product_url, pharmacy)), product_url)
-                            break
+            if not any(row.get('status') == 'ok' and product_identity(row['product_name']) == product_identity(name)
+                       for row in extracted) and not urls and pharmacy in {"apollo", "tata1mg"}:
+                links = matching_product_links(page, url, name, pharmacy)
+                if not links and cached is None:
+                    from backend.services.pharmacy_browser import render_search
+                    rendered = render_search(url, pharmacy)
+                    if rendered:
+                        links = matching_product_links(PageData(rendered), url, name, pharmacy)
+                verified_links = []
+                for product_url in links:
+                    try:
+                        rows = READERS[pharmacy](PageData(fetch_page(product_url, pharmacy)), product_url)
+                    except (HTTPError, URLError, OSError, ValueError, TypeError, KeyError, AttributeError):
+                        continue
+                    matching = [row for row in rows if product_identity(row['product_name']) == product_identity(name)]
+                    if matching:
+                        verified_links.append(product_url)
+                        extracted.extend(matching)
+                if cached is None:
+                    discovered_links(name, pharmacy, verified_links)
             quotes.extend(row for row in extracted
                           if product_identity(row["product_name"]) == product_identity(name))
         if not quotes:

@@ -76,13 +76,34 @@ def find_medicine(medicine: Medicine) -> list[dict]:
     return unique
 
 
-def is_ingredient_query(medicine: Medicine) -> bool:
-    """An ingredient alone is not a choice of a particular branded product."""
+def ingredient_query_parts(medicine: Medicine):
+    """Recognize ingredient queries with an optional strength and dosage form."""
     name = normalize(medicine.name)
     if not name or any(key == name for key, _ in load_database()):
-        return False
-    return any(normalize(item.get('drug', '')) == name
-               for _, row in load_database() for item in row.get('composition', []))
+        return None
+    form = None
+    words = name.split()
+    forms = set(CONSTANTS['matching']['forms'])
+    if words and words[-1].rstrip('s') in forms:
+        form = words.pop().rstrip('s')
+    name = ' '.join(words)
+    strength = normalize(medicine.strength or '')
+    match = re.fullmatch(r'(.+?) (\d+) (mg|mcg|g|ml|iu)', name)
+    if match:
+        name = match[1]
+        embedded = match[2] + ' ' + match[3]
+        if strength and strength != embedded:
+            return None
+        strength = embedded
+    if any(normalize(item.get('drug', '')) == name
+           for _, row in load_database() for item in row.get('composition', [])):
+        return name, strength, form
+    return None
+
+
+def is_ingredient_query(medicine: Medicine) -> bool:
+    """An ingredient alone is not a choice of a particular branded product."""
+    return ingredient_query_parts(medicine) is not None
 
 
 def suggest_products(medicine: Medicine) -> list[dict]:
@@ -91,20 +112,29 @@ def suggest_products(medicine: Medicine) -> list[dict]:
     if not name:
         return []
     strength = normalize(medicine.strength or '')
+    ingredient = ingredient_query_parts(medicine)
+    form = None
+    if ingredient:
+        name, strength, form = ingredient
     allowed = set(CONSTANTS['regulatory']['allowed_categories'])
     suggestions = []
     seen = set()
     for key, record in load_database():
         composition = record.get('composition', [])
         ingredient_match = any(normalize(item.get('drug', '')) == name for item in composition)
+        if ingredient and not ingredient_match:
+            continue
+        if form and form not in {word.rstrip('s') for word in key.split()}:
+            continue
         if not (key == name or key.startswith(name + ' ') or ingredient_match
                 or name in product_name_aliases(key)):
             continue
         if normalize(record.get('regulatory', '')) not in allowed:
             continue
         if strength:
-            values = [normalize(item.get('strength') or '') for item in composition]
-            if not ((' ' + strength + ' ') in (' ' + key + ' ') or
+            values = [normalize(item.get('strength') or '') for item in composition
+                      if not ingredient or normalize(item.get('drug', '')) == name]
+            if not ((not ingredient and (' ' + strength + ' ') in (' ' + key + ' ')) or
                     any(value == strength or (strength.isdigit() and value.split()[:1] == [strength])
                         for value in values)):
                 continue

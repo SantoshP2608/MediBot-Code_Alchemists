@@ -15,6 +15,22 @@ def record(name, drugs=None, category='OTC'):
 
 
 class SelectionTests(unittest.TestCase):
+    def test_ingredient_uses_and_side_effects_preserve_intent_after_selection(self):
+        for intent, field in [('uses_of_medicine', 'uses'), ('side_effects', 'side_effects')]:
+            result = self.chat([intent], [Medicine(name='Paracetamol 500mg tablets', strength=None)])
+            self.assertEqual(result['reason'], 'ingredient_selection')
+            with patch('backend.services.conversation.extract_query') as model:
+                selected = self.client.post('/api/select', json=self.selection_payload(result)).json()['result']
+            self.assertEqual(selected['results'][0]['intent'], intent)
+            self.assertTrue(selected['results'][0]['data'][0][field])
+            model.assert_not_called()
+
+    def test_ingredient_strength_matches_requested_component_not_other_ingredient(self):
+        self.rows.append(record('Wrong Combination Tablet', [
+            {'drug': 'Paracetamol', 'strength': '250mg'}, {'drug': 'Other', 'strength': '500mg'}]))
+        choices = suggest_products(Medicine(name='Paracetamol 500mg tablets', strength=None))
+        self.assertNotIn('Wrong Combination Tablet', [row['name'] for row in choices])
+
     def setUp(self):
         self.rows = [record('Zed 500 Tablet'), record('Pure 500 Tablet'),
                      record('Alpha Plus Tablet', [{'drug': 'Paracetamol', 'strength': '500mg'},

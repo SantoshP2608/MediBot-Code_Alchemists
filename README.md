@@ -277,11 +277,27 @@ was read, not that it is in stock.
 
 `backend/data/pharmacy_products.json` maps exact database product names to verified
 HTTPS product-page URLs. It contains initial Apollo and Tata 1mg mappings for
-Augmentin 625 Duo and Moxikind-CV 625. Add further names/URLs for those sources
+Augmentin 625 Duo, Moxikind-CV 625, and verified Dolo 650 links. Add further names/URLs for those sources
 as needed. Public search discovery is attempted when there is no mapping, but
-their current search pages may return no server-rendered product data. MedPlus
+their current search pages may return no server-rendered product data. Apollo
+and Tata 1mg now fall back to headless public-page rendering for product links.
+Install the updated `requirements.txt`; by default this uses installed Microsoft
+Edge. On systems without Edge, run `python -m playwright install chromium` and
+set `MEDIBOT_BROWSER_CHANNEL` to an empty string. Set `MEDIBOT_BROWSER_PRICES=0`
+to disable browser discovery. The fallback uses at most two simultaneous browsers,
+bounded navigation waits, and up to three exact matching product links per search.
+Apollo OTC cards and their pack-count URLs are supported. Verified links are
+cached in memory for one hour (failed discovery for two minutes); prices are fetched
+again. Access restrictions remain failures, and exact product identity is checked
+on the destination page. Missing prices show a reason in the UI. MedPlus
 also accepts catalogue URLs if the supplied page exposes a structured offer.
 URLs and redirects must stay on the configured pharmacy domain.
+
+Ingredient requests such as `uses of paracetamol` or `price of paracetamol 500mg
+tablets` offer matching database products. Selecting one retains the requested
+uses, side-effects, or price intent. Strength filters apply to the named ingredient,
+including in combinations; combinations are identified in the choices. A generic
+ingredient does not automatically select an arbitrary brand or formulation.
 
 Try the price reader without Ollama:
 
