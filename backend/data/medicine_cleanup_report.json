@@ -1,0 +1,4443 @@
+{
+  "rule": "Remove a record with missing/blank composition strengths only when a complete-strength record exists under the same normalized name.",
+  "before_count": 246068,
+  "removed_count": 84,
+  "after_count": 245984,
+  "before_sha256": "f26081ae1f2938205b4706052b0270607ed5498907a1ab3001ce69632d7cacf3",
+  "after_sha256": "6c6e33f2e25c300e20279abbe5674624f05ef09f4ef59ffe4bdfc2f837c7ea06",
+  "removed": [
+    {
+      "original_index": 6253,
+      "normalized_name": "a rex drop",
+      "record": {
+        "name": "A Rex Drop",
+        "composition": [
+          {
+            "drug": "Hydroxyzine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Anxiety",
+          "Treatment of Skin conditions with inflammation & itching"
+        ],
+        "side_effects": [
+          "Sedation",
+          "Nausea",
+          "Vomiting",
+          "Upset stomach",
+          "Constipation"
+        ],
+        "substitutes": [
+          "Azon 6mg Drop",
+          "Pru 6mg Drop",
+          "Hydrox 6mg Drop",
+          "Ktrax Drop",
+          "Hynan Drop"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "A Rex Drop",
+          "composition": [
+            {
+              "drug": "Hydroxyzine",
+              "strength": "6mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 6305,
+      "normalized_name": "anadryl syrup",
+      "record": {
+        "name": "Anadryl  Syrup",
+        "composition": [
+          {
+            "drug": "Citric Acid",
+            "strength": null
+          },
+          {
+            "drug": "Diphenhydramine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Cough"
+        ],
+        "side_effects": [
+          "Stomach pain/epigastric pain",
+          "Allergic reaction",
+          "Sleepiness",
+          "Dizziness",
+          "Thickened respiratory tract secretions",
+          "Impaired coordination"
+        ],
+        "substitutes": [
+          "Swidril Syrup",
+          "Decodil Syrup",
+          "Tordryl Syrup",
+          "Excup Syrup",
+          "Dynadril Syrup",
+          "Maxodyl Syrup",
+          "Aldryl Syrup",
+          "Lupihist Plus Syrup",
+          "Histadril Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Anadryl Syrup",
+          "composition": [
+            {
+              "drug": "Ammonium Chloride",
+              "strength": "138mg/5ml"
+            },
+            {
+              "drug": "Sodium Citrate",
+              "strength": "57.03mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 8259,
+      "normalized_name": "avoflox oz tablet",
+      "record": {
+        "name": "Avoflox OZ Tablet",
+        "composition": [
+          {
+            "drug": "Ofloxacin",
+            "strength": null
+          },
+          {
+            "drug": "Ornidazole",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Bacterial & parasitic infections"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Vomiting",
+          "Dizziness",
+          "Headache",
+          "Insomnia (difficulty in sleeping)",
+          "Itching",
+          "Vaginal inflammation",
+          "Diarrhea"
+        ],
+        "substitutes": [
+          "Oflosa O Tablet",
+          "M Cid Tablet",
+          "Zotra OZ Tablet",
+          "Theoflox OZ Tablet",
+          "Xioflo OZ Tablet"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Avoflox-OZ Tablet",
+          "composition": [
+            {
+              "drug": "Ofloxacin",
+              "strength": "200mg"
+            },
+            {
+              "drug": "Ornidazole",
+              "strength": "500mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 13413,
+      "normalized_name": "appcyp syrup",
+      "record": {
+        "name": "Appcyp Syrup",
+        "composition": [
+          {
+            "drug": "Choline",
+            "strength": null
+          },
+          {
+            "drug": "Cyproheptadine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Appetite stimulant"
+        ],
+        "side_effects": [
+          "Constipation",
+          "Dryness in mouth",
+          "Drowsiness",
+          "Sleepiness",
+          "Blurred vision"
+        ],
+        "substitutes": [
+          "Apeton Plus Syrup",
+          "Appegain Syrup",
+          "Episure Syrup",
+          "Cpol Syrup",
+          "Jycyp Syrup",
+          "Grogro Syrup",
+          "Cyperin Syrup",
+          "Peptone Gold Syrup",
+          "Hepsandinn L Syrup",
+          "Pep ON Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Appcyp Syrup",
+          "composition": [
+            {
+              "drug": "Cyproheptadine",
+              "strength": "2mg/5ml"
+            },
+            {
+              "drug": "Tricholine Citrate",
+              "strength": "275mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 16999,
+      "normalized_name": "artemak ab injection",
+      "record": {
+        "name": "Artemak AB Injection",
+        "composition": [
+          {
+            "drug": "Arteether",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Malaria"
+        ],
+        "side_effects": [
+          "Headache",
+          "Weakness",
+          "Dizziness",
+          "Joint pain",
+          "Muscle pain",
+          "Injection site reactions (pain, swelling, redness)"
+        ],
+        "substitutes": [
+          "Unither Injection",
+          "Falcitop Injection",
+          "Wiciparum Injection",
+          "Zyether Injection",
+          "AB AT Injection"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Artemak-AB Injection",
+          "composition": [
+            {
+              "drug": "Alpha-Beta Arteether",
+              "strength": "150mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 26013,
+      "normalized_name": "betacort tablet",
+      "record": {
+        "name": "Betacort Tablet",
+        "composition": [
+          {
+            "drug": "Betamethasone",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Allergic conditions"
+        ],
+        "side_effects": [
+          "Reduction in bone density",
+          "Upset stomach"
+        ],
+        "substitutes": [
+          "Betasone Tablet",
+          "Neobet Tablet",
+          "Betagee Tablet",
+          "Cortomine Tablet",
+          "Zobet Tablet",
+          "Betamine Tablet",
+          "Histacort B 0.5mg Tablet",
+          "Betawin Forte 0.5mg Tablet",
+          "Betawin S 0.5mg Tablet",
+          "Cortil A 0.5mg Tablet"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Betacort Tablet",
+          "composition": [
+            {
+              "drug": "Betamethasone",
+              "strength": "0.5mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 27425,
+      "normalized_name": "broxine syrup",
+      "record": {
+        "name": "Broxine Syrup",
+        "composition": [
+          {
+            "drug": "Bromhexine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Respiratory tract disorders associated with viscid mucus",
+          "Cough"
+        ],
+        "side_effects": [
+          "Irritation of ear",
+          "Allergic skin rash",
+          "Dizziness",
+          "Headache",
+          "Nausea",
+          "Diarrhea",
+          "Vomiting",
+          "Rash",
+          "Tremors",
+          "Increased heart rate",
+          "Upper abdominal pain",
+          "Urticaria",
+          "Itching",
+          "Sweating",
+          "Changes in serum aminotransferase levels",
+          "Bloating",
+          "Indigestion"
+        ],
+        "substitutes": [
+          "Brohex Syrup",
+          "Bisolvon Syrup",
+          "Mucospel Syrup",
+          "Bromex Kid Syrup",
+          "Theosal PD Syrup",
+          "Advanced LCF Kid Expectorant",
+          "Kofide Syrup",
+          "C C Gesic Plus Syrup",
+          "Extus Plus Syrup",
+          "Wifi-S Syrup Sugar Free",
+          "Boom 4mg Syrup"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Broxine Syrup",
+          "composition": [
+            {
+              "drug": "Ambroxol",
+              "strength": "15mg/5ml"
+            },
+            {
+              "drug": "Guaifenesin",
+              "strength": "50mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        },
+        {
+          "name": "Broxine Syrup",
+          "composition": [
+            {
+              "drug": "Ambroxol",
+              "strength": "15mg/5ml"
+            },
+            {
+              "drug": "Guaifenesin",
+              "strength": "50mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        },
+        {
+          "name": "Broxine Syrup",
+          "composition": [
+            {
+              "drug": "Bromhexine",
+              "strength": "4mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 28365,
+      "normalized_name": "brex syrup",
+      "record": {
+        "name": "Brex Syrup",
+        "composition": [
+          {
+            "drug": "Pseudoephedrine",
+            "strength": null
+          },
+          {
+            "drug": "Bromhexine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Common cold",
+          "Cough"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Bloating",
+          "Diarrhea",
+          "Indigestion",
+          "Nervousness",
+          "Insomnia (difficulty in sleeping)",
+          "Restlessness",
+          "Dizziness",
+          "Headache",
+          "Sweating",
+          "Skin rash",
+          "Vomiting",
+          "Rash",
+          "Tremors",
+          "Increased heart rate",
+          "Upper abdominal pain",
+          "Urticaria",
+          "Itching",
+          "Changes in serum aminotransferase levels"
+        ],
+        "substitutes": [
+          "Brex S Syrup"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Brex Syrup",
+          "composition": [
+            {
+              "drug": "Ambroxol",
+              "strength": "15mg"
+            },
+            {
+              "drug": "Guaifenesin",
+              "strength": "50mg"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 32439,
+      "normalized_name": "brex s syrup",
+      "record": {
+        "name": "Brex S Syrup",
+        "composition": [
+          {
+            "drug": "Pseudoephedrine",
+            "strength": null
+          },
+          {
+            "drug": "Bromhexine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Common cold"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Bloating",
+          "Diarrhea",
+          "Indigestion",
+          "Nervousness",
+          "Insomnia (difficulty in sleeping)",
+          "Restlessness",
+          "Dizziness",
+          "Headache",
+          "Sweating",
+          "Skin rash"
+        ],
+        "substitutes": [
+          "Brex Syrup"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Brex-S Syrup",
+          "composition": [
+            {
+              "drug": "Bromhexine",
+              "strength": "2mg"
+            },
+            {
+              "drug": "Guaifenesin",
+              "strength": "50mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 35341,
+      "normalized_name": "cyproliv syrup",
+      "record": {
+        "name": "Cyproliv Syrup",
+        "composition": [
+          {
+            "drug": "Cyproheptadine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Allergic conditions",
+          "Appetite stimulant"
+        ],
+        "side_effects": [
+          "Dizziness",
+          "Headache",
+          "Constipation",
+          "Dryness in mouth",
+          "Drowsiness",
+          "Sleepiness",
+          "Blurred vision"
+        ],
+        "substitutes": [
+          "Hungry Syrup",
+          "Cypotin Syrup",
+          "Anabol Syrup",
+          "Cypodin Syrup",
+          "Tricohep Syrup",
+          "Apeton Plus Syrup",
+          "Appegain Syrup",
+          "Episure Syrup",
+          "Cpol Syrup",
+          "Jycyp Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Cyproliv Syrup",
+          "composition": [
+            {
+              "drug": "Cyproheptadine",
+              "strength": "2mg/5ml"
+            },
+            {
+              "drug": "Tricholine Citrate",
+              "strength": "275mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 35664,
+      "normalized_name": "coflin syrup",
+      "record": {
+        "name": "Coflin Syrup",
+        "composition": [
+          {
+            "drug": "Ambroxol",
+            "strength": null
+          },
+          {
+            "drug": "Guaifenesin",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Cough with mucus",
+          "Cough with mucus"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Vomiting",
+          "Diarrhea",
+          "Upset stomach",
+          "Stomach pain",
+          "Loss of appetite",
+          "Headache",
+          "Rash",
+          "Shivering",
+          "Increased heart rate"
+        ],
+        "substitutes": [
+          "Kuff X AP Syrup",
+          "Eldikof AM Syrup",
+          "Kofcare AM Syrup",
+          "Coflin Kid Syrup",
+          "Sarter AM Syrup",
+          "Manroxy TX Syrup",
+          "New Servil Junior Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Coflin Syrup",
+          "composition": [
+            {
+              "drug": "Terbutaline",
+              "strength": "1.25mg/5ml"
+            },
+            {
+              "drug": "Ambroxol",
+              "strength": "15mg/5ml"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 35780,
+      "normalized_name": "cypotin syrup",
+      "record": {
+        "name": "Cypotin Syrup",
+        "composition": [
+          {
+            "drug": "Cyproheptadine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Allergic conditions",
+          "Appetite stimulant"
+        ],
+        "side_effects": [
+          "Dizziness",
+          "Headache"
+        ],
+        "substitutes": [
+          "Hungry Syrup",
+          "Anabol Syrup",
+          "Cypodin Syrup",
+          "Tricohep Syrup",
+          "Lupactin Forte Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Cypotin Syrup",
+          "composition": [
+            {
+              "drug": "Cyproheptadine",
+              "strength": "200mg"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 37067,
+      "normalized_name": "clavora cream",
+      "record": {
+        "name": "Clavora Cream",
+        "composition": [
+          {
+            "drug": "Sulfadiazine",
+            "strength": null
+          },
+          {
+            "drug": "Chlorhexidine Gluconate",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Burns"
+        ],
+        "side_effects": [
+          "Itching",
+          "Irritation",
+          "Burning sensation at the site of application"
+        ],
+        "substitutes": [
+          "Silverpin Cream",
+          "AG X Cream",
+          "Wbc Cream"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Clavora Cream",
+          "composition": [
+            {
+              "drug": "Silver Sulfadiazine",
+              "strength": "1% w/w"
+            },
+            {
+              "drug": "Chlorhexidine Gluconate",
+              "strength": "30% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 37782,
+      "normalized_name": "cvate cream",
+      "record": {
+        "name": "Cvate Cream",
+        "composition": [
+          {
+            "drug": "Clobetasol",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Allergic skin conditions"
+        ],
+        "side_effects": [
+          "Skin atrophy",
+          "Telangiectasia",
+          "Skin irritation",
+          "Dry skin"
+        ],
+        "substitutes": [
+          "Corsa Cream",
+          "Clopan Cream",
+          "Cortisol Cream",
+          "Clobet Cream",
+          "Clonit Cream",
+          "Topinate Cream",
+          "Lozivate Cream",
+          "Cortent Cream",
+          "Clobital Cream",
+          "Cortirate Cream"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Cvate Cream",
+          "composition": [
+            {
+              "drug": "Clobetasol",
+              "strength": "0.05% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 39940,
+      "normalized_name": "cts syrup",
+      "record": {
+        "name": "Cts Syrup",
+        "composition": [
+          {
+            "drug": "Cyproheptadine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Allergic conditions",
+          "Appetite stimulant"
+        ],
+        "side_effects": [
+          "Dizziness",
+          "Headache",
+          "Constipation",
+          "Dryness in mouth",
+          "Drowsiness",
+          "Sleepiness",
+          "Blurred vision"
+        ],
+        "substitutes": [
+          "Hungry Syrup",
+          "Cypotin Syrup",
+          "Anabol Syrup",
+          "Cypodin Syrup",
+          "Lupactin Forte Syrup",
+          "Apeton Plus Syrup",
+          "Appegain Syrup",
+          "Episure Syrup",
+          "Cpol Syrup",
+          "Jycyp Syrup",
+          "Tumtone Syrup",
+          "Cypotec Syrup",
+          "Cytol Syrup",
+          "Cyprogain Syrup",
+          "Codlive Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Cts Syrup",
+          "composition": [
+            {
+              "drug": "Cyproheptadine",
+              "strength": "2mg/5ml"
+            },
+            {
+              "drug": "Tricholine Citrate",
+              "strength": "275mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        },
+        {
+          "name": "Cts Syrup",
+          "composition": [
+            {
+              "drug": "Cyproheptadine",
+              "strength": "2mg/5ml"
+            },
+            {
+              "drug": "Tricholine Citrate",
+              "strength": "275mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 40010,
+      "normalized_name": "corflam gel",
+      "record": {
+        "name": "Corflam Gel",
+        "composition": [
+          {
+            "drug": "Ibuprofen",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Pain relief",
+          "Treatment of Fever"
+        ],
+        "side_effects": [
+          "Application site reactions (burning, irritation, itching and redness)",
+          "No common side effects seen",
+          "Vomiting",
+          "Nausea",
+          "Dizziness",
+          "Abdominal pain",
+          "Constipation",
+          "Flatulence",
+          "Diarrhea",
+          "Dyspepsia",
+          "Headache",
+          "Fatigue",
+          "Rash"
+        ],
+        "substitutes": [
+          "Acedol Gel",
+          "Goldpar Plus Gel",
+          "Dilocon Gel",
+          "Retroflam Gel",
+          "Maxzen Gel",
+          "Acefen Gel"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Corflam Gel",
+          "composition": [
+            {
+              "drug": "Diclofenac diethylamine",
+              "strength": "1.16% w/w"
+            },
+            {
+              "drug": "Linseed Oil",
+              "strength": "3% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 56686,
+      "normalized_name": "diclofenac sodium injection",
+      "record": {
+        "name": "Diclofenac Sodium  Injection",
+        "composition": [
+          {
+            "drug": "Diclofenac",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Pain relief"
+        ],
+        "side_effects": [
+          "Limb pain",
+          "Injection site reactions (pain, swelling, redness)",
+          "Edema (swelling)",
+          "Nausea",
+          "Headache",
+          "Dizziness",
+          "Vomiting",
+          "Itching",
+          "Flatulence",
+          "Indigestion",
+          "Pain in extremities"
+        ],
+        "substitutes": [
+          "Diclonir Injection",
+          "3D Injection",
+          "Powerflam Injection",
+          "Recoflam Injection",
+          "Iconac Injection",
+          "Walkfree Injection",
+          "NAC -AQ Injection",
+          "Vivian Plus 75mg Injection",
+          "Dilona Aqua 75mg Injection",
+          "Vivogesic AQ 75mg Injection"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Diclofenac Sodium Injection",
+          "composition": [
+            {
+              "drug": "Diclofenac",
+              "strength": "75mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 56891,
+      "normalized_name": "dmr syrup",
+      "record": {
+        "name": "DMR Syrup",
+        "composition": [
+          {
+            "drug": "Dextromethorphan Hydrobromide",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Dry cough",
+          "Treatment of Dry cough"
+        ],
+        "side_effects": [
+          "Sleepiness",
+          "Dizziness",
+          "Confusion",
+          "Nausea",
+          "Vomiting",
+          "Loss of appetite",
+          "Headache"
+        ],
+        "substitutes": [
+          "Dexalone Syrup",
+          "Bro Cofdex Plus Syrup",
+          "Nam Cold DX Syrup",
+          "Asthakind-DX Syrup Sugar Free",
+          "Wytuss-DMR Syrup Mint Sugar Free",
+          "Dcrocof-DX Syrup Sugar Free",
+          "Broxino-DX Syrup Sugar Free",
+          "Imotus D Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "DMR Syrup",
+          "composition": [
+            {
+              "drug": "Phenylephrine",
+              "strength": "5mg/5ml"
+            },
+            {
+              "drug": "Chlorpheniramine Maleate",
+              "strength": "2mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 57431,
+      "normalized_name": "depig cream",
+      "record": {
+        "name": "Depig Cream",
+        "composition": [
+          {
+            "drug": "Hydroquinone",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Melasma"
+        ],
+        "side_effects": [
+          "Erythema (skin redness)",
+          "Dryness and fissuring of paranasal and infraorbital areas",
+          "Stinging sensation"
+        ],
+        "substitutes": [
+          "Dermofade Cream",
+          "Pinkquin Cream",
+          "Ulite Cream",
+          "Tanlite Cream",
+          "Hypig 15 Cream",
+          "Hydrip Cream",
+          "Eukroma Lite Cream",
+          "Claripel Plus 2% Cream",
+          "Eukroma 2% Cream",
+          "Lumacip Cream"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Depig Cream",
+          "composition": [
+            {
+              "drug": "Hydroquinone",
+              "strength": "2% w/w"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 58665,
+      "normalized_name": "dec tablet",
+      "record": {
+        "name": "Dec Tablet",
+        "composition": [
+          {
+            "drug": "Guaifenesin",
+            "strength": "250mg"
+          },
+          {
+            "drug": "Diethylcarbamazine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Parasitic infections"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Loss of appetite",
+          "Sleepiness",
+          "Headache",
+          "Allergic reaction"
+        ],
+        "substitutes": [
+          "Carbarem 100mg/2mg Tablet"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Dec Tablet",
+          "composition": [
+            {
+              "drug": "Diethylcarbamazine",
+              "strength": "100mg"
+            },
+            {
+              "drug": "Chlorpheniramine Maleate",
+              "strength": "2mg"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 58969,
+      "normalized_name": "descab lotion",
+      "record": {
+        "name": "Descab Lotion",
+        "composition": [
+          {
+            "drug": "Lindane",
+            "strength": null
+          },
+          {
+            "drug": "Cetrimide",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Scabies"
+        ],
+        "side_effects": [
+          "Application site reactions (burning, irritation, itching and redness)",
+          "Dry skin"
+        ],
+        "substitutes": [
+          "Linscab Lotion",
+          "Scabex S Lotion",
+          "Olscab C Lotion",
+          "Scabiped Lotion",
+          "Scabine Lotion",
+          "Scabiped 2%/0.5% Lotion",
+          "Gamabiol Plus Lotion"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Descab Lotion",
+          "composition": [
+            {
+              "drug": "Lindane",
+              "strength": "2% w/w"
+            },
+            {
+              "drug": "Cetrimide",
+              "strength": "0.5% w/w"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 59109,
+      "normalized_name": "dipnate cream",
+      "record": {
+        "name": "Dipnate Cream",
+        "composition": [
+          {
+            "drug": "Betamethasone",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Allergic skin conditions",
+          "Treatment of Allergic conditions"
+        ],
+        "side_effects": [
+          "Reduction in bone density",
+          "Upset stomach"
+        ],
+        "substitutes": [
+          "Grobet Cream",
+          "PROVATE PLUS CREAM",
+          "Cbzee B Cream",
+          "Propynate Cream",
+          "Betasalic Cream",
+          "Diprosone Cream",
+          "Betamil Cream",
+          "Diproson 0.05% Cream",
+          "Betzee Cream",
+          "Azonate Cream"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Dipnate Cream",
+          "composition": [
+            {
+              "drug": "Betamethasone",
+              "strength": "0.05% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 63419,
+      "normalized_name": "dermaspan cream",
+      "record": {
+        "name": "Dermaspan Cream",
+        "composition": [
+          {
+            "drug": "Beclometasone",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Skin conditions with inflammation & itching",
+          "Treatment of Asthma",
+          "Treatment of Skin infections"
+        ],
+        "side_effects": [
+          "Hoarseness of voice",
+          "Thrush",
+          "Pharyngitis",
+          "Abnormal taste",
+          "Nasopharyngeal irritation",
+          "Application site irritation",
+          "Application site burning",
+          "Application site reactions (burning, irritation, itching and redness)"
+        ],
+        "substitutes": [
+          "Pilovate Cream",
+          "Becloderm C Cream",
+          "Mediven Cream",
+          "Gebic Cream",
+          "BETADERM RD CREAM",
+          "Clowin gm Cream",
+          "Biomet C Cream",
+          "Lamonte B Cream",
+          "Ozoderm Cream",
+          "Canditas BG Cream"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Dermaspan Cream",
+          "composition": [
+            {
+              "drug": "Beclometasone",
+              "strength": "0.025% w/w"
+            },
+            {
+              "drug": "Clotrimazole",
+              "strength": "1% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 72979,
+      "normalized_name": "enzocort oral suspension",
+      "record": {
+        "name": "Enzocort Oral Suspension",
+        "composition": [
+          {
+            "drug": "Deflazacort",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Inflammatory conditions",
+          "Treatment of Autoimmune conditions",
+          "Treatment of Cancer",
+          "Treatment of Duchenne muscular dystrophy(DMD)"
+        ],
+        "side_effects": [
+          "Increased appetite",
+          "Weight gain",
+          "Frequent urge to urinate",
+          "Cushing syndrome",
+          "Cough",
+          "Upper respiratory tract infection",
+          "Abnormal hair growth",
+          "Obesity",
+          "Nasopharyngitis (inflammation of the throat and nasal passages)",
+          "Common cold"
+        ],
+        "substitutes": [
+          "V-Laz Oral Suspension",
+          "Deficort Oral Suspension",
+          "Laza 6mg/5ml Oral Suspension",
+          "Azcort Oral Suspension",
+          "Kricort Oral Suspension"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Enzocort Oral Suspension",
+          "composition": [
+            {
+              "drug": "Deflazacort",
+              "strength": "6mg/5ml"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 73258,
+      "normalized_name": "exol syrup",
+      "record": {
+        "name": "Exol Syrup",
+        "composition": [
+          {
+            "drug": "Ambroxol",
+            "strength": null
+          },
+          {
+            "drug": "Guaifenesin",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Cough with mucus"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Vomiting",
+          "Diarrhea",
+          "Stomach pain",
+          "Upset stomach",
+          "Allergic reaction",
+          "Dizziness",
+          "Headache",
+          "Rash",
+          "Hives",
+          "Tremors",
+          "Palpitations",
+          "Muscle cramp",
+          "Increased heart rate"
+        ],
+        "substitutes": [
+          "Coughtas XT Syrup",
+          "Coriminic X Syrup",
+          "Salmint Syrup",
+          "New Deletus LS Syrup",
+          "Planokuf LS Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Exol Syrup",
+          "composition": [
+            {
+              "drug": "Ambroxol",
+              "strength": "30mg/5ml"
+            },
+            {
+              "drug": "Guaifenesin",
+              "strength": "50mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 73484,
+      "normalized_name": "exil syrup",
+      "record": {
+        "name": "Exil Syrup",
+        "composition": [
+          {
+            "drug": "Menthol",
+            "strength": null
+          },
+          {
+            "drug": "Diphenhydramine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Cough"
+        ],
+        "side_effects": [
+          "Stomach pain/epigastric pain",
+          "Allergic reaction",
+          "Sleepiness",
+          "Dizziness",
+          "Thickened respiratory tract secretions",
+          "Impaired coordination"
+        ],
+        "substitutes": [
+          "Swidril Syrup",
+          "Gercodryl Syrup",
+          "Rexotuss Syrup",
+          "Phencloril Syrup",
+          "Cofura Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Exil Syrup",
+          "composition": [
+            {
+              "drug": "Ammonium Chloride",
+              "strength": "100mg/5ml"
+            },
+            {
+              "drug": "Sodium Citrate",
+              "strength": "50mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 79689,
+      "normalized_name": "eascof expectorant",
+      "record": {
+        "name": "Eascof  Expectorant",
+        "composition": [
+          {
+            "drug": "Bromhexine",
+            "strength": null
+          },
+          {
+            "drug": "Salbutamol",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Cough with mucus",
+          "Cough with mucus"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Diarrhea",
+          "Bloating",
+          "Indigestion",
+          "Vomiting",
+          "Stomach pain",
+          "Sweating",
+          "Dizziness",
+          "Headache",
+          "Skin rash",
+          "Hives",
+          "Tremors",
+          "Increased heart rate",
+          "Palpitations",
+          "Muscle cramp"
+        ],
+        "substitutes": [
+          "Ventoranz Cough Expectorant",
+          "Eledyl SF Expectorant",
+          "Asthakind Expectorant Sugar Free",
+          "Ascoril SF Expectorant",
+          "Astex Expectorant",
+          "Sinus cm Expectorant",
+          "Respillin Expectorant",
+          "Brosmin Expectorant",
+          "Kofnil  Expectorant"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Eascof  Expectorant",
+          "composition": [
+            {
+              "drug": "Guaifenesin",
+              "strength": "50mg"
+            },
+            {
+              "drug": "Terbutaline",
+              "strength": "1.25mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 82350,
+      "normalized_name": "fusi b cream",
+      "record": {
+        "name": "Fusi B Cream",
+        "composition": [
+          {
+            "drug": "Beclometasone",
+            "strength": null
+          },
+          {
+            "drug": "Fusidic Acid",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Skin infections"
+        ],
+        "side_effects": [
+          "Application site reactions (burning, irritation, itching and redness)"
+        ],
+        "substitutes": [
+          "NIOGENTA-F CREAM"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Fusi-B Cream",
+          "composition": [
+            {
+              "drug": "Beclometasone",
+              "strength": "0.025% w/w"
+            },
+            {
+              "drug": "Fusidic Acid",
+              "strength": "2% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 83015,
+      "normalized_name": "fusi ointment",
+      "record": {
+        "name": "Fusi Ointment",
+        "composition": [
+          {
+            "drug": "Fusidic Acid",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Bacterial skin infections",
+          "Bacterial eye infections",
+          "Bacterial skin infections"
+        ],
+        "side_effects": [
+          "Application site reactions (burning, irritation, itching and redness)"
+        ],
+        "substitutes": [
+          "Safoban Ointment",
+          "Fusimed 2% Ointment",
+          "Fusida Ointment",
+          "Fucidin Ointment",
+          "Updet 2% Ointment"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Fusi Ointment",
+          "composition": [
+            {
+              "drug": "Sodium Fusidate",
+              "strength": "2% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 85329,
+      "normalized_name": "flomed oz tablet",
+      "record": {
+        "name": "Flomed OZ Tablet",
+        "composition": [
+          {
+            "drug": "Ofloxacin",
+            "strength": null
+          },
+          {
+            "drug": "Ornidazole",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Bacterial & parasitic infections"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Vomiting",
+          "Dizziness",
+          "Headache",
+          "Insomnia (difficulty in sleeping)",
+          "Itching",
+          "Vaginal inflammation",
+          "Diarrhea"
+        ],
+        "substitutes": [
+          "Oflosa O Tablet",
+          "M Cid Tablet",
+          "Zotra OZ Tablet",
+          "Theoflox OZ Tablet",
+          "Xioflo OZ Tablet"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Flomed-OZ Tablet",
+          "composition": [
+            {
+              "drug": "Ofloxacin",
+              "strength": "200mg"
+            },
+            {
+              "drug": "Ornidazole",
+              "strength": "500mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 97432,
+      "normalized_name": "gracof br syrup",
+      "record": {
+        "name": "Gracof BR Syrup",
+        "composition": [
+          {
+            "drug": "Guaifenesin",
+            "strength": null
+          },
+          {
+            "drug": "Terbutaline",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Cough with mucus"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Diarrhea",
+          "Bloating",
+          "Indigestion",
+          "Vomiting",
+          "Stomach pain",
+          "Sweating",
+          "Dizziness",
+          "Headache",
+          "Skin rash",
+          "Hives",
+          "Tremors",
+          "Increased heart rate"
+        ],
+        "substitutes": [
+          "Torlin BR Syrup",
+          "Escopinbr 100 mg/2.5 mg/8 mg Syrup",
+          "Broncovin Syrup",
+          "Blockuf Red 100mg/2.5mg/8mg Syrup",
+          "Terbrom G Syrup",
+          "Bromycodex Syrup",
+          "ALVEX BR SYRUP",
+          "Astha Paed Syrup",
+          "Siokof Syrup",
+          "Betaphil Plus Syrup"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Gracof BR Syrup",
+          "composition": [
+            {
+              "drug": "Guaifenesin",
+              "strength": "100mg"
+            },
+            {
+              "drug": "Terbutaline",
+              "strength": "2.5mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 101054,
+      "normalized_name": "homatropine eye drop",
+      "record": {
+        "name": "Homatropine Eye Drop",
+        "composition": [
+          {
+            "drug": "Homatropine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Eye examination",
+          "Uveitis"
+        ],
+        "side_effects": [
+          "Eye irritation",
+          "Follicular conjunctivitis",
+          "Stinging in the eyes",
+          "Dryness in mouth",
+          "Vascular engorgement",
+          "Burning eyes",
+          "Edema (swelling)",
+          "Exudate",
+          "Eczematoid dermatitis",
+          "Feeling thirsty",
+          "Increased sensitivity to light"
+        ],
+        "substitutes": [
+          "Homatrapar 2% Eye Drop",
+          "Homatropine Eye Drop",
+          "Homide Eye Drop",
+          "Homarin Forte Eye Drop",
+          "HA2 Eye Drop"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Homatropine Eye Drop",
+          "composition": [
+            {
+              "drug": "Homatropine",
+              "strength": "2% w/v"
+            }
+          ],
+          "regulatory": "OTC"
+        },
+        {
+          "name": "Homatropine Eye Drop",
+          "composition": [
+            {
+              "drug": "Homatropine",
+              "strength": "2% w/v"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 101233,
+      "normalized_name": "havmor syrup",
+      "record": {
+        "name": "Havmor Syrup",
+        "composition": [
+          {
+            "drug": "Cyproheptadine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Allergic conditions",
+          "Appetite stimulant"
+        ],
+        "side_effects": [
+          "Dizziness",
+          "Headache",
+          "Constipation",
+          "Dryness in mouth",
+          "Drowsiness",
+          "Sleepiness",
+          "Blurred vision"
+        ],
+        "substitutes": [
+          "Hungry Syrup",
+          "Cypotin Syrup",
+          "Anabol Syrup",
+          "Cypodin Syrup",
+          "Tricohep Syrup",
+          "Apeton Plus Syrup",
+          "Appegain Syrup",
+          "Episure Syrup",
+          "Appcyp Syrup",
+          "Cpol Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Havmor Syrup",
+          "composition": [
+            {
+              "drug": "Cyproheptadine",
+              "strength": "2mg/5ml"
+            },
+            {
+              "drug": "Tricholine Citrate",
+              "strength": "275mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 103377,
+      "normalized_name": "hymelose injection",
+      "record": {
+        "name": "Hymelose Injection",
+        "composition": [
+          {
+            "drug": "Hydroxypropylmethylcellulose",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Dry eyes"
+        ],
+        "side_effects": [
+          "No common side effects seen"
+        ],
+        "substitutes": [
+          "Moisol R Injection",
+          "Melose PF Injection",
+          "Appavisc Injection",
+          "Hyprosol Injection",
+          "Viscomet Kit Injection",
+          "Viscomet PF Injection",
+          "Intavisc Injection"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Hymelose Injection",
+          "composition": [
+            {
+              "drug": "Hydroxypropylmethylcellulose",
+              "strength": "2% w/v"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 107436,
+      "normalized_name": "ifoxan mesna injection",
+      "record": {
+        "name": "Ifoxan + Mesna Injection",
+        "composition": [
+          {
+            "drug": "Mesna",
+            "strength": "2gm"
+          },
+          {
+            "drug": "Ifosfamide",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Cancer"
+        ],
+        "side_effects": [
+          "Hair loss",
+          "Nausea",
+          "Vomiting",
+          "Anemia (low number of red blood cells)",
+          "Blood in urine",
+          "Decreased white blood cell count",
+          "Increased risk of infection",
+          "Neurotoxicity"
+        ],
+        "substitutes": [],
+        "regulatory": "Schedule G"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Ifoxan + Mesna Injection",
+          "composition": [
+            {
+              "drug": "Mesna",
+              "strength": "100mg"
+            },
+            {
+              "drug": "Ifosfamide",
+              "strength": "1gm"
+            }
+          ],
+          "regulatory": "Schedule G"
+        }
+      ]
+    },
+    {
+      "original_index": 107496,
+      "normalized_name": "imituf injection",
+      "record": {
+        "name": "Imituf Injection",
+        "composition": [
+          {
+            "drug": "Imipenem",
+            "strength": "500mg"
+          },
+          {
+            "drug": "Cilastatin",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Severe bacterial infections"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Vomiting",
+          "Diarrhea",
+          "Rash"
+        ],
+        "substitutes": [
+          "Cilastat Injection",
+          "Cilasimune Injection",
+          "Alimpenam C Injection",
+          "V Penum Injection",
+          "Primapen 250 mg/250 mg Injection",
+          "Rolnem 250mg Injection",
+          "Cilastat 250mg/250mg Injection",
+          "Implatin 250mg/250mg Injection"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Imituf Injection",
+          "composition": [
+            {
+              "drug": "Imipenem",
+              "strength": "250mg"
+            },
+            {
+              "drug": "Cilastatin",
+              "strength": "250mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 110843,
+      "normalized_name": "jucitron syrup",
+      "record": {
+        "name": "Jucitron Syrup",
+        "composition": [
+          {
+            "drug": "Disodium Hydrogen Citrate",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Gout",
+          "Treatment of Kidney stone"
+        ],
+        "side_effects": [
+          "Stomach pain",
+          "Tiredness",
+          "Diarrhea",
+          "Nausea",
+          "Vomiting",
+          "Frequent urge to urinate"
+        ],
+        "substitutes": [
+          "Alkapen Syrup",
+          "Alkatrol Syrup",
+          "Uriflame Syrup",
+          "Acitrol Syrup",
+          "Intalka Syrup",
+          "Urilite Syrup",
+          "Orosol 1.4gm Syrup",
+          "Diacel 1.4gm Syrup",
+          "Urimet Syrup",
+          "Varz 1.4gm Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Jucitron Syrup",
+          "composition": [
+            {
+              "drug": "Disodium Hydrogen Citrate",
+              "strength": "1.4gm"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 112640,
+      "normalized_name": "kiopan dsr capsule",
+      "record": {
+        "name": "Kiopan DSR Capsule",
+        "composition": [
+          {
+            "drug": "Domperidone",
+            "strength": null
+          },
+          {
+            "drug": "Pantoprazole",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Gastroesophageal reflux disease (Acid reflux)",
+          "Treatment of Peptic ulcer disease"
+        ],
+        "side_effects": [
+          "Diarrhea",
+          "Stomach pain",
+          "Flatulence",
+          "Dryness in mouth",
+          "Dizziness",
+          "Headache"
+        ],
+        "substitutes": [
+          "Romazole-DSR Capsule",
+          "Panmet D Capsule SR",
+          "Aldepraz D Capsule SR",
+          "Solpen DSR Capsule"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Kiopan-DSR Capsule",
+          "composition": [
+            {
+              "drug": "Domperidone",
+              "strength": "30mg"
+            },
+            {
+              "drug": "Pantoprazole",
+              "strength": "40mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 112783,
+      "normalized_name": "kofdex syrup",
+      "record": {
+        "name": "Kofdex Syrup",
+        "composition": [
+          {
+            "drug": "Phenylpropanolamine",
+            "strength": null
+          },
+          {
+            "drug": "Chlorpheniramine Maleate",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Dry cough",
+          "Treatment of Dry cough"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Upset stomach",
+          "Insomnia (difficulty in sleeping)",
+          "Palpitations",
+          "Sleepiness",
+          "High blood pressure",
+          "Vomiting",
+          "Loss of appetite",
+          "Headache"
+        ],
+        "substitutes": [
+          "Nircough Dmr Syrup",
+          "Kop Q D Syrup",
+          "Coldgesic DP Syrup",
+          "Nutussic Syrup",
+          "Resq D Syrup",
+          "Bronkolyte DC Syrup",
+          "Fluoffd Syrup",
+          "Kosat D Syrup",
+          "Ezycuf-D Syrup",
+          "Coffact-D Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Kofdex Syrup",
+          "composition": [
+            {
+              "drug": "Phenylephrine",
+              "strength": "5mg"
+            },
+            {
+              "drug": "Chlorpheniramine Maleate",
+              "strength": "2mg"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 112972,
+      "normalized_name": "k nat injection",
+      "record": {
+        "name": "K-NAT Injection",
+        "composition": [
+          {
+            "drug": "Vitamin K",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Nutritional deficiencies"
+        ],
+        "side_effects": [
+          "Taste change",
+          "Cyanosis (bluish discoloration of the skin)",
+          "Breathlessness",
+          "Flushing (sense of warmth in the face, ears, neck and trunk)",
+          "Increased bilirubin in the blood",
+          "Decreased blood pressure",
+          "Itching",
+          "Skin erosion",
+          "Skin eruptions"
+        ],
+        "substitutes": [
+          "Neo K 1mg Injection"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "K-NAT Injection",
+          "composition": [
+            {
+              "drug": "Vitamin K",
+              "strength": "1mg"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 118292,
+      "normalized_name": "linctus codeinae co syrup",
+      "record": {
+        "name": "Linctus Codeinae CO Syrup",
+        "composition": [
+          {
+            "drug": "Chlorpheniramine Maleate",
+            "strength": null
+          },
+          {
+            "drug": "Codeine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Dry cough"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Vomiting",
+          "Constipation",
+          "Sleepiness",
+          "Lightheadedness",
+          "Dizziness",
+          "Breathlessness",
+          "Sweating"
+        ],
+        "substitutes": [
+          "Kofzero DC Syrup",
+          "Sothrex C Syrup",
+          "Exiplon Syrup",
+          "Elcodin Syrup",
+          "C Koff Syrup",
+          "Cosome Lcd 4 mg/10 mg Syrup",
+          "Histolate Syrup",
+          "Codine  4 mg/10 mg Syrup",
+          "Indikof C Syrup",
+          "Comtus DX Syrup"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Linctus Codeinae CO Syrup",
+          "composition": [
+            {
+              "drug": "Chlorpheniramine Maleate",
+              "strength": "4mg"
+            },
+            {
+              "drug": "Codeine",
+              "strength": "10mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 119160,
+      "normalized_name": "lemolate syrup",
+      "record": {
+        "name": "Lemolate Syrup",
+        "composition": [
+          {
+            "drug": "Menthol",
+            "strength": null
+          },
+          {
+            "drug": "Diphenhydramine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Cough",
+          "Treatment of Common cold"
+        ],
+        "side_effects": [
+          "Stomach pain/epigastric pain",
+          "Sleepiness",
+          "Dizziness",
+          "Thickened respiratory tract secretions",
+          "Allergic reaction",
+          "Impaired coordination",
+          "Nausea",
+          "Vomiting",
+          "Headache",
+          "Nervousness",
+          "Inability to concentrate",
+          "Irritability",
+          "Insomnia (difficulty in sleeping)",
+          "Tremors",
+          "Diarrhea",
+          "Dryness in mouth",
+          "Fatigue",
+          "Blurred vision"
+        ],
+        "substitutes": [
+          "Swidril Syrup",
+          "Gercodryl Syrup",
+          "Rexotuss Syrup",
+          "Phencloril Syrup",
+          "Cofura Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Lemolate Syrup",
+          "composition": [
+            {
+              "drug": "Paracetamol",
+              "strength": "325mg"
+            },
+            {
+              "drug": "Caffeine",
+              "strength": "32mg"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 120655,
+      "normalized_name": "levozet tablet",
+      "record": {
+        "name": "Levozet Tablet",
+        "composition": [
+          {
+            "drug": "Levocetirizine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Allergic conditions"
+        ],
+        "side_effects": [
+          "Sleepiness",
+          "Fatigue",
+          "Dryness in mouth",
+          "Headache",
+          "Vomiting",
+          "Nasopharyngitis (inflammation of the throat and nasal passages)"
+        ],
+        "substitutes": [
+          "LCZ Tablet",
+          "Lecope Tablet",
+          "1-AL Tablet",
+          "Hatric Tablet",
+          "Levocet Tablet",
+          "Allfit Tablet",
+          "Levosetride D Tablet",
+          "Levozin Tablet",
+          "Voice Tablet",
+          "Simozine L Tablet"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Levozet Tablet",
+          "composition": [
+            {
+              "drug": "Levocetirizine",
+              "strength": "5mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 121091,
+      "normalized_name": "levocee tablet",
+      "record": {
+        "name": "Levocee Tablet",
+        "composition": [
+          {
+            "drug": "Levocetirizine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Allergic conditions"
+        ],
+        "side_effects": [
+          "Sleepiness",
+          "Fatigue",
+          "Dryness in mouth",
+          "Headache",
+          "Vomiting",
+          "Nasopharyngitis (inflammation of the throat and nasal passages)"
+        ],
+        "substitutes": [
+          "Allfit Tablet",
+          "Levosetride D Tablet",
+          "Levozin Tablet",
+          "Voice Tablet",
+          "Simozine L Tablet",
+          "LCZ Tablet",
+          "Lecope Tablet",
+          "1-AL Tablet",
+          "Levozet Tablet",
+          "Hatric Tablet"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Levocee Tablet",
+          "composition": [
+            {
+              "drug": "Levocetirizine",
+              "strength": "5mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 121138,
+      "normalized_name": "l cetra tablet",
+      "record": {
+        "name": "L Cetra Tablet",
+        "composition": [
+          {
+            "drug": "Levocetirizine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Allergic conditions"
+        ],
+        "side_effects": [
+          "Sleepiness",
+          "Fatigue",
+          "Dryness in mouth",
+          "Headache",
+          "Vomiting",
+          "Nasopharyngitis (inflammation of the throat and nasal passages)"
+        ],
+        "substitutes": [
+          "Allfit Tablet",
+          "Levosetride D Tablet",
+          "Levozin Tablet",
+          "Voice Tablet",
+          "Simozine L Tablet"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "L-Cetra Tablet",
+          "composition": [
+            {
+              "drug": "Levocetirizine",
+              "strength": "5mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 122443,
+      "normalized_name": "lecyp syrup",
+      "record": {
+        "name": "Lecyp Syrup",
+        "composition": [
+          {
+            "drug": "Cyproheptadine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Allergic conditions",
+          "Appetite stimulant"
+        ],
+        "side_effects": [
+          "Dizziness",
+          "Headache",
+          "Constipation",
+          "Dryness in mouth",
+          "Drowsiness",
+          "Sleepiness",
+          "Blurred vision"
+        ],
+        "substitutes": [
+          "Hungry Syrup",
+          "Cypotin Syrup",
+          "Anabol Syrup",
+          "Cypodin Syrup",
+          "Lupactin Forte Syrup",
+          "Trisotis Plus Syrup",
+          "Anzicyp Syrup",
+          "Mecyp Syrup",
+          "Cytadine-TS Syrup",
+          "Pneucyprodin T Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Lecyp Syrup",
+          "composition": [
+            {
+              "drug": "Cyproheptadine",
+              "strength": "2mg"
+            },
+            {
+              "drug": "Tricholine Citrate",
+              "strength": "275mg"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 130928,
+      "normalized_name": "montus l syrup",
+      "record": {
+        "name": "Montus L Syrup",
+        "composition": [
+          {
+            "drug": "Levocetirizine",
+            "strength": null
+          },
+          {
+            "drug": "Montelukast",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Sneezing and runny nose due to allergies",
+          "Treatment of Hay fever",
+          "Treatment of Allergic skin conditions"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Diarrhea",
+          "Dryness in mouth",
+          "Fatigue",
+          "Headache",
+          "Skin rash",
+          "Sleepiness",
+          "Vomiting"
+        ],
+        "substitutes": [
+          "Rem CC LM Syrup",
+          "Montello Syrup",
+          "Ibikast L Kid Syrup",
+          "Lemoleb Syrup",
+          "Suhit M Syrup"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Montus-L Syrup",
+          "composition": [
+            {
+              "drug": "Levocetirizine",
+              "strength": "2.5mg/5ml"
+            },
+            {
+              "drug": "Montelukast",
+              "strength": "4mg/5ml"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 131180,
+      "normalized_name": "moxicon lp eye drop",
+      "record": {
+        "name": "Moxicon LP Eye Drop",
+        "composition": [
+          {
+            "drug": "Loteprednol etabonate",
+            "strength": null
+          },
+          {
+            "drug": "Moxifloxacin",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Eye infection with inflammation"
+        ],
+        "side_effects": [
+          "Eye irritation",
+          "Eye discomfort"
+        ],
+        "substitutes": [
+          "Meflotas LP Eye Drop",
+          "Moxinix LP Eye Drop",
+          "Mflotas-LP Eye Drop BKC Free"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Moxicon LP Eye Drop",
+          "composition": [
+            {
+              "drug": "Loteprednol etabonate",
+              "strength": "5mg"
+            },
+            {
+              "drug": "Moxifloxacin",
+              "strength": "5mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 132247,
+      "normalized_name": "megadine m ointment",
+      "record": {
+        "name": "Megadine M Ointment",
+        "composition": [
+          {
+            "drug": "Metronidazole",
+            "strength": null
+          },
+          {
+            "drug": "Povidone Iodine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Wound infection"
+        ],
+        "side_effects": [
+          "Dry skin",
+          "Application site reactions (burning, irritation, itching and redness)"
+        ],
+        "substitutes": [
+          "Nirdine M Ointment",
+          "Povizol Ointment",
+          "Puradine M Ointment",
+          "Cipladine M Ointment",
+          "Podine M Ointment",
+          "Ovidine M Ointment",
+          "Providine-AM Ointment",
+          "Misodine-M Ointment",
+          "Nestoine M Ointment",
+          "Poviclean Ointment"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Megadine M Ointment",
+          "composition": [
+            {
+              "drug": "Metronidazole",
+              "strength": "1% w/w"
+            },
+            {
+              "drug": "Povidone Iodine",
+              "strength": "5% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 132383,
+      "normalized_name": "miclogenta cream",
+      "record": {
+        "name": "Miclogenta Cream",
+        "composition": [
+          {
+            "drug": "Clobetasone",
+            "strength": null
+          },
+          {
+            "drug": "Gentamicin",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Skin infections"
+        ],
+        "side_effects": [
+          "Application site reactions (burning, irritation, itching and redness)"
+        ],
+        "substitutes": [
+          "Clonus-GMZ Cream",
+          "Closar GM Cream",
+          "Clotech GMZ Cream",
+          "Clodis GM Cream"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Miclogenta Cream",
+          "composition": [
+            {
+              "drug": "Clobetasone",
+              "strength": "0.05% w/w"
+            },
+            {
+              "drug": "Gentamicin",
+              "strength": "0.1% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 133317,
+      "normalized_name": "muconil syrup",
+      "record": {
+        "name": "Muconil  Syrup",
+        "composition": [
+          {
+            "drug": "Ambroxol",
+            "strength": null
+          },
+          {
+            "drug": "Guaifenesin",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Cough with mucus",
+          "Treatment of Cough with mucus"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Vomiting",
+          "Diarrhea",
+          "Dizziness",
+          "Headache",
+          "Rash",
+          "Tremors",
+          "Increased heart rate",
+          "Indigestion",
+          "Bloating",
+          "Upper abdominal pain",
+          "Urticaria",
+          "Itching",
+          "Sweating",
+          "Changes in serum aminotransferase levels",
+          "Excessive salivation",
+          "Fatigue",
+          "Paresthesia (tingling or pricking sensation)",
+          "Stomach discomfort",
+          "Arrhythmia (irregular heartbeats)"
+        ],
+        "substitutes": [
+          "Tpcof T Syrup",
+          "Tussprox Syrup",
+          "Ventryl BM Syrup",
+          "Sorex Syrup",
+          "Mbrox TG Syrup",
+          "Rithmax BM Syrup",
+          "Kufril Syrup",
+          "Kind X Syrup",
+          "Bronkolyte PD Syrup",
+          "Amrox Junior Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Muconil Syrup",
+          "composition": [
+            {
+              "drug": "Ambroxol",
+              "strength": "15mg/5ml"
+            },
+            {
+              "drug": "Guaifenesin",
+              "strength": "50mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 134806,
+      "normalized_name": "metos cream",
+      "record": {
+        "name": "Metos Cream",
+        "composition": [
+          {
+            "drug": "Mometasone",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Skin conditions with inflammation & itching"
+        ],
+        "side_effects": [
+          "Stinging sensation",
+          "Headache",
+          "Sore throat",
+          "Itching",
+          "Nosebleeds",
+          "Viral infection",
+          "Upper respiratory tract infection",
+          "Vomiting"
+        ],
+        "substitutes": [
+          "Mometamac Cream",
+          "Momin Cream",
+          "Mezo Cream",
+          "Eloa Cream",
+          "Mmc Cream",
+          "Momesone Cream",
+          "Mfsone Cream",
+          "Ezimet Cream",
+          "Moniter Cream"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Metos Cream",
+          "composition": [
+            {
+              "drug": "Mometasone",
+              "strength": "0.1% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 135385,
+      "normalized_name": "metacin tablet",
+      "record": {
+        "name": "Metacin Tablet",
+        "composition": [
+          {
+            "drug": "Paracetamol",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Pain relief",
+          "Treatment of Fever"
+        ],
+        "side_effects": [
+          "Stomach pain",
+          "Nausea",
+          "Vomiting"
+        ],
+        "substitutes": [
+          "Calpol 500mg Tablet",
+          "Dolo 500 Tablet",
+          "T-98 Tablet",
+          "Pacimol 500 Tablet",
+          "Parazex 500mg Tablet",
+          "Paracetamol O Tablet",
+          "Snez Rest Tablet",
+          "Triclomol Tablet"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Metacin Tablet",
+          "composition": [
+            {
+              "drug": "Paracetamol",
+              "strength": "500mg"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 136905,
+      "normalized_name": "mezo cream",
+      "record": {
+        "name": "Mezo Cream",
+        "composition": [
+          {
+            "drug": "Mometasone",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Skin conditions with inflammation & itching"
+        ],
+        "side_effects": [
+          "Stinging sensation",
+          "Headache",
+          "Sore throat",
+          "Itching",
+          "Nosebleeds",
+          "Viral infection",
+          "Upper respiratory tract infection",
+          "Vomiting"
+        ],
+        "substitutes": [
+          "Mometamac Cream",
+          "Momin Cream",
+          "Eloa Cream",
+          "Mmc Cream",
+          "Momentox Skin Cream",
+          "Momesone Cream",
+          "Mfsone Cream",
+          "Ezimet Cream",
+          "Moniter Cream"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Mezo Cream",
+          "composition": [
+            {
+              "drug": "Mometasone",
+              "strength": "0.1% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 147520,
+      "normalized_name": "nazol eye drop",
+      "record": {
+        "name": "Nazol Eye Drop",
+        "composition": [
+          {
+            "drug": "Naphazoline",
+            "strength": null
+          },
+          {
+            "drug": "Chlorpheniramine Maleate",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Allergic eye disease"
+        ],
+        "side_effects": [
+          "Burning eyes",
+          "Stinging in the eyes",
+          "Eye irritation",
+          "Eye pain",
+          "Blurred vision",
+          "Photophobia"
+        ],
+        "substitutes": [
+          "Ocunap Eye Drop",
+          "Ilin Eye Drop",
+          "Ilin MC Eye Drop",
+          "Evkool Eye Drop",
+          "Suthin Eye Drop",
+          "Naphaza Eye Drop",
+          "Neporic Eye Drop",
+          "Nesolin Plus Eye Drop"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Nazol Eye Drop",
+          "composition": [
+            {
+              "drug": "Chlorpheniramine Maleate",
+              "strength": "0.1% w/v"
+            },
+            {
+              "drug": "Camphor",
+              "strength": "0.01% w/v"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 147906,
+      "normalized_name": "normal saline infusion",
+      "record": {
+        "name": "Normal Saline Infusion",
+        "composition": [
+          {
+            "drug": "Sodium Chloride",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Short term fluid replacement after trauma",
+          "Treatment of Dehydration"
+        ],
+        "side_effects": [
+          "Injection site reactions (pain, swelling, redness)",
+          "Hypotension (low blood pressure)",
+          "Fever",
+          "Tremors",
+          "Chills"
+        ],
+        "substitutes": [
+          "Normal Saline 0.9% Infusion",
+          "NS 1000ml Denis Infusion",
+          "N S 0.9% Infusion",
+          "NS 0.9% Infusion",
+          "Dex 10% Infusion",
+          "NS Infusion",
+          "Normal Saline Infusion",
+          "N.S Infusion",
+          "Tromasol Infusion"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Normal Saline Infusion",
+          "composition": [
+            {
+              "drug": "Sodium Chloride",
+              "strength": "0.9% w/v"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 148054,
+      "normalized_name": "no cough syrup",
+      "record": {
+        "name": "NO Cough Syrup",
+        "composition": [
+          {
+            "drug": "Bromhexine",
+            "strength": null
+          },
+          {
+            "drug": "Guaifenesin",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Cough with mucus"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Vomiting",
+          "Diarrhea",
+          "Bloating",
+          "Stomach pain",
+          "Indigestion",
+          "Dizziness",
+          "Headache",
+          "Sweating",
+          "Skin rash",
+          "Hives"
+        ],
+        "substitutes": [
+          "Megatuss P Syrup",
+          "Elderyl Syrup",
+          "Frekof  Syrup",
+          "Zebex Syrup"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "No-Cough Syrup",
+          "composition": [
+            {
+              "drug": "Ambroxol",
+              "strength": "30mg/5ml"
+            },
+            {
+              "drug": "Salbutamol",
+              "strength": "2mg/5ml"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 149424,
+      "normalized_name": "nerfit injection",
+      "record": {
+        "name": "Nerfit Injection",
+        "composition": [
+          {
+            "drug": "Methylcobalamin",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Vitamin B12 deficiency"
+        ],
+        "side_effects": [
+          "Decreased appetite",
+          "Diarrhea",
+          "Nausea",
+          "Rash"
+        ],
+        "substitutes": [
+          "Micabal Injection",
+          "Cycobal Injection",
+          "Cobanuron Injection",
+          "Fotia Plus Injection",
+          "Neuri Forte Injection",
+          "Nurokind OD Injection",
+          "Recreate 1500mcg Injection",
+          "Medron 1500mcg Injection",
+          "Neuroway 1500 Injection",
+          "Phecobal 1500mcg Injection"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Nerfit Injection",
+          "composition": [
+            {
+              "drug": "Methylcobalamin",
+              "strength": "1500mcg"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 149986,
+      "normalized_name": "normal saline infusion",
+      "record": {
+        "name": "Normal Saline Infusion",
+        "composition": [
+          {
+            "drug": "Sodium Chloride",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Short term fluid replacement after trauma",
+          "Treatment of Dehydration"
+        ],
+        "side_effects": [
+          "Injection site reactions (pain, swelling, redness)",
+          "Hypotension (low blood pressure)",
+          "Fever",
+          "Tremors",
+          "Chills"
+        ],
+        "substitutes": [
+          "Normal Saline 0.9% Infusion",
+          "NS 1000ml Denis Infusion",
+          "N S 0.9% Infusion",
+          "NS 0.9% Infusion",
+          "Dex 10% Infusion",
+          "NS Infusion",
+          "Normal Saline Infusion",
+          "N.S Infusion",
+          "Tromasol Infusion"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Normal Saline Infusion",
+          "composition": [
+            {
+              "drug": "Sodium Chloride",
+              "strength": "0.9% w/v"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 157696,
+      "normalized_name": "ocan ear drop",
+      "record": {
+        "name": "Ocan Ear Drop",
+        "composition": [
+          {
+            "drug": "Beclometasone",
+            "strength": null
+          },
+          {
+            "drug": "Clotrimazole",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Ear infection",
+          "Treatment of Fungal skin infections"
+        ],
+        "side_effects": [
+          "Ear discomfort",
+          "Paresthesia (tingling or pricking sensation)",
+          "Burning sensation",
+          "Dry skin",
+          "Application site reactions (burning, irritation, itching and redness)"
+        ],
+        "substitutes": [
+          "Fulcin Ear Drop",
+          "Gentariv Ear Drop",
+          "Olotine Ear Drop",
+          "Otomet Ear Drop",
+          "Pheate Ear Drop",
+          "Gencos Ear Drop"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Ocan Ear Drop",
+          "composition": [
+            {
+              "drug": "Lidocaine",
+              "strength": "2% w/v"
+            },
+            {
+              "drug": "Beclometasone",
+              "strength": "0.025% w/v"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 169881,
+      "normalized_name": "pantazole dsr capsule",
+      "record": {
+        "name": "Pantazole DSR Capsule",
+        "composition": [
+          {
+            "drug": "Domperidone",
+            "strength": null
+          },
+          {
+            "drug": "Pantoprazole",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Gastroesophageal reflux disease (Acid reflux)",
+          "Treatment of Peptic ulcer disease"
+        ],
+        "side_effects": [
+          "Diarrhea",
+          "Stomach pain",
+          "Flatulence",
+          "Dryness in mouth",
+          "Dizziness",
+          "Headache"
+        ],
+        "substitutes": [
+          "Zenol DSR Capsule",
+          "Prevpan DSR Capsule",
+          "Petzem DSR Capsule",
+          "Penocool Capsule",
+          "PP Dom Capsule"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Pantazole-DSR Capsule",
+          "composition": [
+            {
+              "drug": "Domperidone",
+              "strength": "30mg"
+            },
+            {
+              "drug": "Pantoprazole",
+              "strength": "40mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 169980,
+      "normalized_name": "prozine syrup",
+      "record": {
+        "name": "Prozine Syrup",
+        "composition": [
+          {
+            "drug": "Promethazine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Nausea",
+          "Treatment of Vomiting",
+          "Treatment of Allergic conditions",
+          "Treatment of Motion sickness",
+          "Treatment of Fever",
+          "Treatment of Common cold"
+        ],
+        "side_effects": [
+          "Unusual production of breast milk in women and men",
+          "Vomiting",
+          "Nausea",
+          "Diarrhea",
+          "Rash",
+          "Dizziness"
+        ],
+        "substitutes": [
+          "Kzine Syrup",
+          "Promegan Syrup",
+          "Phenercof Syrup",
+          "Pronet Syrup",
+          "Largan P Syrup",
+          "Promeron P 125mg/5ml/5mg/5ml Syrup",
+          "Tempcon Plus 125mg/5ml/5mg/5ml Syrup",
+          "Promegan Plus 125mg/5ml/5mg/5ml Syrup",
+          "Fnorm P 125mg/5ml/5mg/5ml Syrup",
+          "Adwin P 125mg/5ml/5mg/5ml Syrup"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Prozine Syrup",
+          "composition": [
+            {
+              "drug": "Paracetamol",
+              "strength": "125mg/5ml"
+            },
+            {
+              "drug": "Promethazine",
+              "strength": "5mg/5ml"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 170364,
+      "normalized_name": "pronet syrup",
+      "record": {
+        "name": "Pronet Syrup",
+        "composition": [
+          {
+            "drug": "Promethazine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Nausea",
+          "Treatment of Vomiting",
+          "Treatment of Allergic conditions",
+          "Treatment of Motion sickness"
+        ],
+        "side_effects": [
+          "Unusual production of breast milk in women and men"
+        ],
+        "substitutes": [
+          "Kzine Syrup",
+          "Promegan Syrup",
+          "Phenercof Syrup",
+          "Largan P Syrup",
+          "Prozine Syrup",
+          "Phenamin Syrup",
+          "Phenzee 5mg/5ml Syrup",
+          "Premagan Syrup",
+          "Prompt Syrup",
+          "Emispan Syrup"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Pronet Syrup",
+          "composition": [
+            {
+              "drug": "Promethazine",
+              "strength": "5mg/5ml"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 177222,
+      "normalized_name": "quard cream",
+      "record": {
+        "name": "Quard Cream",
+        "composition": [
+          {
+            "drug": "Beclometasone",
+            "strength": null
+          },
+          {
+            "drug": "Clioquinol (Iodochlorhydroxyquin)",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Skin infections"
+        ],
+        "side_effects": [
+          "No common side effects seen"
+        ],
+        "substitutes": [
+          "Angloderm Cream",
+          "Naderm Cream"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Quard Cream",
+          "composition": [
+            {
+              "drug": "Beclometasone",
+              "strength": "0.06%"
+            },
+            {
+              "drug": "Clioquinol (Iodochlorhydroxyquin)",
+              "strength": "1.5%"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 178557,
+      "normalized_name": "relief tablet",
+      "record": {
+        "name": "Relief  Tablet",
+        "composition": [
+          {
+            "drug": "Ibuprofen",
+            "strength": null
+          },
+          {
+            "drug": "Paracetamol",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Pain relief",
+          "Treatment of Fever",
+          "Common cold"
+        ],
+        "side_effects": [
+          "Heartburn",
+          "Indigestion",
+          "Nausea",
+          "Stomach pain",
+          "Vomiting",
+          "Diarrhea",
+          "Loss of appetite",
+          "Sleepiness"
+        ],
+        "substitutes": [
+          "Antidol Kid Tablet",
+          "Mexipar Tablet",
+          "Lupiflam P Tablet",
+          "Primafen Plus Tablet",
+          "Ibusar Tablet",
+          "Dolopee Tablet",
+          "Dpc Tablet",
+          "Paindoz Tablet",
+          "Paingesic Tablet",
+          "Sundic Relief Tablet"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Relief Tablet",
+          "composition": [
+            {
+              "drug": "Diclofenac",
+              "strength": "50mg"
+            },
+            {
+              "drug": "Paracetamol",
+              "strength": "325mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 179613,
+      "normalized_name": "respinil syrup",
+      "record": {
+        "name": "Respinil Syrup",
+        "composition": [
+          {
+            "drug": "Ambroxol",
+            "strength": null
+          },
+          {
+            "drug": "Guaifenesin",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Cough with mucus"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Vomiting",
+          "Diarrhea",
+          "Dizziness",
+          "Headache",
+          "Rash",
+          "Tremors",
+          "Increased heart rate",
+          "Indigestion",
+          "Bloating",
+          "Upper abdominal pain",
+          "Urticaria",
+          "Itching",
+          "Sweating",
+          "Changes in serum aminotransferase levels"
+        ],
+        "substitutes": [
+          "Tpcof T Syrup",
+          "Tussprox Syrup",
+          "Ventryl BM Syrup",
+          "Sorex Syrup",
+          "Mbrox TG Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Respinil Syrup",
+          "composition": [
+            {
+              "drug": "Ambroxol",
+              "strength": "30mg/5ml"
+            },
+            {
+              "drug": "Guaifenesin",
+              "strength": "50mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 180543,
+      "normalized_name": "respinil d syrup",
+      "record": {
+        "name": "Respinil D Syrup",
+        "composition": [
+          {
+            "drug": "Phenylephrine",
+            "strength": null
+          },
+          {
+            "drug": "Chlorpheniramine Maleate",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Dry cough"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Vomiting",
+          "Loss of appetite",
+          "Headache"
+        ],
+        "substitutes": [
+          "Tudex Syrup",
+          "Synodex Syrup",
+          "Tuswin Syrup",
+          "Anarex DX Syrup",
+          "D Koff Syrup",
+          "Arnikof D Syrup",
+          "Tucin D Syrup",
+          "Akof-D Syrup Sugar Free",
+          "Cufflin Syrup",
+          "Dexaban DM Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Respinil D  Syrup",
+          "composition": [
+            {
+              "drug": "Phenylephrine",
+              "strength": "5mg"
+            },
+            {
+              "drug": "Chlorpheniramine Maleate",
+              "strength": "2mg"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 185587,
+      "normalized_name": "radicip tz tablet",
+      "record": {
+        "name": "Radicip TZ Tablet",
+        "composition": [
+          {
+            "drug": "Ciprofloxacin",
+            "strength": null
+          },
+          {
+            "drug": "Tinidazole",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Bacterial & parasitic infections"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Vomiting",
+          "Stomach pain",
+          "Dryness in mouth",
+          "Metallic taste",
+          "Headache"
+        ],
+        "substitutes": [
+          "Floxstar T Tablet",
+          "Cipking TZ Tablet",
+          "Trogyl CZ DS Tablet",
+          "Ciprosyn TZ Tablet",
+          "Ensin TZ Tablet"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Radicip-TZ Tablet",
+          "composition": [
+            {
+              "drug": "Ciprofloxacin",
+              "strength": "500mg"
+            },
+            {
+              "drug": "Tinidazole",
+              "strength": "600mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 194167,
+      "normalized_name": "scabiped lotion",
+      "record": {
+        "name": "Scabiped Lotion",
+        "composition": [
+          {
+            "drug": "Lindane",
+            "strength": null
+          },
+          {
+            "drug": "Cetrimide",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Scabies"
+        ],
+        "side_effects": [
+          "Application site reactions (burning, irritation, itching and redness)",
+          "Dry skin"
+        ],
+        "substitutes": [
+          "Linscab Lotion",
+          "Scabex S Lotion",
+          "Olscab C Lotion",
+          "Descab Lotion"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Scabiped Lotion",
+          "composition": [
+            {
+              "drug": "Lindane",
+              "strength": "2% w/v"
+            },
+            {
+              "drug": "Cetrimide",
+              "strength": "0.5% w/v"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 195906,
+      "normalized_name": "sorex syrup",
+      "record": {
+        "name": "Sorex Syrup",
+        "composition": [
+          {
+            "drug": "Ambroxol",
+            "strength": null
+          },
+          {
+            "drug": "Guaifenesin",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Cough with mucus",
+          "Treatment of Cough"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Vomiting",
+          "Diarrhea",
+          "Dizziness",
+          "Headache",
+          "Rash",
+          "Tremors",
+          "Increased heart rate",
+          "Indigestion",
+          "Bloating",
+          "Upper abdominal pain",
+          "Urticaria",
+          "Itching",
+          "Sweating",
+          "Changes in serum aminotransferase levels",
+          "Stomach pain",
+          "Skin rash",
+          "Hives",
+          "Palpitations"
+        ],
+        "substitutes": [
+          "Respinil Syrup",
+          "Tpcof T Syrup",
+          "Tussprox Syrup",
+          "Ventryl BM Syrup",
+          "Mbrox TG Syrup",
+          "Brosan Am Plus Syrup",
+          "Brossil P Syrup",
+          "Bronex Syrup",
+          "Theorex BR Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Sorex Syrup",
+          "composition": [
+            {
+              "drug": "Bromhexine",
+              "strength": "4mg"
+            },
+            {
+              "drug": "Guaifenesin",
+              "strength": "50mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 196946,
+      "normalized_name": "septigard ointment",
+      "record": {
+        "name": "Septigard Ointment",
+        "composition": [
+          {
+            "drug": "Metronidazole",
+            "strength": null
+          },
+          {
+            "drug": "Povidone Iodine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Wound infection"
+        ],
+        "side_effects": [
+          "Dry skin",
+          "Application site reactions (burning, irritation, itching and redness)"
+        ],
+        "substitutes": [
+          "Nirdine M Ointment",
+          "Povizol Ointment",
+          "Puradine M Ointment",
+          "Cipladine M Ointment",
+          "Podine M Ointment"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Septigard Ointment",
+          "composition": [
+            {
+              "drug": "Metronidazole",
+              "strength": "1% w/w"
+            },
+            {
+              "drug": "Povidone Iodine",
+              "strength": "5% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 197217,
+      "normalized_name": "spd gel",
+      "record": {
+        "name": "SPD Gel",
+        "composition": [
+          {
+            "drug": "Serratiopeptidase",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Pain relief",
+          "Swelling"
+        ],
+        "side_effects": [
+          "Application site reactions (burning, irritation, itching and redness)",
+          "No common side effects seen"
+        ],
+        "substitutes": [
+          "Volipin Gel",
+          "Corflam Gel",
+          "Acedol Gel",
+          "Dilocon Gel",
+          "Retroflam Gel",
+          "Acfast Gel",
+          "Google Gel"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Spd Gel",
+          "composition": [
+            {
+              "drug": "Diclofenac diethylamine",
+              "strength": "1.16% w/w"
+            },
+            {
+              "drug": "Linseed Oil",
+              "strength": "3% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 197353,
+      "normalized_name": "swidril syrup",
+      "record": {
+        "name": "Swidril Syrup",
+        "composition": [
+          {
+            "drug": "Menthol",
+            "strength": null
+          },
+          {
+            "drug": "Diphenhydramine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Cough"
+        ],
+        "side_effects": [
+          "Stomach pain/epigastric pain",
+          "Sleepiness",
+          "Dizziness",
+          "Thickened respiratory tract secretions",
+          "Allergic reaction",
+          "Impaired coordination"
+        ],
+        "substitutes": [
+          "Gercodryl Syrup",
+          "Rexotuss Syrup",
+          "Phencloril Syrup",
+          "Cofura Syrup",
+          "Flykof Syrup",
+          "Decodil Syrup",
+          "Tordryl Syrup",
+          "Scordryl Syrup",
+          "Excup Syrup",
+          "Dynadril Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Swidril Syrup",
+          "composition": [
+            {
+              "drug": "Ammonium Chloride",
+              "strength": "138mg/5ml"
+            },
+            {
+              "drug": "Sodium Citrate",
+              "strength": "57.03mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 197635,
+      "normalized_name": "sii hibpro vaccine",
+      "record": {
+        "name": "Sii Hibpro Vaccine",
+        "composition": [
+          {
+            "drug": "Tetanus Toxoid",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Prevention of Tetanus",
+          "Prevention of Influenza (flu)"
+        ],
+        "side_effects": [
+          "Sleepiness",
+          "Fever",
+          "Irritation",
+          "Restlessness",
+          "Injection site reactions (pain, swelling, redness)",
+          "Loss of appetite"
+        ],
+        "substitutes": [
+          "Betatnus Vaccine",
+          "Tetvac Injection",
+          "Abhay-TOX Vaccine",
+          "TT Injection",
+          "Tetanus Toxoid TF Injection"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "SII HibPro Vaccine",
+          "composition": [
+            {
+              "drug": "Tetanus Toxoid",
+              "strength": "19mcg"
+            },
+            {
+              "drug": "Haemophilus Type B Conjugate Vaccine",
+              "strength": "10mcg"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 198153,
+      "normalized_name": "scabcare lotion",
+      "record": {
+        "name": "Scabcare Lotion",
+        "composition": [
+          {
+            "drug": "Lindane",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Scabies"
+        ],
+        "side_effects": [
+          "Hair loss",
+          "Rash",
+          "Erythematous rash",
+          "Drowsiness",
+          "Headache",
+          "Dizziness",
+          "Convulsion",
+          "Itching",
+          "Dry skin",
+          "Paresthesia (tingling or pricking sensation)",
+          "Numbness",
+          "Tremors",
+          "Application site reactions (burning, irritation, itching and redness)"
+        ],
+        "substitutes": [
+          "Scabidin Lotion",
+          "G Scab Lotion",
+          "Scabinil Lotion",
+          "Linoscab Lotion",
+          "Corscab Lotion",
+          "NT Scab Lotion",
+          "Gamaley Lotion",
+          "Avscab Lotion",
+          "MN Scab Lotion"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Scabcare Lotion",
+          "composition": [
+            {
+              "drug": "Lindane",
+              "strength": "1% w/w"
+            },
+            {
+              "drug": "Cetrimide",
+              "strength": "0.1% w/w"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 201155,
+      "normalized_name": "sinulin syrup",
+      "record": {
+        "name": "Sinulin Syrup",
+        "composition": [
+          {
+            "drug": "Paracetamol",
+            "strength": null
+          },
+          {
+            "drug": "Phenylpropanolamine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Common cold"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Sleepiness",
+          "Allergic reaction",
+          "High blood pressure",
+          "Insomnia (difficulty in sleeping)",
+          "Palpitations"
+        ],
+        "substitutes": [
+          "Coldwok Plus Syrup",
+          "Lupicold Plus Syrup",
+          "Bycold Syrup",
+          "Flubest Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Sinulin Syrup",
+          "composition": [
+            {
+              "drug": "Chlorpheniramine Maleate",
+              "strength": "2mg/5ml"
+            },
+            {
+              "drug": "Phenylephrine",
+              "strength": "5mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 212221,
+      "normalized_name": "tolnacomb cream",
+      "record": {
+        "name": "Tolnacomb Cream",
+        "composition": [
+          {
+            "drug": "Betamethasone",
+            "strength": null
+          },
+          {
+            "drug": "Gentamicin",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Skin infections",
+          "Treatment of Skin infections"
+        ],
+        "side_effects": [
+          "Application site reactions (burning, irritation, itching and redness)"
+        ],
+        "substitutes": [
+          "Quadrim Mix Cream",
+          "Qualiderm Cream",
+          "QD 4 Cream",
+          "Quips Forte Cream",
+          "Fulderm Cream",
+          "Nuforce-Gm Cream",
+          "Diprolite Cream",
+          "Ceoderm  Cream",
+          "Bestopic N  Cream",
+          "Gentalene Plus Cream"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Tolnacomb Cream",
+          "composition": [
+            {
+              "drug": "Beclometasone",
+              "strength": "0.025% w/w"
+            },
+            {
+              "drug": "Neomycin",
+              "strength": "0.5% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 213701,
+      "normalized_name": "tacoseal ointment",
+      "record": {
+        "name": "Tacoseal Ointment",
+        "composition": [
+          {
+            "drug": "Tacrolimus",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Prevention of organ rejection in transplant patients"
+        ],
+        "side_effects": [
+          "Application site reactions (burning, irritation, itching and redness)",
+          "Diarrhea",
+          "Increased glucose level in blood",
+          "Increased thirst",
+          "Kidney damage",
+          "Liver damage",
+          "Nausea",
+          "Stomach pain"
+        ],
+        "substitutes": [
+          "Tacmed Ointment",
+          "Tames Forte Ointment",
+          "Xerolimus Ointment",
+          "Tacmod Forte Ointment",
+          "Imograf Forte Ointment",
+          "Tacvido Forte Ointment",
+          "Eczrid Forte Ointment",
+          "Takfa Forte Ointment"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Tacoseal Ointment",
+          "composition": [
+            {
+              "drug": "Tacrolimus",
+              "strength": "0.1% w/w"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 215705,
+      "normalized_name": "terex bs syrup",
+      "record": {
+        "name": "Terex-BS Syrup",
+        "composition": [
+          {
+            "drug": "Bromhexine",
+            "strength": null
+          },
+          {
+            "drug": "Salbutamol",
+            "strength": null
+          }
+        ],
+        "uses": [],
+        "side_effects": [],
+        "substitutes": [],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Terex-BS Syrup",
+          "composition": [
+            {
+              "drug": "Guaifenesin",
+              "strength": "50mg"
+            },
+            {
+              "drug": "Ambroxol",
+              "strength": "15mg"
+            }
+          ],
+          "regulatory": "OTC"
+        },
+        {
+          "name": "Terex-BS Syrup",
+          "composition": [
+            {
+              "drug": "Bromhexine",
+              "strength": "4mg"
+            },
+            {
+              "drug": "Salbutamol",
+              "strength": "2mg"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 222193,
+      "normalized_name": "tritus plus suspension",
+      "record": {
+        "name": "Tritus Plus Suspension",
+        "composition": [
+          {
+            "drug": "Paracetamol",
+            "strength": null
+          },
+          {
+            "drug": "Chlorpheniramine Maleate",
+            "strength": null
+          }
+        ],
+        "uses": [],
+        "side_effects": [],
+        "substitutes": [],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Tritus Plus Suspension",
+          "composition": [
+            {
+              "drug": "Phenylpropanolamine",
+              "strength": "12.5mg"
+            },
+            {
+              "drug": "Chlorpheniramine Maleate",
+              "strength": "2mg"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 223747,
+      "normalized_name": "unicyp syrup",
+      "record": {
+        "name": "Unicyp Syrup",
+        "composition": [
+          {
+            "drug": "Cyproheptadine",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Allergic conditions",
+          "Appetite stimulant"
+        ],
+        "side_effects": [
+          "Dizziness",
+          "Headache",
+          "Constipation",
+          "Dryness in mouth",
+          "Drowsiness",
+          "Sleepiness",
+          "Blurred vision"
+        ],
+        "substitutes": [
+          "Hungry Syrup",
+          "Cypotin Syrup",
+          "Anabol Syrup",
+          "Cypodin Syrup",
+          "Lupactin Forte Syrup",
+          "Trisotis Plus Syrup",
+          "Anzicyp Syrup",
+          "Mecyp Syrup",
+          "Cytadine-TS Syrup",
+          "Pneucyprodin T Syrup"
+        ],
+        "regulatory": "OTC"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Unicyp Syrup",
+          "composition": [
+            {
+              "drug": "Cyproheptadine",
+              "strength": "2mg"
+            },
+            {
+              "drug": "Tricholine Citrate",
+              "strength": "275mg"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 224818,
+      "normalized_name": "ulcicure syrup",
+      "record": {
+        "name": "Ulcicure Syrup",
+        "composition": [
+          {
+            "drug": "Omeprazole",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Heartburn",
+          "Treatment of Gastroesophageal reflux disease (Acid reflux)",
+          "Treatment of Peptic ulcer disease",
+          "Acidity",
+          "Stomach ulcers",
+          "Bloating"
+        ],
+        "side_effects": [
+          "Diarrhea",
+          "Flatulence",
+          "Headache",
+          "Nausea",
+          "Stomach pain",
+          "Vomiting",
+          "Chalky taste",
+          "Constipation"
+        ],
+        "substitutes": [
+          "Acixx Syrup Saunf",
+          "Acixx Syrup Pineapple",
+          "Afra Z Syrup",
+          "Aagnil Syrup",
+          "Omenez Mps Syrup"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Ulcicure Syrup",
+          "composition": [
+            {
+              "drug": "Magaldrate",
+              "strength": "400mg/5ml"
+            },
+            {
+              "drug": "Simethicone",
+              "strength": "20mg/5ml"
+            }
+          ],
+          "regulatory": "OTC"
+        }
+      ]
+    },
+    {
+      "original_index": 226453,
+      "normalized_name": "valerate n cream",
+      "record": {
+        "name": "Valerate N Cream",
+        "composition": [
+          {
+            "drug": "Betamethasone",
+            "strength": null
+          },
+          {
+            "drug": "Neomycin",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Treatment of Bacterial skin infections"
+        ],
+        "side_effects": [
+          "Burning sensation",
+          "Itching"
+        ],
+        "substitutes": [
+          "Anglomet N Cream",
+          "Zobet N Cream"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "VALERATE N CREAM",
+          "composition": [
+            {
+              "drug": "Betamethasone",
+              "strength": "0.1% w/w"
+            },
+            {
+              "drug": "Neomycin",
+              "strength": "0.05% w/w"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    },
+    {
+      "original_index": 237082,
+      "normalized_name": "xpom lb tablet",
+      "record": {
+        "name": "Xpom LB Tablet",
+        "composition": [
+          {
+            "drug": "Cefpodoxime Proxetil",
+            "strength": "200mg"
+          },
+          {
+            "drug": "Lactobacillus",
+            "strength": null
+          }
+        ],
+        "uses": [
+          "Bacterial infections"
+        ],
+        "side_effects": [
+          "Nausea",
+          "Diarrhea",
+          "Stomach pain",
+          "Bloating",
+          "Headache"
+        ],
+        "substitutes": [
+          "Dioxim LB Tablet",
+          "Cefxtra O 100mg/60Million spores Tablet",
+          "Cefpopen LB Tablet",
+          "Acef LB 100mg Tablet",
+          "Nextil LB 100mg Tablet",
+          "Zoxim LB Tablet"
+        ],
+        "regulatory": "Schedule H"
+      },
+      "retained_complete_records": [
+        {
+          "name": "Xpom LB Tablet",
+          "composition": [
+            {
+              "drug": "Cefpodoxime Proxetil",
+              "strength": "100mg"
+            },
+            {
+              "drug": "Lactobacillus",
+              "strength": "60Million spores"
+            }
+          ],
+          "regulatory": "Schedule H"
+        }
+      ]
+    }
+  ]
+}

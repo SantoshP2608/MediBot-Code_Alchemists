@@ -218,11 +218,24 @@ limits answers to general educational health information and excludes diagnosis,
 prescribing, dosage, and medicine-interaction advice. Connection or model failures
 propagate to the CLI's error response; they are not presented as successful answers.
 
-Identical duplicate medicine records are treated as one record. Conflicting
+Duplicate medicine records differing only in normalized name formatting are
+treated as one record when every other field agrees. Conflicting
 records with the same normalized product name return an explicit error rather
 than an unresolvable clarification loop. A supplied strength can be verified
 against a single-ingredient composition when the product name omits units.
 Missing composition strengths cannot establish a strength match or savings.
+
+Ingredient-only requests such as `price of Diclofenac` offer verified product
+choices even when a matching product-name prefix has conflicting records. Exact
+conflicting products remain errors and are excluded from choices; selection still
+runs the normal safety checks. A generic ingredient does not automatically select
+the first matching injection, tablet, or other formulation.
+
+The database cleanup removed 84 incomplete records only where a complete-strength
+record existed under the same normalized name, leaving 245,984 records. Records
+without a complete counterpart were retained. `backend/data/medicine_cleanup_report.json`
+contains the removed records, their original indices, retained complete counterparts,
+and before/after file hashes. Restart the backend to reload the cached database.
 
 The regulatory category comes from the dataset. Schedule H and Schedule G
 responses include a top-level `disclaimer`: `Please consult a doctor.` The

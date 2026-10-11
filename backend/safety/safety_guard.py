@@ -1,6 +1,6 @@
 from backend.config.settings import CONSTANTS
 from backend.models.schemas import BLOCKED_INTENTS, Extraction
-from backend.data.medicine_database import find_medicine, normalize
+from backend.data.medicine_database import find_medicine, is_ingredient_query, normalize, suggest_products
 
 
 DOCTOR_DISCLAIMER = CONSTANTS["regulatory"]["doctor_disclaimer"]
@@ -81,6 +81,15 @@ def check_safety(extraction: Extraction) -> dict:
 
     medicines = []
     for medicine, matches in resolved:
+        # A generic ingredient can name many products. Offer verified choices
+        # before an unrelated/conflicting prefix match stops the whole request.
+        if is_ingredient_query(medicine):
+            choices = suggest_products(medicine)
+            if choices:
+                output = result('clarify', 'ingredient_selection',
+                                CONSTANTS['messages']['select_medicine'])
+                output['candidates'] = [row['name'] for row in choices]
+                return output
         if not matches:
             return result("clarify", "medicine_not_found",
                           CONSTANTS["messages"]["medicine_not_found"].format(medicine_name=medicine.name))

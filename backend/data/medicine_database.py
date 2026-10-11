@@ -67,10 +67,22 @@ def find_medicine(medicine: Medicine) -> list[dict]:
         matches = [record for key, record in records
                    if name in product_name_aliases(key) and matches_strength(record)]
     unique = []
+    comparable = []
     for record in matches:
-        if record not in unique:
+        normalized_record = {**record, 'name': normalize(record['name'])}
+        if normalized_record not in comparable:
             unique.append(record)
+            comparable.append(normalized_record)
     return unique
+
+
+def is_ingredient_query(medicine: Medicine) -> bool:
+    """An ingredient alone is not a choice of a particular branded product."""
+    name = normalize(medicine.name)
+    if not name or any(key == name for key, _ in load_database()):
+        return False
+    return any(normalize(item.get('drug', '')) == name
+               for _, row in load_database() for item in row.get('composition', []))
 
 
 def suggest_products(medicine: Medicine) -> list[dict]:
@@ -96,9 +108,9 @@ def suggest_products(medicine: Medicine) -> list[dict]:
                     any(value == strength or (strength.isdigit() and value.split()[:1] == [strength])
                         for value in values)):
                 continue
-        if record['name'] in seen:
+        if key in seen:
             continue
-        seen.add(record['name'])
+        seen.add(key)
         suggestions.append(record)
     # Single-ingredient products precede combinations; stable alphabetical order.
     suggestions.sort(key=lambda row: (

@@ -176,6 +176,12 @@ class ResponseTests(unittest.TestCase):
         result = handle_response(request(["side_effects"]))
         self.assertEqual(result["action"], "response")
 
+    def test_name_whitespace_only_differences_do_not_create_conflicting_products(self):
+        duplicate = {**self.record, 'name': self.record['name'].replace(' ', '  ')}
+        self.loader.return_value += ((normalize(duplicate['name']), duplicate),)
+        result = handle_response(request(['side_effects']))
+        self.assertEqual(result['action'], 'response')
+
     def test_unknown_composition_strength_does_not_crash_lookup(self):
         self.record["name"] = "Example Tablet"
         self.record["composition"] = [{"drug": "Ingredient", "strength": None}]

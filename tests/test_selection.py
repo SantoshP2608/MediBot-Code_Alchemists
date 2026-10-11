@@ -204,6 +204,38 @@ class SelectionTests(unittest.TestCase):
         self.assertEqual(answer['results'][0]['intent'], 'price_comparison')
         self.assertEqual(answer['results'][0]['data'][0]['original']['medicine'], 'Dolo 500 Tablet')
 
+    def test_generic_ingredient_offers_valid_products_despite_conflicting_prefix_records(self):
+        ingredient = [{'drug': 'Diclofenac', 'strength': '75mg'}]
+        self.rows = [record('Diclofenac Sodium  Injection', [{'drug': 'Diclofenac', 'strength': None}], 'Schedule H'),
+                     record('Diclofenac Sodium Injection', ingredient, 'Schedule H'),
+                     record('Verified Brand Injection', ingredient, 'Schedule H')]
+        result = self.chat(medicines=[Medicine(name='Diclofenac', strength=None)], text='Price of Diclofenac')
+        self.assertEqual(result['reason'], 'ingredient_selection')
+        self.assertEqual([c['name'] for c in result['medicine_choices']], ['Verified Brand Injection'])
+        with patch('backend.services.price.get_prices', return_value=[]), \
+                patch('backend.services.conversation.extract_query') as model:
+            selected = self.client.post('/api/select', json=self.selection_payload(result)).json()['result']
+        self.assertEqual(selected['results'][0]['intent'], 'price_comparison')
+        self.assertEqual(selected['disclaimer'], 'Please consult a doctor.')
+        model.assert_not_called()
+
+    def test_ingredient_does_not_auto_select_single_prefix_match_after_cleanup(self):
+        ingredient = [{'drug': 'Diclofenac', 'strength': '75mg'}]
+        self.rows = [record('Diclofenac Sodium Injection', ingredient, 'Schedule H'),
+                     record('Verified Brand Injection', ingredient, 'Schedule H')]
+        result = self.chat(medicines=[Medicine(name='Diclofenac', strength=None)])
+        self.assertEqual(result['action'], 'clarify')
+        self.assertEqual(len(result['medicine_choices']), 2)
+
+    def test_exact_conflicting_product_still_returns_error(self):
+        ingredient = [{'drug': 'Diclofenac', 'strength': '75mg'}]
+        self.rows = [record('Diclofenac Sodium Injection', ingredient),
+                     record('Diclofenac Sodium  Injection', [{'drug': 'Diclofenac', 'strength': '25mg'}]),
+                     record('Verified Brand Injection', ingredient)]
+        result = self.chat(medicines=[Medicine(name='Diclofenac Sodium Injection', strength=None)])
+        self.assertEqual(result['reason'], 'conflicting_medicine_records')
+        self.assertNotIn('medicine_choices', result)
+
 
 if __name__ == '__main__':
     unittest.main()

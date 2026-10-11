@@ -6,7 +6,7 @@ from uuid import uuid4
 from backend.config.settings import CONSTANTS
 from backend.llm.extractor import extract_turn as extract_query
 from backend.models.schemas import BLOCKED_INTENTS, Extraction, Medicine, TurnUpdate
-from backend.data.medicine_database import explicit_medicine_mentions, find_medicine, suggest_products
+from backend.data.medicine_database import explicit_medicine_mentions, find_medicine, is_ingredient_query, suggest_products
 from backend.services.response import handle_response
 from backend.safety.safety_guard import check_safety, make_result
 
@@ -44,10 +44,10 @@ def offer_products(state, extraction, result):
     state.selection_choices = {}
     state.selection_medicine_index = None
     if result['reason'] not in {'ambiguous_medicine', 'medicine_not_found',
-                                'ambiguous_request', 'missing_intent'}:
+                                'ambiguous_request', 'missing_intent', 'ingredient_selection'}:
         return
     for index, medicine in enumerate(extraction.medicines):
-        if len(find_medicine(medicine)) == 1:
+        if len(find_medicine(medicine)) == 1 and not is_ingredient_query(medicine):
             continue
         records = suggest_products(medicine)
         if not records:
@@ -138,7 +138,7 @@ def process_message(state, message, selected_medicine=None):
                     and turn.medicine_operation == 'replace' and turn.medicines
                     and state.clarification_reason in {
                         'missing_medicine', 'missing_medicine_name',
-                        'medicine_not_found', 'ambiguous_medicine'}):
+                        'medicine_not_found', 'ambiguous_medicine', 'ingredient_selection'}):
                 extraction = Extraction(**(extraction.model_dump() | {
                     'needs_clarification': False, 'clarification_question': None,
                 }))
