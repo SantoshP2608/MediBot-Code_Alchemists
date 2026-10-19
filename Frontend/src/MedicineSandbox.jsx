@@ -1,5 +1,6 @@
 import './MedicineSandbox.css';
 import { config } from './config';
+import ShinyText from './components/ShinyText';
 
 const money = (value) => Number.isFinite(value)
   ? new Intl.NumberFormat('en-IN', { style: 'currency', currency: config.currency }).format(value) : null;
@@ -36,7 +37,7 @@ function Quotes({ prices, savings = [] }) {
         {saving && Number.isFinite(saving.percent) && <small className="saving-value">
           {saving.percent}% lower per {saving.unit} at this pharmacy
         </small>}
-        {link && <a href={link} target="_blank" rel="noopener noreferrer">View pharmacy</a>}
+        {link && <a href={link} target="_blank" rel="noopener noreferrer"><ShinyText>View pharmacy</ShinyText></a>}
       </div>;
     })}
     {prices?.note && <p className="sandbox-note">{prices.note}</p>}
@@ -65,7 +66,7 @@ export default function MedicineSandbox({ data }) {
       {best.pack_size && <div>{best.pack_size}</div>}
       <p className="sandbox-note">Highest discount from this product’s own MRP among the displayed eligible quotes.
         This is a price comparison, not a recommendation to switch medicines. Delivery fees are excluded.</p>
-      {bestLink && <a href={bestLink} target="_blank" rel="noopener noreferrer">View best offer</a>}
+      {bestLink && <a href={bestLink} target="_blank" rel="noopener noreferrer"><ShinyText>View best offer</ShinyText></a>}
     </aside>}
     <h4>Pharmacy prices</h4><Quotes prices={original.prices} />
     <h4>Listed alternatives</h4>

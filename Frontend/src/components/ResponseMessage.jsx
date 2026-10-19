@@ -1,6 +1,7 @@
 import MedicineSandbox from '../MedicineSandbox';
 import { config } from '../config';
 import SplitText from './SplitText';
+import ShinyText from './ShinyText';
 
 export default function ResponseMessage({ result, onSelect, choicesDisabled = true }) {
   const shown = new Set();
@@ -11,7 +12,7 @@ export default function ResponseMessage({ result, onSelect, choicesDisabled = tr
       {result.medicine_choices.map((item) => <button type="button" className="medicine-choice"
         key={item.product_id} disabled={choicesDisabled}
         onClick={() => onSelect?.(item, result.selection_offer)}>
-        <strong>{item.name}</strong>
+        <strong><ShinyText>{item.name}</ShinyText></strong>
         <span>{item.composition?.map((ingredient) =>
           `${ingredient.drug} ${ingredient.strength || ''}`.trim()).join(' + ')}</span>
         {item.combination && <span className="combination-label">Combination product</span>}

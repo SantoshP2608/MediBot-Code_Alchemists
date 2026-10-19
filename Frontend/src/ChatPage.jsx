@@ -5,6 +5,7 @@ import { sendMessage } from "./api/chat";
 import { config } from "./config";
 import LatticeLoader from "./components/LatticeLoader";
 import SplitText from "./components/SplitText";
+import ShinyText from "./components/ShinyText";
 
 const welcome = {
   id: "welcome",
@@ -138,7 +139,7 @@ function ChatPage() {
           type="button"
           onClick={startNewChat}
         >
-          New chat
+          <ShinyText>New chat</ShinyText>
         </button>
       </header>
 
@@ -213,7 +214,7 @@ function ChatPage() {
                 {message.retry && <button className="retry-button" type="button"
                   disabled={loading || !accepted}
                   onClick={() => ask(message.retry.question, message.retry.requestId, message.id, message.retry.selection)}>
-                  Retry
+                  <ShinyText>Retry</ShinyText>
                 </button>}
               </div>
             </div>
@@ -276,7 +277,7 @@ function ChatPage() {
             type="submit"
             disabled={!accepted || loading || !input.trim()}
           >
-            Send
+            <ShinyText>Send</ShinyText>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="19"

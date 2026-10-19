@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ChatPage from "./ChatPage";
 import LandingPage from "./LandingPage";
+import ShinyText from "./components/ShinyText";
 
 function App() {
   const [showChat, setShowChat] = useState(false);
@@ -21,7 +22,7 @@ function App() {
       <div className="chat-page-background">
         <div className="home-back-bar">
           <button type="button" onClick={goHome}>
-            Back to home
+            <ShinyText>Back to home</ShinyText>
           </button>
         </div>
 

@@ -1,4 +1,5 @@
 import "./LandingPage.css";
+import ShinyText from "./components/ShinyText";
 
 function LandingPage({ onStart }) {
     return (
@@ -30,7 +31,7 @@ function LandingPage({ onStart }) {
                             type="button"
                             onClick={onStart}
                         >
-                            Get Started
+                            <ShinyText>Get Started</ShinyText>
                         </button>
                     </div>
                 </header>
@@ -61,7 +62,7 @@ function LandingPage({ onStart }) {
                                 type="button"
                                 onClick={onStart}
                             >
-                                Ask a Question <span aria-hidden="true">→</span>
+                                <ShinyText>Ask a Question</ShinyText> <span aria-hidden="true">→</span>
                             </button>
                             <div className="hero-highlights">
                                 <div className="hero-highlight">
