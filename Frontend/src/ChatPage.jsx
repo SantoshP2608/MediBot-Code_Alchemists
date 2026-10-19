@@ -4,6 +4,7 @@ import ResponseMessage from "./components/ResponseMessage";
 import { sendMessage } from "./api/chat";
 import { config } from "./config";
 import LatticeLoader from "./components/LatticeLoader";
+import SplitText from "./components/SplitText";
 
 const welcome = {
   id: "welcome",
@@ -200,7 +201,8 @@ function ChatPage() {
                   </strong>
                 </div>
 
-                {message.text && <p>{message.text}</p>}
+                {message.text && <p>{message.role === 'assistant'
+                  ? <SplitText text={message.text} /> : message.text}</p>}
                 {message.result && <ResponseMessage result={message.result}
                   choicesDisabled={loading || !accepted || activeOffer.current !== message.result.selection_offer}
                   onSelect={(item, offer) => {

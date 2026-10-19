@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { after, before, test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import React from 'react';
+import { JSDOM } from 'jsdom';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { createServer } from 'vite';
 
@@ -18,6 +19,7 @@ before(async () => {
 after(async () => { globalThis.fetch = originalFetch; await server?.close(); });
 
 const render = (result) => renderToStaticMarkup(React.createElement(ResponseMessage, { result }));
+const textContent = (html) => JSDOM.fragment(html).textContent;
 
 test('landing has a start button and no sign-in or login', () => {
   const html = renderToStaticMarkup(React.createElement(LandingPage));
@@ -28,10 +30,10 @@ test('landing has a start button and no sign-in or login', () => {
 test('clarification, blocked responses and errors show messages and H/G disclaimers', () => {
   for (const action of ['clarify', 'block', 'error']) {
     const html = render({ action, message: 'Please specify the medicine.', disclaimer: 'Please consult a doctor.' });
-    assert.match(html, /Please specify the medicine/);
-    assert.match(html, /Please consult a doctor/);
+    assert.match(textContent(html), /Please specify the medicine/);
+    assert.match(textContent(html), /Please consult a doctor/);
   }
-  assert.match(render({ action: 'block', reason: 'schedule_x', message: 'Please consult a doctor.' }), /Please consult a doctor/);
+  assert.match(textContent(render({ action: 'block', reason: 'schedule_x', message: 'Please consult a doctor.' })), /Please consult a doctor/);
 });
 
 test('uses, side effects and general health render independently without raw HTML injection', () => {
@@ -43,7 +45,7 @@ test('uses, side effects and general health render independently without raw HTM
   assert.match(html, /Side effects/);
   assert.match(html, /Effect/);
   assert.match(html, /Uses/);
-  assert.ok(html.includes(config.no_data));
+  assert.ok(textContent(html).includes(config.no_data));
   assert.doesNotMatch(html, /<script>/);
   assert.match(html, /&lt;script&gt;/);
 });
