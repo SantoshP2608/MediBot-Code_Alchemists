@@ -16,8 +16,8 @@ services:
       - key: MEDIBOT_API_TOKEN
         sync: false
       - key: OLLAMA_MODEL
-        value: qwen2.5:3b
+        value: qwen3:8b
       - key: OLLAMA_CHAT_MODEL
-        value: qwen2.5:3b
+        value: qwen3:8b
       - key: MEDIBOT_BROWSER_CHANNEL
         value: chromium

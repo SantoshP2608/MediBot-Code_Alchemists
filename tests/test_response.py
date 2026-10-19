@@ -2,6 +2,7 @@ import unittest
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
+from backend.config.settings import CONSTANTS
 from backend.models.schemas import BLOCKED_INTENTS, Extraction
 from backend.services.response import normalize, handle_response
 
@@ -110,7 +111,7 @@ class ResponseTests(unittest.TestCase):
                     with patch("backend.services.response.call_service", return_value={"status": "ok", "data": []}):
                         result = handle_response(request([intent]), "Example question")
                     self.assertEqual(result["action"], "response")
-                    self.assertEqual(result["disclaimer"], "Please consult a doctor.")
+                    self.assertEqual(result["disclaimer"], CONSTANTS["regulatory"]["schedule_hg_disclaimer"])
 
     def test_x_suppresses_all_routes_before_services(self):
         self.record["regulatory"] = "Schedule X"
@@ -121,7 +122,7 @@ class ResponseTests(unittest.TestCase):
                     result = handle_response(request([intent]))
                 self.assertEqual(result["action"], "block")
                 self.assertEqual(result["reason"], "schedule_x")
-                self.assertEqual(result["message"], BLOCKED_INTENTS.get(intent, "Please consult a doctor."))
+                self.assertEqual(result["message"], BLOCKED_INTENTS.get(intent, CONSTANTS["regulatory"]["doctor_disclaimer"]))
                 self.assertNotIn("results", result)
                 service.assert_not_called()
 
@@ -143,7 +144,7 @@ class ResponseTests(unittest.TestCase):
         substitute["regulatory"] = "Schedule G"
         with patch("backend.services.response.call_service", return_value={"status": "ok", "data": []}):
             result = handle_response(request(["alternative_search"]))
-        self.assertEqual(result["disclaimer"], "Please consult a doctor.")
+        self.assertEqual(result["disclaimer"], CONSTANTS["regulatory"]["schedule_hg_disclaimer"])
         substitute["regulatory"] = "Schedule X"
         self.record["substitutes"].append("Unknown Product")
         with patch("backend.services.response.call_service", return_value={"status": "ok", "data": []}) as service:

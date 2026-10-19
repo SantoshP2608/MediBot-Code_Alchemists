@@ -6,6 +6,7 @@ from uuid import uuid4
 
 from fastapi.testclient import TestClient
 
+from backend.config.settings import CONSTANTS
 from backend.api.app import create_app
 from backend.models.schemas import TurnUpdate
 from backend.services.conversation import Conversation, process_message, resolve_turn
@@ -162,7 +163,7 @@ class ClarificationTests(unittest.TestCase):
                 ('restricted tablet', {'name': 'Restricted Tablet', 'regulatory': 'Schedule X'}),)):
             result = self.send('Restricted Tablet', turn(medicines=[product('Restricted Tablet')]))
         self.assertEqual(result['reason'], 'schedule_x')
-        self.assertEqual(result['message'], 'Please consult a doctor.')
+        self.assertEqual(result['message'], CONSTANTS["regulatory"]["doctor_disclaimer"])
 
     def test_failed_model_call_leaves_pending_state_for_retry(self):
         self.send('Side effects?', turn(['side_effects']))
@@ -175,8 +176,8 @@ class ClarificationTests(unittest.TestCase):
         self.assertEqual(self.state.previous_messages, ['Side effects?'])
 
     def test_blocked_requests_never_enter_response_routing(self):
-        for intents, expected in [(['price_comparison'], 'Please consult a doctor.'),
-                                  (['usage_information'], 'I cannot prescribe the usage.Please consult a doctor. ')]:
+        for intents, expected in [(['price_comparison'], CONSTANTS["regulatory"]["doctor_disclaimer"]),
+                                  (['usage_information'], CONSTANTS["blocked_intents"]["usage_information"])]:
             with self.subTest(intents=intents), \
                     patch('backend.data.medicine_database.load_database', return_value=(
                         ('restricted tablet', {'name': 'Restricted Tablet', 'regulatory': 'Schedule X'}),)), \
@@ -263,7 +264,7 @@ class ClarificationTests(unittest.TestCase):
         model.assert_not_called()
         handler.assert_not_called()
         self.assertEqual(result['reason'], 'schedule_x')
-        self.assertEqual(result['message'], 'Please consult a doctor.')
+        self.assertEqual(result['message'], CONSTANTS["regulatory"]["doctor_disclaimer"])
 
     def test_dolo_then_prices_through_http_does_not_repeat_question(self):
         client = TestClient(create_app())

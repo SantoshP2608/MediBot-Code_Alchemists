@@ -2,6 +2,7 @@ import unittest
 from typing import get_args
 from unittest.mock import patch
 
+from backend.config.settings import CONSTANTS
 from backend.models.schemas import BLOCKED_INTENTS, Extraction, Intent
 from backend.safety.safety_guard import check_safety
 
@@ -24,7 +25,7 @@ class SafetyTests(unittest.TestCase):
                 result = check_safety(request(intent, clarify=True))
                 self.assertEqual(result["action"], "block")
                 self.assertEqual(result["reason"], "schedule_x")
-                self.assertEqual(result["message"], BLOCKED_INTENTS.get(intent, "Please consult a doctor."))
+                self.assertEqual(result["message"], BLOCKED_INTENTS.get(intent, CONSTANTS["regulatory"]["doctor_disclaimer"]))
                 self.assertNotIn("resolved_medicines", result)
                 self.assertFalse(result["continue_to_response"])
 
@@ -35,7 +36,7 @@ class SafetyTests(unittest.TestCase):
                 with self.subTest(schedule=schedule, intent=intent), \
                         patch("backend.safety.safety_guard.find_medicine", return_value=[row]):
                     result = check_safety(request(intent))
-                self.assertEqual(result["disclaimer"], "Please consult a doctor.")
+                self.assertEqual(result["disclaimer"], CONSTANTS["regulatory"]["schedule_hg_disclaimer"])
                 self.assertEqual(result["action"], "block" if intent in BLOCKED_INTENTS else "continue")
 
     def test_availability_and_prescription_status_block_without_medicine(self):

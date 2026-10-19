@@ -103,7 +103,7 @@ class ApiTests(unittest.TestCase):
                 if schedule == 'Schedule X':
                     self.assertEqual(result['action'], 'block')
                     self.assertEqual(result['reason'], 'schedule_x')
-                    self.assertEqual(result['message'], 'Please consult a doctor.')
+                    self.assertEqual(result['message'], CONSTANTS["regulatory"]["doctor_disclaimer"])
                     self.assertNotIn('results', result)
                 else:
                     self.assertEqual(result['action'], 'response')
@@ -126,7 +126,7 @@ class ApiTests(unittest.TestCase):
                 patch('backend.services.conversation.logger.exception'):
             result = self.send().json()['result']
         self.assertEqual(result['action'], 'error')
-        self.assertEqual(result['disclaimer'], CONSTANTS['regulatory']['doctor_disclaimer'])
+        self.assertEqual(result['disclaimer'], CONSTANTS['regulatory']['schedule_hg_disclaimer'])
         self.assertEqual(self.store.sessions[self.session].conversation.previous_messages, [])
 
     def test_prices_and_alternatives_use_same_quotes_and_never_return_internal_continue(self):

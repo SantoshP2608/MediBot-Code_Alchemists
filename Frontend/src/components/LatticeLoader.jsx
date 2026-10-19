@@ -74,10 +74,10 @@ export default function LatticeLoader({
 
     const timerRef = useRef(null);
     const dsRef = useRef(0);
-    const markRef = useRef('done');
-    const mark = status === 'working' ? markRef.current : status;
-    markRef.current = mark;
-    const [announce, setAnnounce] = useState(`${label}, in progress`);
+    const [lastMark, setLastMark] = useState('done');
+    const mark = status === 'working' ? lastMark : status;
+    if (mark !== lastMark) setLastMark(mark);
+    const announcementRef = useRef(null);
 
     const paint = ds => {
         dsRef.current = ds;
@@ -97,10 +97,11 @@ export default function LatticeLoader({
     }, [status, elapsed]);
 
     useEffect(() => {
-        if (status === 'working') setAnnounce(`${label}, in progress`);
-        else setAnnounce(`${status === 'done' ? doneLabel : errorLabel}${showTimer ? ` ${spoken(dsRef.current)}` : ''}`);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [status]);
+        if (!announcementRef.current) return;
+        announcementRef.current.textContent = status === 'working'
+            ? `${label}, in progress`
+            : `${status === 'done' ? doneLabel : errorLabel}${showTimer ? ` ${spoken(dsRef.current)}` : ''}`;
+    }, [status, label, doneLabel, errorLabel, showTimer]);
 
     return (
         <span
@@ -157,7 +158,7 @@ export default function LatticeLoader({
                     0.0s
                 </span>
             ) : null}
-            <span className="lattice-loader__sr">{announce}</span>
+            <span ref={announcementRef} className="lattice-loader__sr" />
         </span>
     );
 }

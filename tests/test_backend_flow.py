@@ -77,7 +77,7 @@ class BackendFlowTests(unittest.TestCase):
             main()
         self.assertNotIn("EXTRACTION:", output.getvalue())
         self.assertNotIn("RESULT:", output.getvalue())
-        self.assertIn("Please consult a doctor.", output.getvalue())
+        self.assertIn(CONSTANTS["regulatory"]["doctor_disclaimer"], output.getvalue())
 
     def test_cli_returns_error_when_extraction_fails(self):
         output = io.StringIO()

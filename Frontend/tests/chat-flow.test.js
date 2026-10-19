@@ -13,6 +13,7 @@ before(async () => {
   globalThis.document = dom.window.document;
   globalThis.IS_REACT_ACT_ENVIRONMENT = true;
   dom.window.HTMLElement.prototype.scrollIntoView = () => {};
+  dom.window.HTMLElement.prototype.scrollTo = () => {};
   ({ createRoot } = await import('react-dom/client'));
   server = await createServer({ server: { middlewareMode: true }, appType: 'custom' });
   ({ default: ChatPage } = await server.ssrLoadModule('/src/ChatPage.jsx'));

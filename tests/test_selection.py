@@ -4,6 +4,7 @@ from uuid import uuid4
 
 from fastapi.testclient import TestClient
 
+from backend.config.settings import CONSTANTS
 from backend.api.app import create_app
 from backend.data.medicine_database import explicit_medicine_mentions, normalize, suggest_products
 from backend.models.schemas import Extraction, Medicine, TurnUpdate
@@ -108,7 +109,7 @@ class SelectionTests(unittest.TestCase):
         with patch('backend.services.price.get_prices') as prices:
             selected = self.client.post('/api/select', json=payload).json()['result']
         self.assertEqual(selected['reason'], 'schedule_x')
-        self.assertEqual(selected['message'], 'Please consult a doctor.')
+        self.assertEqual(selected['message'], CONSTANTS["regulatory"]["doctor_disclaimer"])
         prices.assert_not_called()
 
     def test_selection_replaces_only_unresolved_medicine(self):
@@ -232,7 +233,7 @@ class SelectionTests(unittest.TestCase):
                 patch('backend.services.conversation.extract_query') as model:
             selected = self.client.post('/api/select', json=self.selection_payload(result)).json()['result']
         self.assertEqual(selected['results'][0]['intent'], 'price_comparison')
-        self.assertEqual(selected['disclaimer'], 'Please consult a doctor.')
+        self.assertEqual(selected['disclaimer'], CONSTANTS["regulatory"]["schedule_hg_disclaimer"])
         model.assert_not_called()
 
     def test_ingredient_does_not_auto_select_single_prefix_match_after_cleanup(self):
