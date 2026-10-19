@@ -1,0 +1,69 @@
+.assistant .message-bubble:has(.medicine-choices) {
+  width: 100%;
+  max-width: 100%;
+}
+
+.medicine-choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.medicine-choice {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #cce8f4;
+  border-radius: 18px;
+  background: linear-gradient(115deg, #ffffff, #fafdff);
+  box-shadow: 0 4px 12px #16779809;
+  color: #102957;
+  text-align: left;
+  font: inherit;
+  transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.medicine-choice:not(:disabled):hover,
+.medicine-choice:not(:disabled):focus-visible {
+  border-color: #00aee8;
+  background: #edfaff;
+  box-shadow: 0 4px 16px #00aee818;
+}
+
+.medicine-choice:focus-visible { outline: 2px solid #008ac0; outline-offset: 3px; }
+.medicine-choice:disabled { cursor: not-allowed; opacity: 0.58; box-shadow: none; }
+.medicine-choice-content { display: grid; gap: 5px; flex: 1; min-width: 0; }
+.medicine-choice-name { font-size: 16px; line-height: 1.35; overflow-wrap: anywhere; }
+.medicine-choice-composition { color: #52779b; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+.medicine-choice-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.choice-badge { padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; line-height: 1.4; }
+.choice-strength { background: #dff3ff; color: #0065ad; }
+.choice-form { background: #eee7ff; color: #6134b8; text-transform: capitalize; }
+.choice-form.is-liquid { background: #ffebdc; color: #b64710; }
+.choice-form.is-syrup { background: #e1f7e8; color: #187b42; }
+.combination-label { background: #fff0d4; color: #80561b; }
+.medicine-choice-arrow { flex-shrink: 0; color: #829fba; }
+.medicine-choice:not(:disabled):hover .medicine-choice-arrow { color: #00aee8; }
+.medicine-choice-icon { display: grid; place-items: center; flex: 0 0 54px; height: 60px; border-radius: 14px; background: #e5f4ff; }
+.medicine-choice-icon.is-liquid { background: #fff3df; }
+.choice-tablet { position: relative; width: 34px; height: 25px; border-radius: 50%; transform: rotate(-42deg); background: linear-gradient(#fff, #eff2f4); border: 1px solid #dbe2e7; box-shadow: 0 3px 0 #cbd4db, 0 5px 5px #21445a25; }
+.choice-tablet::after { content: ''; position: absolute; inset: 11px 1px auto; height: 1px; background: #c6ced4; }
+.choice-bottle { position: relative; width: 24px; height: 34px; margin-top: 7px; border-radius: 6px; border: 1px solid #c17c39; background: linear-gradient(90deg, #a7490a, #f2a14a 30%, #bb5815 75%, #85360b); box-shadow: 0 3px 4px #8c55152b; }
+.choice-bottle::before { content: ''; position: absolute; top: -9px; left: 1px; right: 1px; height: 10px; border: 1px solid #d1d8dc; border-radius: 3px; background: repeating-linear-gradient(90deg, #fff 0 2px, #e7ebed 2px 3px); }
+.choice-cross { width: 28px; height: 28px; background: #6eafd0; clip-path: polygon(33% 0, 67% 0, 67% 33%, 100% 33%, 100% 67%, 67% 67%, 67% 100%, 33% 100%, 33% 67%, 0 67%, 0 33%, 33% 33%); }
+
+@media (max-width: 480px) {
+  .medicine-choice { padding: 12px; gap: 10px; border-radius: 14px; }
+  .medicine-choice-icon { flex-basis: 42px; height: 52px; }
+  .medicine-choice-name { font-size: 14px; }
+  .medicine-choice-composition { font-size: 12px; }
+  .choice-badge { padding: 3px 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .medicine-choice { transition: none; }
+}

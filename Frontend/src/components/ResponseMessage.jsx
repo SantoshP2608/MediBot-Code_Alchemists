@@ -1,23 +1,15 @@
 import MedicineSandbox from '../MedicineSandbox';
 import { config } from '../config';
 import SplitText from './SplitText';
-import ShinyText from './ShinyText';
+import MedicineChoices from './MedicineChoices';
 
 export default function ResponseMessage({ result, onSelect, choicesDisabled = true }) {
   const shown = new Set();
   return <>
     {result.disclaimer && <p className="response-disclaimer" role="note"><SplitText text={result.disclaimer} /></p>}
     {result.message && <p><SplitText text={result.message} /></p>}
-    {result.medicine_choices?.length > 0 && <div className="medicine-choices">
-      {result.medicine_choices.map((item) => <button type="button" className="medicine-choice"
-        key={item.product_id} disabled={choicesDisabled}
-        onClick={() => onSelect?.(item, result.selection_offer)}>
-        <strong><ShinyText>{item.name}</ShinyText></strong>
-        <span>{item.composition?.map((ingredient) =>
-          `${ingredient.drug} ${ingredient.strength || ''}`.trim()).join(' + ')}</span>
-        {item.combination && <span className="combination-label">Combination product</span>}
-      </button>)}
-    </div>}
+    {result.medicine_choices?.length > 0 && <MedicineChoices items={result.medicine_choices}
+      offer={result.selection_offer} disabled={choicesDisabled} onSelect={onSelect} />}
     {!result.medicine_choices?.length && result.candidates?.length > 0 && <ul>{result.candidates.map((item, index) =>
       <li key={index}>{typeof item === 'string' ? item : item.name}</li>)}</ul>}
     {result.results?.map((item, index) => {

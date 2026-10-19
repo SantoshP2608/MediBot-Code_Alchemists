@@ -165,7 +165,11 @@ test('clicking a medicine submits its ID and disables old choices after an inten
   const buttons = container.querySelectorAll('.medicine-choice');
   assert.equal(buttons[0].disabled, true);
   assert.equal(buttons[2].disabled, false);
-  await act(async () => buttons[2].click());
+  await act(async () => buttons[0].click());
+  assert.equal(calls.length, 2, 'old cards must not submit another selection');
+  assert.equal(buttons[2].querySelector('.choice-strength').textContent, '500mg');
+  assert.equal(buttons[2].querySelector('.choice-form').textContent, 'Tablet');
+  await act(async () => buttons[2].querySelector('.choice-strength').click());
   assert.equal(calls[2].url, `${config.apiPrefix}/select`);
   assert.equal(calls[2].payload.product_id, 'offer-2-product');
   assert.equal(calls[2].payload.selection_offer, 'offer-2');
